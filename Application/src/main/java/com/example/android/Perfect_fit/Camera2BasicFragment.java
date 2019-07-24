@@ -29,6 +29,10 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -84,7 +88,11 @@ public class  Camera2BasicFragment extends Fragment
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
 
-    TextView txt_levelmeter;
+    private SensorManager msensorManager = null;
+    private Sensor mAccelometerSensor;
+    private SensorEventListener mAcclis;
+
+    TextView text_degree;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -427,13 +435,41 @@ public class  Camera2BasicFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        msensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+
+        mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAcclis = new AocelometerListener();
+
+        msensorManager.registerListener(mAcclis, mAccelometerSensor, SensorManager.SENSOR_DELAY_UI);
+
+
         return inflater.inflate(R.layout.fragment_camera2_basic, container, false);
+    }
+
+    private class AocelometerListener implements SensorEventListener {
+
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            double accY = sensorEvent.values[1];
+            double accZ = sensorEvent.values[2];
+
+            double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180/Math.PI) - 90.0);
+
+            text_degree.setText(String.format("%.1f°", angleYZ));
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
     }
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         view.findViewById(R.id.picture).setOnClickListener(this);
-        view.findViewById(R.id.info).setOnClickListener(this);
+        //view.findViewById(R.id.info).setOnClickListener(this);
+        text_degree = view.findViewById(R.id.text_degree);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
@@ -484,16 +520,6 @@ public class  Camera2BasicFragment extends Fragment
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        try { ((Level) getActivity()).onCreate(savedInstanceState);
-        }catch (NullPointerException e){
-            System.out.println("Something went wrong.");
         }
     }
 
