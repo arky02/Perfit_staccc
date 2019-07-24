@@ -78,7 +78,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class  Camera2BasicFragment extends Fragment
+public class  Camera2BasicFragment extends android.support.v4.app.Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
