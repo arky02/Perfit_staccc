@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.camera2basic;
+package com.example.android.Perfect_fit;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +29,7 @@ public class CameraActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
+
         }
     }
 
