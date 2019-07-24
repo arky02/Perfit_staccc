@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -78,7 +79,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class  Camera2BasicFragment extends Fragment
+public class Camera2BasicFragment extends Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -92,7 +93,7 @@ public class  Camera2BasicFragment extends Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree;
+    TextView text_degree,txt_perfectlevel;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -396,7 +397,7 @@ public class  Camera2BasicFragment extends Fragment
      * @return The optimal {@code Size}, or an arbitrary one if none were big enough
      */
     private static Size chooseOptimalSize(Size[] choices, int textureViewWidth,
-            int textureViewHeight, int maxWidth, int maxHeight, Size aspectRatio) {
+                                          int textureViewHeight, int maxWidth, int maxHeight, Size aspectRatio) {
 
         // Collect the supported resolutions that are at least as big as the preview Surface
         List<Size> bigEnough = new ArrayList<>();
@@ -408,7 +409,7 @@ public class  Camera2BasicFragment extends Fragment
             if (option.getWidth() <= maxWidth && option.getHeight() <= maxHeight &&
                     option.getHeight() == option.getWidth() * h / w) {
                 if (option.getWidth() >= textureViewWidth &&
-                    option.getHeight() >= textureViewHeight) {
+                        option.getHeight() >= textureViewHeight) {
                     bigEnough.add(option);
                 } else {
                     notBigEnough.add(option);
@@ -436,7 +437,7 @@ public class  Camera2BasicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        msensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+        msensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAcclis = new AocelometerListener();
@@ -454,9 +455,24 @@ public class  Camera2BasicFragment extends Fragment
             double accY = sensorEvent.values[1];
             double accZ = sensorEvent.values[2];
 
-            double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180/Math.PI) - 90.0);
+            double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180 / Math.PI) - 90.0);
 
             text_degree.setText(String.format("%.1f°", angleYZ));
+
+            if(angleYZ>=0 && angleYZ<1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        takePicture();
+                        txt_perfectlevel.setVisibility(View.VISIBLE);
+                        //TODO 3.2.1띄어야함
+                    }
+                }, 3000);
+
+            }else{
+
+                //
+            }
         }
 
         @Override
@@ -470,6 +486,7 @@ public class  Camera2BasicFragment extends Fragment
         view.findViewById(R.id.picture).setOnClickListener(this);
         //view.findViewById(R.id.info).setOnClickListener(this);
         text_degree = view.findViewById(R.id.text_degree);
+        txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 

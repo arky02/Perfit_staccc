@@ -25,6 +25,47 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center|top">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="110dp"
+            android:background="#EC407A"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="카메라의 수평이 0도가 되도록\n 평평한 곳에 핸드폰을 잘 세워주세요"
+            android:textColor="#EC407A"
+            android:textSize="33sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#EC407A"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_gravity="center|bottom"
+        android:background="#4A88B4E0"
+        android:textSize="33sp"
+        android:visibility="invisible"
+        android:id="@+id/img_perfectlevel"
+        />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +82,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="bottom"
-        android:background="@color/control_background">
+        android:background="#D81B60">
 
         <Button
             android:id="@+id/picture"
