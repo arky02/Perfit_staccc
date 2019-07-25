@@ -18,7 +18,7 @@
         android:textSize="30dp"
         android:text="내가 찍을께요"
         android:textColor="#FFFFFF"
-        android:background="#EC407A"
+        android:background="@color/perfit_background"
         android:textStyle="bold"
         android:id="@+id/btn_pic_me"/>
 
@@ -31,7 +31,7 @@
         android:text="남이 찍어줘요"
         android:textSize="30dp"
         android:textColor="#FFFFFF"
-        android:background="#EC407A"
+        android:background="@color/perfit_background"
         android:textStyle="bold"
         android:id="@+id/btn_pic_other"
 

@@ -35,7 +35,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="#ff1783"
+        android:background="@color/perfit_background"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"

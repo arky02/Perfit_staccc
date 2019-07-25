@@ -107,7 +107,6 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
 
     TextView text_degree, txt_perfectlevel,text_countdown,text_guide;
     CountDownTimer mCountDown = null;
-    Boolean isActivated = false, NotWork = false;
     Double angleYZ = -1.0;
     Boolean isActivated = false, NotWork = false, isDone = false;
 
@@ -1068,6 +1067,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                     CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
         }
     }
+    public static byte[] bitmapBytes;
 
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.

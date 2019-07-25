@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="이름"
-            android:textColor="#ff429a"
+            android:textColor="@color/perfit_background"
             android:textStyle="bold"
             android:textSize="40sp"/>
 
