@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -70,7 +72,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -98,9 +103,9 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,text_countdown,text_guide,txt_bottom,txt_top;
+    TextView text_degree, txt_perfectlevel, text_countdown, text_guide, txt_bottom, txt_top;
     CountDownTimer mCountDown = null;
-    Boolean isActivated = false, NotWork = false;
+    Boolean isActivated = false, NotWork = false, isDone = false;
 
 
     static {
@@ -266,6 +271,13 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         @Override
         public void onImageAvailable(ImageReader reader) {
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            if (isDone) {
+                Intent mintent = new Intent(getActivity(), ImageShowActivity.class);
+                if (mFile.exists()) {
+                    startActivity(mintent);
+                }
+            }
         }
 
     };
@@ -496,7 +508,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         mCountDown = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                text_countdown.setText(Html.fromHtml("카메라의 수평을 유지혜주세요!\n<b>"+ Long.toString(millisUntilFinished / 1000L + 1)+"</b>초뒤에 사진이 찍힙니다"));
+                text_countdown.setText(Html.fromHtml("카메라의 수평을 유지혜주세요!\n<b>" + Long.toString(millisUntilFinished / 1000L + 1) + "</b>초뒤에 사진이 찍힙니다"));
                 text_countdown.setTextColor(Color.parseColor("#EC407A"));
 
                 if (NotWork) {
@@ -515,13 +527,48 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
             @Override
             public void onFinish() {
                 takePicture();
-//                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
-//                    mintent.putExtra(mFile);
+
+//                Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
+//
+//                if(mFile.exists()) {
+//
+//                    byte[] bytes = bitmapToByteArray(decodeFile(mFile));
+//                    mintent.putExtra("imageData", bytes);
 //                    startActivity(mintent);
-                //사진짝는 효과랑 바로 넘어감
+//                }
+                isDone = true;
             }
         }.start();
 
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
+    private Bitmap decodeFile(File f) {
+        try {
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            final int REQUIRED_SIZE = 70;
+
+            int scale = 1;
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {
+        }
+        return null;
     }
 
     @Override
@@ -676,7 +723,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                         maxPreviewHeight, largest);
 
-                Log.d("CHECKKK",mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
+                Log.d("CHECKKK", mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
@@ -1012,10 +1059,11 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         }
     }
 
+    public static byte[] bitmapBytes;
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
-    private static class ImageSaver implements Runnable {
+    private class ImageSaver implements Runnable {
 
         /**
          * The JPEG image
@@ -1034,12 +1082,12 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         @Override
         public void run() {
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
+            bitmapBytes = new byte[buffer.remaining()];
+            buffer.get(bitmapBytes);
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(mFile);
-                output.write(bytes);
+                output.write(bitmapBytes);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -1052,6 +1100,8 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                     }
                 }
             }
+
+
         }
 
     }
