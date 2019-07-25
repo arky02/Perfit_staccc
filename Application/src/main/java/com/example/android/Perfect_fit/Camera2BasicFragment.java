@@ -81,7 +81,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Camera2BasicFragment extends Fragment
+public class  Camera2BasicFragment extends android.support.v4.app.Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -413,7 +413,7 @@ public class Camera2BasicFragment extends Fragment
             if (option.getWidth() <= maxWidth && option.getHeight() <= maxHeight &&
                     option.getHeight() == option.getWidth() * h / w) {
                 if (option.getWidth() >= textureViewWidth &&
-                        option.getHeight() >= textureViewHeight) {
+                    option.getHeight() >= textureViewHeight) {
                     bigEnough.add(option);
                 } else {
                     notBigEnough.add(option);
@@ -441,7 +441,7 @@ public class Camera2BasicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        msensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        msensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAcclis = new AocelometerListener();
