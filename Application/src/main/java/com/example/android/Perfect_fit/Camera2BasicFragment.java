@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -69,7 +71,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -506,14 +512,46 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
             @Override
             public void onFinish() {
                 takePicture();
-//                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
-//                    mintent.putExtra(mFile);
-//                    startActivity(mintent);
 
-                //사진짝는 효과랑 바로 넘어감
+                Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
+
+                if(mFile.exists()) {
+
+                    byte[] bytes = bitmapToByteArray(decodeFile(mFile));
+                    mintent.putExtra("imageData", bytes);
+                    startActivity(mintent);
+                }
             }
         }.start();
 
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap) {
+       ByteArrayOutputStream stream = new ByteArrayOutputStream();
+       bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+       byte[] byteArray = stream.toByteArray();
+       return byteArray;
+    }
+
+    private Bitmap decodeFile(File f) {
+        try {
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            final int REQUIRED_SIZE=70;
+
+            int scale = 1;
+            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {}
+        return null;
     }
 
     @Override
