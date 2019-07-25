@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -71,7 +73,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -104,6 +109,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
     Double angleYZ = -1.0;
+    Boolean isActivated = false, NotWork = false, isDone = false;
 
 
     static {
@@ -269,6 +275,13 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
         @Override
         public void onImageAvailable(ImageReader reader) {
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            if (isDone) {
+                Intent mintent = new Intent(getActivity(), ImageShowActivity.class);
+                if (mFile.exists()) {
+                    startActivity(mintent);
+                }
+            }
         }
 
     };
@@ -522,10 +535,40 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
 //                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
 //                    mintent.putExtra(mFile);
 //                    startActivity(mintent);
-                //사진짝는 효과랑 바로 넘어감
+//                }
+                isDone = true;
             }
         }.start();
 
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
+    private Bitmap decodeFile(File f) {
+        try {
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            final int REQUIRED_SIZE = 70;
+
+            int scale = 1;
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {
+        }
+        return null;
     }
 
     @Override
@@ -679,7 +722,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                         maxPreviewHeight, largest);
 
-                Log.d("CHECKKK",mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
+                Log.d("CHECKKK", mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
@@ -1048,12 +1091,12 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
         @Override
         public void run() {
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
+            bitmapBytes = new byte[buffer.remaining()];
+            buffer.get(bitmapBytes);
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(mFile);
-                output.write(bytes);
+                output.write(bitmapBytes);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -1066,6 +1109,8 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                     }
                 }
             }
+
+
         }
 
     }

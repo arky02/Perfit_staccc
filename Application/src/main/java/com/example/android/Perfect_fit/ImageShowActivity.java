@@ -19,8 +19,6 @@ public class ImageShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_show);
 
         image = findViewById(R.id.image);
-        Intent intent = getIntent();
-        byte[] bytes = intent.getByteArrayExtra("imageData");
-        image.setImageBitmap(BitmapFactory.decodeByteArray(bytes,0,bytes.length));
+        image.setImageBitmap(BitmapFactory.decodeByteArray(Camera2BasicFragment.bitmapBytes,0,Camera2BasicFragment.bitmapBytes.length));
     }
 }
