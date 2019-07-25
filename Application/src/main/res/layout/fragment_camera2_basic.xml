@@ -57,9 +57,9 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="490dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center|bottom"
-        android:background="#4A88B4E0"
+        android:background="#80FFFFFF"
         android:textSize="33sp"
         android:visibility="invisible"
         android:id="@+id/img_perfectlevel"

@@ -77,11 +77,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class  Camera2BasicFragment extends android.support.v4.app.Fragment
+public class Camera2BasicFragment extends android.support.v4.app.Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -95,9 +96,9 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree,txt_perfectlevel;
+    TextView text_degree, txt_perfectlevel;
     CountDownTimer mCountDown = null;
-    Boolean isActivated = false;
+    Boolean isActivated = false, NotWork = false;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -413,7 +414,7 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
             if (option.getWidth() <= maxWidth && option.getHeight() <= maxHeight &&
                     option.getHeight() == option.getWidth() * h / w) {
                 if (option.getWidth() >= textureViewWidth &&
-                    option.getHeight() >= textureViewHeight) {
+                        option.getHeight() >= textureViewHeight) {
                     bigEnough.add(option);
                 } else {
                     notBigEnough.add(option);
@@ -441,7 +442,7 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        msensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+        msensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAcclis = new AocelometerListener();
@@ -460,7 +461,7 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
             double accZ = sensorEvent.values[2];
             double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180 / Math.PI) - 90.0);
 
-            CheckAngle(angleYZ);
+            isAngleZero(angleYZ);
             text_degree.setText(String.format("%.1f°", angleYZ));
         }
 
@@ -470,36 +471,40 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
         }
     }
 
-    public void CheckAngle(double angleYZ){
-        if(angleYZ>=0 && angleYZ<1){ //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
+    public void isAngleZero(double angleYZ) {
+        if (angleYZ >= 0 && angleYZ < 3) { //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
             txt_perfectlevel.setVisibility(View.VISIBLE);
-            isActivated = false;
+            NotWork = false;
             CountDown();
-        }else{
-            isActivated = true;
-            //txt_perfectlevel.setVisibility(View.INVISIBLE);
+        } else {
+            NotWork = true;
+            txt_perfectlevel.setVisibility(View.INVISIBLE);
             text_degree.setText(String.format("%.1f°", angleYZ));
-
         }
+        Log.d("NotWork ", Boolean.toString(NotWork));
     }
 
-    public void CountDown(){
+    public void CountDown() {
 
-        while (!isActivated){
             mCountDown = new CountDownTimer(5000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    text_degree.setText(millisUntilFinished + "초");
+                    text_degree.setText( Long.toString(millisUntilFinished / 1000L));
+                    if(NotWork){
+                        this.cancel();
+                    }
                 }
 
                 @Override
                 public void onFinish() {
                     takePicture();
+//                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
+//                    mintent.putExtra(mFile);
+//                    startActivity(mintent);
+
                     //사진짝는 효과랑 바로 넘어감
                 }
-            };
-        }
-        return;
+            }.start();
 
     }
 
@@ -515,6 +520,7 @@ public class  Camera2BasicFragment extends android.support.v4.app.Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
     }
 
