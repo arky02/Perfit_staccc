@@ -58,7 +58,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -98,7 +97,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,text_countdown,text_guide,txt_bottom,txt_top;
+    TextView text_degree, txt_perfectlevel;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
 
@@ -143,12 +142,12 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     /**
      * Max preview width that is guaranteed by Camera2 API
      */
-    private static final int MAX_PREVIEW_WIDTH = 3264;
+    private static final int MAX_PREVIEW_WIDTH = 1920;
 
     /**
      * Max preview height that is guaranteed by Camera2 API
      */
-    private static final int MAX_PREVIEW_HEIGHT = 1836;
+    private static final int MAX_PREVIEW_HEIGHT = 1080;
 
     /**
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
@@ -474,41 +473,33 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     }
 
     public void isAngleZero(double angleYZ) {
-        if (angleYZ >= 0.0 && angleYZ <= 2.5) { //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
+        if (angleYZ >= 0 && angleYZ < 2) { //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
             NotWork = false;
             if (!isActivated) {
-                txt_perfectlevel.setVisibility(View.VISIBLE);
-                text_guide.setVisibility(View.INVISIBLE);
-                txt_bottom.setVisibility(View.INVISIBLE);
-                txt_top.setVisibility(View.INVISIBLE);
-                text_countdown.setVisibility(View.VISIBLE);
-                text_degree.setTextColor(Color.parseColor("#EC407A"));
                 CountDown();
             }
         } else {
             NotWork = true;
+            if(txt_perfectlevel.getVisibility() == View.VISIBLE){
+                txt_perfectlevel.setVisibility(View.INVISIBLE);
+            }
+            text_degree.setText(String.format("%.1f°", angleYZ));
         }
         Log.d("NotWork ", Boolean.toString(NotWork));
     }
 
     public void CountDown() {
+        txt_perfectlevel.setVisibility(View.VISIBLE);
         isActivated = true;
         mCountDown = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                text_countdown.setText(Html.fromHtml("카메라의 수평을 유지혜주세요!\n<b>"+ Long.toString(millisUntilFinished / 1000L + 1)+"</b>초뒤에 사진이 찍힙니다"));
-                text_countdown.setTextColor(Color.parseColor("#EC407A"));
+                text_degree.setText(Long.toString(millisUntilFinished / 1000L));
+                text_degree.setTextColor(Color.parseColor("#EC407A"));
 
                 if (NotWork) {
                     this.cancel();
                     isActivated = false;
-                    text_guide.setVisibility(View.VISIBLE);
-                    txt_bottom.setVisibility(View.VISIBLE);
-                    txt_top.setVisibility(View.VISIBLE);
-                    text_countdown.setVisibility(View.INVISIBLE);
-                    txt_perfectlevel.setVisibility(View.INVISIBLE);
-                    text_degree.setTextColor(Color.parseColor("#FFFFFF"));
-
                 }
             }
 
@@ -518,6 +509,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
 //                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
 //                    mintent.putExtra(mFile);
 //                    startActivity(mintent);
+
                 //사진짝는 효과랑 바로 넘어감
             }
         }.start();
@@ -526,15 +518,12 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
+        view.findViewById(R.id.picture).setOnClickListener(this);
+        //view.findViewById(R.id.info).setOnClickListener(this);
         text_degree = view.findViewById(R.id.text_degree);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
-        text_countdown = view.findViewById(R.id.text_countdown);
-        text_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-        txt_top = view.findViewById(R.id.txt_top);
-        txt_bottom = view.findViewById(R.id.txt_bottom);
-        Toast.makeText(getActivity(), "me", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -676,8 +665,6 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                         maxPreviewHeight, largest);
 
-                Log.d("CHECKKK",mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
-
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -686,8 +673,6 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                 } else {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getHeight(), mPreviewSize.getWidth());
-                    mTextureView.setScaleX(1.4f);
-                    mTextureView.setScaleY(1.4f);
                 }
 
                 // Check if the flash is supported.
