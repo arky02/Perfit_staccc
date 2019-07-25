@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -99,6 +100,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     TextView text_degree, txt_perfectlevel;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
+
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -441,7 +443,6 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         msensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -472,39 +473,46 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     }
 
     public void isAngleZero(double angleYZ) {
-        if (angleYZ >= 0 && angleYZ < 3) { //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
-            txt_perfectlevel.setVisibility(View.VISIBLE);
+        if (angleYZ >= 0 && angleYZ < 2) { //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
             NotWork = false;
-            CountDown();
+            if (!isActivated) {
+                CountDown();
+            }
         } else {
             NotWork = true;
-            txt_perfectlevel.setVisibility(View.INVISIBLE);
+            if(txt_perfectlevel.getVisibility() == View.VISIBLE){
+                txt_perfectlevel.setVisibility(View.INVISIBLE);
+            }
             text_degree.setText(String.format("%.1f°", angleYZ));
         }
         Log.d("NotWork ", Boolean.toString(NotWork));
     }
 
     public void CountDown() {
+        txt_perfectlevel.setVisibility(View.VISIBLE);
+        isActivated = true;
+        mCountDown = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                text_degree.setText(Long.toString(millisUntilFinished / 1000L));
+                text_degree.setTextColor(Color.parseColor("#EC407A"));
 
-            mCountDown = new CountDownTimer(5000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    text_degree.setText( Long.toString(millisUntilFinished / 1000L));
-                    if(NotWork){
-                        this.cancel();
-                    }
+                if (NotWork) {
+                    this.cancel();
+                    isActivated = false;
                 }
+            }
 
-                @Override
-                public void onFinish() {
-                    takePicture();
+            @Override
+            public void onFinish() {
+                takePicture();
 //                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
 //                    mintent.putExtra(mFile);
 //                    startActivity(mintent);
 
-                    //사진짝는 효과랑 바로 넘어감
-                }
-            }.start();
+                //사진짝는 효과랑 바로 넘어감
+            }
+        }.start();
 
     }
 
@@ -514,6 +522,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         //view.findViewById(R.id.info).setOnClickListener(this);
         text_degree = view.findViewById(R.id.text_degree);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
+        txt_perfectlevel.setVisibility(View.INVISIBLE);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
