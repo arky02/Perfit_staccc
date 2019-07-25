@@ -31,6 +31,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -84,7 +85,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Camera2BasicFragment extends android.support.v4.app.Fragment
+public class
+Camera2BasicFragment extends android.support.v4.app.Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -98,9 +100,10 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,text_countdown,text_guide,txt_bottom,txt_top;
+    TextView text_degree, txt_perfectlevel,text_countdown,text_guide;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
+    Double angleYZ = -1.0;
 
 
     static {
@@ -461,7 +464,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         public void onSensorChanged(SensorEvent sensorEvent) {
             double accY = sensorEvent.values[1];
             double accZ = sensorEvent.values[2];
-            double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180 / Math.PI) - 90.0);
+            angleYZ = Math.abs((Math.atan2(accY, accZ) * 180 / Math.PI) - 90.0);
 
             isAngleZero(angleYZ);
             text_degree.setText(String.format("%.1f°", angleYZ));
@@ -478,9 +481,9 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
             NotWork = false;
             if (!isActivated) {
                 txt_perfectlevel.setVisibility(View.VISIBLE);
-                text_guide.setVisibility(View.INVISIBLE);
-                txt_bottom.setVisibility(View.INVISIBLE);
-                txt_top.setVisibility(View.INVISIBLE);
+                text_degree.setTextSize(30);
+                text_guide.setText("수평을 유지시켜주세요!");
+                text_guide.setTypeface(null, Typeface.BOLD);
                 text_countdown.setVisibility(View.VISIBLE);
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
                 CountDown();
@@ -496,17 +499,17 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         mCountDown = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                text_countdown.setText(Html.fromHtml("카메라의 수평을 유지혜주세요!\n<b>"+ Long.toString(millisUntilFinished / 1000L + 1)+"</b>초뒤에 사진이 찍힙니다"));
+                text_countdown.setText(Html.fromHtml(Long.toString(millisUntilFinished / 1000L + 1)));
                 text_countdown.setTextColor(Color.parseColor("#EC407A"));
 
                 if (NotWork) {
                     this.cancel();
                     isActivated = false;
-                    text_guide.setVisibility(View.VISIBLE);
-                    txt_bottom.setVisibility(View.VISIBLE);
-                    txt_top.setVisibility(View.VISIBLE);
-                    text_countdown.setVisibility(View.INVISIBLE);
                     txt_perfectlevel.setVisibility(View.INVISIBLE);
+                    text_countdown.setVisibility(View.INVISIBLE);
+                    text_guide.setText("카메라의 수평이 0도가 되도록 \n 세운 후 사진을 찍어주세요!");
+                    text_guide.setTypeface(null, Typeface.NORMAL);
+                    text_degree.setTextSize(80);
                     text_degree.setTextColor(Color.parseColor("#FFFFFF"));
 
                 }
@@ -515,6 +518,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
             @Override
             public void onFinish() {
                 takePicture();
+
 //                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
 //                    mintent.putExtra(mFile);
 //                    startActivity(mintent);
@@ -532,8 +536,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         text_countdown = view.findViewById(R.id.text_countdown);
         text_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-        txt_top = view.findViewById(R.id.txt_top);
-        txt_bottom = view.findViewById(R.id.txt_bottom);
+
         Toast.makeText(getActivity(), "me", Toast.LENGTH_SHORT).show();
     }
 
@@ -686,8 +689,8 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                 } else {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getHeight(), mPreviewSize.getWidth());
-                    mTextureView.setScaleX(1.3f);
-                    mTextureView.setScaleY(1.3f);
+                    mTextureView.setScaleX(1.4f);
+                    mTextureView.setScaleY(1.4f);
                 }
 
                 // Check if the flash is supported.
@@ -877,7 +880,18 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
      * Initiate a still image capture.
      */
     private void takePicture() {
-        lockFocus();
+        if(angleYZ >= 0.0 && angleYZ <= 2.5) {
+            lockFocus();
+        }else if(angleYZ == -1.0) {
+            Toast.makeText(getActivity(), "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+        }else{
+            isActivated = false;
+            text_guide.setVisibility(View.VISIBLE);
+            text_countdown.setVisibility(View.INVISIBLE);
+            txt_perfectlevel.setVisibility(View.INVISIBLE);
+            text_degree.setTextColor(Color.parseColor("#FFFFFF"));
+            Toast.makeText(getActivity(), "수직 각도를 2°안으로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

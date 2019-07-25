@@ -24,6 +24,7 @@ public class CameraChooseActivity extends AppCompatActivity {
                 Intent mintent = new Intent(getApplicationContext(),CameraActivity.class);
                 mintent.putExtra("CameraChoose",1);
                 startActivity(mintent);
+                finish();
             }
         });
 
@@ -33,6 +34,7 @@ public class CameraChooseActivity extends AppCompatActivity {
                 Intent mintent2 = new Intent(getApplicationContext(),CameraActivity.class);
                 mintent2.putExtra("CameraChoose",2);
                 startActivity(mintent2);
+                finish();
             }
         });
 

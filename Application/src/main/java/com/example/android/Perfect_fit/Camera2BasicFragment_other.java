@@ -30,6 +30,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -92,7 +93,7 @@ public class Camera2BasicFragment_other extends Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel;
+    TextView text_degree, txt_perfectlevel,txt_guide;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
 
@@ -472,11 +473,16 @@ public class Camera2BasicFragment_other extends Fragment
             NotWork = false;
             if (!isActivated) {
                 txt_perfectlevel.setVisibility(View.VISIBLE);
+                txt_guide.setText("수직 각도를 2°이내로 유지한 채 촬영해주세요!");
+                txt_guide.setTypeface(null, Typeface.BOLD);
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
             }
         } else {
             NotWork = true;
             txt_perfectlevel.setVisibility(View.INVISIBLE);
+            txt_guide.setTypeface(null, Typeface.NORMAL);
+            txt_guide.setText("카메라의 수평이 맞도록\n 세운 후 사진을 찍어주세요!");
+
             text_degree.setTextColor(Color.parseColor("#FFFFFF"));
         }
         Log.d("NotWork ", Boolean.toString(NotWork));
@@ -489,6 +495,7 @@ public class Camera2BasicFragment_other extends Fragment
         text_degree = view.findViewById(R.id.text_degree);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
+        txt_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
         Toast.makeText(getActivity(), "other", Toast.LENGTH_SHORT).show();
     }
@@ -953,8 +960,9 @@ public class Camera2BasicFragment_other extends Fragment
             case R.id.picture: {
                 if(!NotWork) {
                     takePicture();
+
                 }else{
-                    Toast.makeText(getActivity(), "수직 각도를 2°안으로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "수직 각도를 2°이내로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
