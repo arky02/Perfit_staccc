@@ -22,8 +22,7 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity
-            android:name=".CameraChooseActivity"
-            android:label="촬영 타입을 골라주세요">
+            android:name=".CameraChooseActivity">
         </activity>
         <activity android:name=".ImageShowActivity" />
         <activity android:name=".ModelCreateActivity" />
@@ -33,7 +32,6 @@
         <activity android:name=".SplashActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
