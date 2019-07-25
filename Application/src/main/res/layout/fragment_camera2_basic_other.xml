@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="27dp"
-            android:text="카메라의 수평이 0도가 되도록\n 평평한 곳에 핸드폰을 잘 세워주세요"
+            android:text="카메라의 수평이 0도가 되도록\n 세운 후 사진을 찍어주세요!"
             android:textColor="#EC407A"
             android:textSize="35sp"
             android:id="@+id/txt_guide"/>
@@ -68,22 +68,6 @@
         />
 
     <TextView
-        android:id="@+id/text_countdown"
-        android:layout_width="match_parent"
-        android:padding="25dp"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:background = "#FFFFFF"
-        android:text="카메라의 수평을 유지혜주세요!\n 5초뒤에 사진이 찍힙니다"
-        android:textStyle="bold"
-        android:textColor="#EC407A"
-        android:textSize="37sp"
-        android:visibility="invisible"
-        android:layout_marginTop="150dp"
-        />
-
-    <TextView
         android:id="@+id/text_degree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,7 +80,7 @@
     <FrameLayout
         android:id="@+id/control"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="150dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="bottom"

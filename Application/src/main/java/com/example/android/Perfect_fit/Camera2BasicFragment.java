@@ -58,6 +58,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -142,12 +143,12 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
     /**
      * Max preview width that is guaranteed by Camera2 API
      */
-    private static final int MAX_PREVIEW_WIDTH = 1920;
+    private static final int MAX_PREVIEW_WIDTH = 3264;
 
     /**
      * Max preview height that is guaranteed by Camera2 API
      */
-    private static final int MAX_PREVIEW_HEIGHT = 1080;
+    private static final int MAX_PREVIEW_HEIGHT = 1836;
 
     /**
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
@@ -495,7 +496,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         mCountDown = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                text_countdown.setText("카메라의 수평을 유지혜주세요!\n"+ Long.toString(millisUntilFinished / 1000L + 1)+"초뒤에 사진이 찍힙니다");
+                text_countdown.setText(Html.fromHtml("카메라의 수평을 유지혜주세요!\n<b>"+ Long.toString(millisUntilFinished / 1000L + 1)+"</b>초뒤에 사진이 찍힙니다"));
                 text_countdown.setTextColor(Color.parseColor("#EC407A"));
 
                 if (NotWork) {
@@ -525,8 +526,6 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        view.findViewById(R.id.picture).setOnClickListener(this);
-        //view.findViewById(R.id.info).setOnClickListener(this);
         text_degree = view.findViewById(R.id.text_degree);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
@@ -535,6 +534,7 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
         txt_top = view.findViewById(R.id.txt_top);
         txt_bottom = view.findViewById(R.id.txt_bottom);
+        Toast.makeText(getActivity(), "me", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -676,6 +676,8 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
                         maxPreviewHeight, largest);
 
+                Log.d("CHECKKK",mPreviewSize.getWidth() + ", " + mPreviewSize.getHeight());
+
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -684,6 +686,8 @@ public class Camera2BasicFragment extends android.support.v4.app.Fragment
                 } else {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getHeight(), mPreviewSize.getWidth());
+                    mTextureView.setScaleX(1.4f);
+                    mTextureView.setScaleY(1.4f);
                 }
 
                 // Check if the flash is supported.

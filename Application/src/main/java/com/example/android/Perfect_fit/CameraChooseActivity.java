@@ -22,6 +22,7 @@ public class CameraChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mintent = new Intent(getApplicationContext(),CameraActivity.class);
+                mintent.putExtra("CameraChoose",1);
                 startActivity(mintent);
             }
         });
@@ -30,6 +31,7 @@ public class CameraChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mintent2 = new Intent(getApplicationContext(),CameraActivity.class);
+                mintent2.putExtra("CameraChoose",2);
                 startActivity(mintent2);
             }
         });

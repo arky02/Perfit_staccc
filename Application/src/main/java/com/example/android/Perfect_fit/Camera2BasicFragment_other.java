@@ -78,7 +78,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Camera2BasicFragment_me extends Fragment
+public class Camera2BasicFragment_other extends Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -92,7 +92,7 @@ public class Camera2BasicFragment_me extends Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,text_countdown,text_guide,txt_bottom,txt_top;
+    TextView text_degree, txt_perfectlevel;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
 
@@ -431,8 +431,8 @@ public class Camera2BasicFragment_me extends Fragment
         }
     }
 
-    public static Camera2BasicFragment_me newInstance() {
-        return new Camera2BasicFragment_me();
+    public static Camera2BasicFragment_other newInstance() {
+        return new Camera2BasicFragment_other();
     }
 
     @Override
@@ -446,7 +446,7 @@ public class Camera2BasicFragment_me extends Fragment
         msensorManager.registerListener(mAcclis, mAccelometerSensor, SensorManager.SENSOR_DELAY_UI);
 
 
-        return inflater.inflate(R.layout.fragment_camera2_basic, container, false);
+        return inflater.inflate(R.layout.fragment_camera2_basic_other, container, false);
     }
 
     private class AocelometerListener implements SensorEventListener {
@@ -472,50 +472,14 @@ public class Camera2BasicFragment_me extends Fragment
             NotWork = false;
             if (!isActivated) {
                 txt_perfectlevel.setVisibility(View.VISIBLE);
-                text_guide.setVisibility(View.INVISIBLE);
-                txt_bottom.setVisibility(View.INVISIBLE);
-                txt_top.setVisibility(View.INVISIBLE);
-                text_countdown.setVisibility(View.VISIBLE);
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
-                CountDown();
             }
         } else {
             NotWork = true;
+            txt_perfectlevel.setVisibility(View.INVISIBLE);
+            text_degree.setTextColor(Color.parseColor("#FFFFFF"));
         }
         Log.d("NotWork ", Boolean.toString(NotWork));
-    }
-
-    public void CountDown() {
-        isActivated = true;
-        mCountDown = new CountDownTimer(5000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                text_countdown.setText("카메라의 수평을 유지혜주세요!\n"+ Long.toString(millisUntilFinished / 1000L + 1)+"초뒤에 사진이 찍힙니다");
-                text_countdown.setTextColor(Color.parseColor("#EC407A"));
-
-                if (NotWork) {
-                    this.cancel();
-                    isActivated = false;
-                    text_guide.setVisibility(View.VISIBLE);
-                    txt_bottom.setVisibility(View.VISIBLE);
-                    txt_top.setVisibility(View.VISIBLE);
-                    text_countdown.setVisibility(View.INVISIBLE);
-                    txt_perfectlevel.setVisibility(View.INVISIBLE);
-                    text_degree.setTextColor(Color.parseColor("#FFFFFF"));
-
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                takePicture();
-//                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
-//                    mintent.putExtra(mFile);
-//                    startActivity(mintent);
-                //사진짝는 효과랑 바로 넘어감
-            }
-        }.start();
-
     }
 
     @Override
@@ -525,11 +489,8 @@ public class Camera2BasicFragment_me extends Fragment
         text_degree = view.findViewById(R.id.text_degree);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
-        text_countdown = view.findViewById(R.id.text_countdown);
-        text_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-        txt_top = view.findViewById(R.id.txt_top);
-        txt_bottom = view.findViewById(R.id.txt_bottom);
+        Toast.makeText(getActivity(), "other", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -699,7 +660,7 @@ public class Camera2BasicFragment_me extends Fragment
     }
 
     /**
-     * Opens the camera specified by {@link Camera2BasicFragment_me#mCameraId}.
+     * Opens the camera specified by {@link Camera2BasicFragment_other#mCameraId}.
      */
     private void openCamera(int width, int height) {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
@@ -990,7 +951,11 @@ public class Camera2BasicFragment_me extends Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.picture: {
-                takePicture();
+                if(!NotWork) {
+                    takePicture();
+                }else{
+                    Toast.makeText(getActivity(), "수직 각도를 2°안으로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
         }
