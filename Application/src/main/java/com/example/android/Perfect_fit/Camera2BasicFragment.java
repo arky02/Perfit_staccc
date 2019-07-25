@@ -47,6 +47,7 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -76,6 +77,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -94,6 +96,8 @@ public class Camera2BasicFragment extends Fragment
     private SensorEventListener mAcclis;
 
     TextView text_degree,txt_perfectlevel;
+    CountDownTimer mCountDown = null;
+    Boolean isActivated = false;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -454,31 +458,49 @@ public class Camera2BasicFragment extends Fragment
         public void onSensorChanged(SensorEvent sensorEvent) {
             double accY = sensorEvent.values[1];
             double accZ = sensorEvent.values[2];
-
             double angleYZ = Math.abs((Math.atan2(accY, accZ) * 180 / Math.PI) - 90.0);
 
+            CheckAngle(angleYZ);
             text_degree.setText(String.format("%.1f°", angleYZ));
-
-            if(angleYZ>=0 && angleYZ<1){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        takePicture();
-                        txt_perfectlevel.setVisibility(View.VISIBLE);
-                        //TODO 3.2.1띄어야함
-                    }
-                }, 3000);
-
-            }else{
-
-                //
-            }
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int i) {
 
         }
+    }
+
+    public void CheckAngle(double angleYZ){
+        if(angleYZ>=0 && angleYZ<1){ //이게 angle이 0도 부터 1도일떄만 CountDown을 한다는 건데
+            txt_perfectlevel.setVisibility(View.VISIBLE);
+            isActivated = false;
+            CountDown();
+        }else{
+            isActivated = true;
+            //txt_perfectlevel.setVisibility(View.INVISIBLE);
+            text_degree.setText(String.format("%.1f°", angleYZ));
+
+        }
+    }
+
+    public void CountDown(){
+
+        while (!isActivated){
+            mCountDown = new CountDownTimer(5000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    text_degree.setText(millisUntilFinished + "초");
+                }
+
+                @Override
+                public void onFinish() {
+                    takePicture();
+                    //사진짝는 효과랑 바로 넘어감
+                }
+            };
+        }
+        return;
+
     }
 
     @Override
