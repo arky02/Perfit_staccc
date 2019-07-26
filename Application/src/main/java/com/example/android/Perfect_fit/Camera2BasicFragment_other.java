@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -76,6 +77,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -93,7 +95,7 @@ public class Camera2BasicFragment_other extends Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,txt_guide;
+    TextView text_degree, txt_perfectlevel, txt_guide;
     CountDownTimer mCountDown = null;
     Boolean isActivated = false, NotWork = false;
 
@@ -474,13 +476,15 @@ public class Camera2BasicFragment_other extends Fragment
             if (!isActivated) {
                 txt_perfectlevel.setVisibility(View.VISIBLE);
                 txt_guide.setText("수직 각도를 2°이내로 유지한 채 촬영해주세요!");
-                txt_guide.setTypeface(null, Typeface.BOLD);
+                txt_guide.setBackgroundColor(Color.parseColor("#EC407A"));
+                txt_guide.setTextColor(Color.parseColor("#FFFFFF"));
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
             }
         } else {
             NotWork = true;
             txt_perfectlevel.setVisibility(View.INVISIBLE);
-            txt_guide.setTypeface(null, Typeface.NORMAL);
+            txt_guide.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            txt_guide.setTextColor(Color.parseColor("#EC407A"));
             txt_guide.setText("카메라의 수평이 맞도록\n 세운 후 사진을 찍어주세요!");
 
             text_degree.setTextColor(Color.parseColor("#FFFFFF"));
@@ -496,7 +500,7 @@ public class Camera2BasicFragment_other extends Fragment
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
         txt_guide = view.findViewById(R.id.txt_guide);
-        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+        mTextureView = view.findViewById(R.id.texture);
         Toast.makeText(getActivity(), "other", Toast.LENGTH_SHORT).show();
     }
 
@@ -851,6 +855,10 @@ public class Camera2BasicFragment_other extends Fragment
             mState = STATE_WAITING_LOCK;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
+
+            Intent mintent = new Intent(getActivity(), ModelCreateActivity.class);
+            startActivity(mintent);
+            Objects.requireNonNull(getActivity()).onBackPressed();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -949,6 +957,7 @@ public class Camera2BasicFragment_other extends Fragment
             mState = STATE_PREVIEW;
             mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
                     mBackgroundHandler);
+
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -958,10 +967,10 @@ public class Camera2BasicFragment_other extends Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.picture: {
-                if(!NotWork) {
+                if (!NotWork) {
                     takePicture();
 
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "수직 각도를 2°이내로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();
                 }
                 break;

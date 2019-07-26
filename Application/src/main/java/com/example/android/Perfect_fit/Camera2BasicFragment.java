@@ -86,6 +86,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -495,9 +496,10 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                 txt_perfectlevel.setVisibility(View.VISIBLE);
                 text_degree.setTextSize(30);
                 text_guide.setText("수평을 유지시켜주세요!");
-                text_guide.setTypeface(null, Typeface.BOLD);
                 text_countdown.setVisibility(View.VISIBLE);
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
+                text_guide.setBackgroundColor(Color.parseColor("#EC407A"));
+                text_guide.setTextColor(Color.parseColor("#FFFFFF"));
                 CountDown();
             }
         } else {
@@ -520,9 +522,10 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                     txt_perfectlevel.setVisibility(View.INVISIBLE);
                     text_countdown.setVisibility(View.INVISIBLE);
                     text_guide.setText("카메라의 수평이 0도가 되도록 \n 세운 후 사진을 찍어주세요!");
-                    text_guide.setTypeface(null, Typeface.NORMAL);
                     text_degree.setTextSize(80);
                     text_degree.setTextColor(Color.parseColor("#FFFFFF"));
+                    text_guide.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    text_guide.setTextColor(Color.parseColor("#EC407A"));
 
                 }
             }
@@ -948,6 +951,11 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
             mState = STATE_WAITING_LOCK;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
+
+            Intent mintent = new Intent(getActivity(),ModelCreateActivity.class);
+            startActivity(mintent);
+            Objects.requireNonNull(getActivity()).onBackPressed();
+            //getActivity().getFragmentManager().popBackStack();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }

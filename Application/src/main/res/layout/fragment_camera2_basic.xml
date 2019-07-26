@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_gravity="center|bottom"
-        android:background="#77FFFFFF" />
+        android:background="#65FFFFFF" />
 
 
     <LinearLayout
@@ -42,12 +42,12 @@
         android:layout_gravity="center|top">
 
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:layout_marginTop="110dp"-->
-            <!--android:background="#EC407A"-->
-            <!--android:gravity="center"-->
-            <!--android:id="@+id/txt_top"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginTop="110dp"-->
+        <!--android:background="#EC407A"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/txt_top"/>-->
 
         <TextView
             android:layout_width="match_parent"
@@ -56,17 +56,18 @@
             android:padding="20dp"
             android:layout_marginTop="30dp"
             android:text="카메라의 수평이 0도가 되도록\n 평평한 곳에 핸드폰을 잘 세워주세요"
-            android:background="#EC407A"
-            android:textColor="#FFFFFF"
+            android:background="#FFFFFF"
+            android:textStyle="bold"
+            android:textColor="#EC407A"
             android:textSize="27sp"
             android:id="@+id/txt_guide"/>
 
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="#EC407A"-->
-            <!--android:gravity="center"-->
-            <!--android:id="@+id/txt_bottom"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="#EC407A"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/txt_bottom"/>-->
 
     </LinearLayout>
 
@@ -80,12 +81,12 @@
             android:id="@+id/text_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="17dp"
             android:text="5"
             android:textColor="#EC407A"
             android:textSize="85sp"
             android:visibility="invisible"
-            android:layout_centerHorizontal="true"
 
             />
 
@@ -93,12 +94,12 @@
             android:id="@+id/text_degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/text_countdown"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="0"
             android:textColor="#FFFFFF"
-            android:textSize="80sp"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/text_countdown" />
+            android:textSize="80sp" />
 
 
     </RelativeLayout>
