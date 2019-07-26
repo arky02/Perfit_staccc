@@ -97,7 +97,7 @@ public class Camera2BasicFragment_other extends Fragment
 
     TextView text_degree, txt_perfectlevel, txt_guide;
     CountDownTimer mCountDown = null;
-    Boolean isActivated = false, NotWork = false;
+    Boolean isActivated = false, NotWork = false, isDone;
 
 
     static {
@@ -263,6 +263,11 @@ public class Camera2BasicFragment_other extends Fragment
         @Override
         public void onImageAvailable(ImageReader reader) {
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            if (isDone) {
+                Intent mintent = new Intent(getActivity(), MainActivity.class);
+                startActivity(mintent);
+            }
         }
 
     };
@@ -856,9 +861,9 @@ public class Camera2BasicFragment_other extends Fragment
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
 
-            Intent mintent = new Intent(getActivity(), ModelCreateActivity.class);
-            startActivity(mintent);
-            Objects.requireNonNull(getActivity()).onBackPressed();
+//            Intent mintent = new Intent(getActivity(), ModelCreateActivity.class);
+//            startActivity(mintent);
+//            Objects.requireNonNull(getActivity()).onBackPressed();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -969,6 +974,7 @@ public class Camera2BasicFragment_other extends Fragment
             case R.id.picture: {
                 if (!NotWork) {
                     takePicture();
+                    isDone = true;
 
                 } else {
                     Toast.makeText(getActivity(), "수직 각도를 2°이내로 유지하고 다시 촬영해주세요! ", Toast.LENGTH_SHORT).show();

@@ -106,7 +106,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
     private Sensor mAccelometerSensor;
     private SensorEventListener mAcclis;
 
-    TextView text_degree, txt_perfectlevel,text_countdown,text_guide;
+    TextView text_degree, txt_perfectlevel, text_countdown, text_guide;
     CountDownTimer mCountDown = null;
     Double angleYZ = -1.0;
     Boolean isActivated = false, NotWork = false, isDone = false;
@@ -277,10 +277,8 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
 
             if (isDone) {
-                Intent mintent = new Intent(getActivity(), ImageShowActivity.class);
-                if (mFile.exists()) {
-                    startActivity(mintent);
-                }
+                Intent mintent = new Intent(getActivity(), MainActivity.class);
+                startActivity(mintent);
             }
         }
 
@@ -925,11 +923,11 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
      * Initiate a still image capture.
      */
     private void takePicture() {
-        if(angleYZ >= 0.0 && angleYZ <= 2.5) {
+        if (angleYZ >= 0.0 && angleYZ <= 2.5) {
             lockFocus();
-        }else if(angleYZ == -1.0) {
+        } else if (angleYZ == -1.0) {
             Toast.makeText(getActivity(), "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             isActivated = false;
             text_guide.setVisibility(View.VISIBLE);
             text_countdown.setVisibility(View.INVISIBLE);
@@ -952,9 +950,9 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
 
-            Intent mintent = new Intent(getActivity(),ModelCreateActivity.class);
-            startActivity(mintent);
-            Objects.requireNonNull(getActivity()).onBackPressed();
+//            Intent mintent = new Intent(getActivity(),ModelCreateActivity.class);
+//            startActivity(mintent);
+//            Objects.requireNonNull(getActivity()).onBackPressed();
             //getActivity().getFragmentManager().popBackStack();
         } catch (CameraAccessException e) {
             e.printStackTrace();
@@ -1075,6 +1073,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
                     CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
         }
     }
+
     public static byte[] bitmapBytes;
 
     /**
