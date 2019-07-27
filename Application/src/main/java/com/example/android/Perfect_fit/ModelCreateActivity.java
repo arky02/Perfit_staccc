@@ -74,6 +74,9 @@ public class ModelCreateActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Global_Data data = (Global_Data) getApplication();
+                data.setName(name.getText().toString());
+                data.setHeight(Integer.parseInt(key.getText().toString()));
                 Intent mintent = new Intent(getApplicationContext(),CameraChooseActivity.class);
                 startActivity(mintent);
             }

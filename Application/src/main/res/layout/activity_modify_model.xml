@@ -9,10 +9,10 @@
     >
 
     <ImageView
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/image_x"
         android:clickable="true"
         android:id="@+id/button_cancel"/>
@@ -31,21 +31,44 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="이름"
+            android:layout_marginTop="5dp"
             android:textColor="@color/perfit_background"
             android:textStyle="bold"
-            android:textSize="40sp"/>
+            android:textSize="30sp"/>
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/right_arrow"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"/>
+            android:layout_marginLeft="10dp" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="30dp"
+        android:background="#ebebeb"
+        >
 
+    </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내 모델"
+        android:textStyle="bold"
+        android:textSize="23sp"
+        android:textColor="#000000"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="36dp"
+        />
+    
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="17dp"
+        android:id="@+id/recyclerView">
 
-
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

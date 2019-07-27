@@ -38,12 +38,13 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="210dp"
-            android:layout_height="44dp"
+            android:layout_width="180dp"
+            android:layout_height="38dp"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="8dp"
             android:background="#ffe3f0"
             android:hint="이름"
+            android:textSize="14sp"
             android:inputType="textPersonName|textShortMessage"
             android:padding="10dp"
             android:textColorHint="#b32e6c" />
@@ -54,12 +55,13 @@
 
             <EditText
                 android:id="@+id/key"
-                android:layout_width="210dp"
-                android:layout_height="44dp"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
                 android:background="#ffe3f0"
                 android:hint="키"
                 android:inputType="number|textShortMessage"
                 android:padding="10dp"
+                android:textSize="14sp"
                 android:textColorHint="#b32e6c" />
 
             <TextView
@@ -69,7 +71,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="15dp"
                 android:text="cm"
-                android:textSize="18dp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
 
@@ -78,7 +80,7 @@
     <Button
         android:id="@+id/check"
         android:layout_width="140dp"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/buttondesign_disabled"
         android:enabled="false"
