@@ -70,6 +70,7 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -305,6 +306,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
      * A {@link Semaphore} to prevent the app from exiting before closing the camera.
      */
     private Semaphore mCameraOpenCloseLock = new Semaphore(1);
+
 
     /**
      * Whether the current camera device supports Flash or not.
@@ -651,7 +653,7 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
 
                 // We don't use a front facing camera in this sample.
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                if (facing != null && facing == CameraCharacteristics.LENS_FACING_BACK) {
                     continue;
                 }
 
