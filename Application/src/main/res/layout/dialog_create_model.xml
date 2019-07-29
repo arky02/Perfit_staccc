@@ -18,7 +18,8 @@
             android:layout_height="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/image_x" />
+            android:src="@drawable/image_x"
+            android:id="@+id/btn_cancel"/>
 
         <LinearLayout
             android:layout_width="match_parent"

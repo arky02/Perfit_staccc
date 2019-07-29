@@ -277,7 +277,8 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
 
             if (isDone) {
-                Intent mintent = new Intent(getActivity(), MainActivity.class);
+                Intent mintent = new Intent(getActivity(), PosenetActivity.class);
+                mintent.putExtra("img",mFile);
                 startActivity(mintent);
             }
         }

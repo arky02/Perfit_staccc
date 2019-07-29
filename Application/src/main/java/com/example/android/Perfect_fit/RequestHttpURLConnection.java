@@ -33,7 +33,7 @@ public class RequestHttpURLConnection {
                 e1.printStackTrace();
             }
             HttpURLConnection con = null;
-            try {
+            try { 
                 con = (HttpURLConnection)url.openConnection();
             } catch (IOException e1) {
                 e1.printStackTrace();

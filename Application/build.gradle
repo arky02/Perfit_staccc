@@ -23,7 +23,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:28.0.0"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:28'
 }
 
 // The sample build uses multiple directories to
@@ -42,6 +42,17 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
+    }
+
+    packagingOptions {
+        exclude 'META_INF/DEPENDENCIES'
+        exclude 'META_INF/LICENSE'
+        exclude 'META_INF/LICENSE.txt'
+        exclude 'META_INF/license.txt'
+        exclude 'META_INF/NOTICE'
+        exclude 'META_INF/NOTICE.txt'
+        exclude 'META_INF/notice.txt'
+        exclude 'META_INF/ASL2.0'
     }
 
 
