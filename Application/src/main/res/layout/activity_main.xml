@@ -55,4 +55,10 @@
             android:text="Perfect Fit!"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="posenet"
+        android:id="@+id/checkpose"/>
 </LinearLayout>
