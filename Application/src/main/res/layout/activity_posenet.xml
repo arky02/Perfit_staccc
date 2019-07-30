@@ -5,13 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PosenetActivity"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <TextView
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3"
-        android:textSize="40dp"
-        android:id="@+id/tv_count"/>
+        android:id="@+id/progress"/>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모델을 생성중입니다!"
+        android:textSize="15dp"
+        android:textColor="@color/perfit_background"
+        android:textStyle="bold"/>
 
 </LinearLayout>

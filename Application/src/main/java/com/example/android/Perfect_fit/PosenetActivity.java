@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -31,10 +32,13 @@ import java.util.Locale;
 
 public class PosenetActivity extends AppCompatActivity {
 
+    ProgressBar progress;
+
     private class PoseEstimationTask extends AsyncTask<File, Double, JSONObject> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progress.setIndeterminate(true);
 
         }
 
@@ -117,19 +121,20 @@ public class PosenetActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject o) {
             super.onPostExecute(o);
+            progress.setIndeterminate(false);
 
+            Intent intent = new Intent(PosenetActivity.this, MainActivity.class);
+            startActivity(intent);
             // TODO: Spinner 내리기
         }
     }
-
-    TextView tv_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posenet);
 
-        tv_count = findViewById(R.id.tv_count);
+        progress = findViewById(R.id.progress);
 
         Intent intent = getIntent();
         String path = intent.getStringExtra("img");

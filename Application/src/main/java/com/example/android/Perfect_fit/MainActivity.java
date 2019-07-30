@@ -14,7 +14,6 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout button_name;
-    TextView checkpose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button_name = findViewById(R.id.button_name);
-        checkpose = findViewById(R.id.checkpose);
-
-//        checkpose.setText();
 
         button_name.setOnClickListener(new View.OnClickListener() {
             @Override
