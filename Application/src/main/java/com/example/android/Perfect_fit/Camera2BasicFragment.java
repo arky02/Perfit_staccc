@@ -280,6 +280,9 @@ Camera2BasicFragment extends android.support.v4.app.Fragment
             if (isDone) {
                 Intent mintent = new Intent(getActivity(), PosenetActivity.class);
                 mintent.putExtra("img",mFile);
+                assert getArguments() != null;
+                mintent.putExtra("height",getArguments().getBundle("height"));
+                mintent.putExtra("name",getArguments().getBundle("name"));
                 startActivity(mintent);
             }
         }

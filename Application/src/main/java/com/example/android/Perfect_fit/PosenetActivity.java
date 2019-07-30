@@ -35,6 +35,7 @@ public class PosenetActivity extends AppCompatActivity {
 
     }
 
+
     public void CountDown() {
         mCountDown = new CountDownTimer(5000, 1000) {
             @Override
@@ -45,6 +46,8 @@ public class PosenetActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("name",getIntent().getStringExtra("name"));
                 startActivity(intent);
             }
         }.start();

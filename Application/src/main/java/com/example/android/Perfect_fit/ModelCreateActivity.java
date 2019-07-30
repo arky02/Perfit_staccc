@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.database.Cursor;
 import android.widget.EditText;
 
 public class ModelCreateActivity extends AppCompatActivity {
@@ -74,10 +76,10 @@ public class ModelCreateActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Global_Data data = (Global_Data) getApplication();
-                data.setName(name.getText().toString());
-                data.setHeight(Integer.parseInt(key.getText().toString()));
                 Intent mintent = new Intent(getApplicationContext(),CameraChooseActivity.class);
+                mintent.putExtra("name",name.getText().toString());
+                mintent.putExtra("height",key.getText().toString());
+                Log.e("name,height1",getIntent().getStringExtra("name")+getIntent().getStringExtra("height"));
                 startActivity(mintent);
             }
         });

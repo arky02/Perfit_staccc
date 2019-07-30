@@ -3,6 +3,7 @@ package com.example.android.Perfect_fit;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
+                intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("name",getIntent().getStringExtra("name"));
+                Log.e("name,height",getIntent().getStringExtra("name")+getIntent().getStringExtra("height"));
                 startActivity(intent);
                 overridePendingTransition(R.anim.sliding_up, R.anim.stay);
             }

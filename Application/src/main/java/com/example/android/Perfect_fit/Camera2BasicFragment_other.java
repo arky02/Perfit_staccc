@@ -266,6 +266,8 @@ public class Camera2BasicFragment_other extends Fragment
 
             if (isDone) {
                 Intent mintent = new Intent(getActivity(), PosenetActivity.class);
+                assert getArguments() != null;
+                mintent.putExtras(getArguments());
                 mintent.putExtra("img",mFile);
                 startActivity(mintent);
             }

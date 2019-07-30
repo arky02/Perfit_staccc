@@ -2,12 +2,8 @@ package com.example.android.Perfect_fit;
 
 public class Data_model {
     private String name;
-    private int height;
+    private String  height;
     //치수 추가
-
-    public Data_model(String name) {
-        this.name = name;
-    }
 
     public String getName() {
         return name;
@@ -17,4 +13,11 @@ public class Data_model {
         this.name = name;
     }
 
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height= height;
+    }
 }

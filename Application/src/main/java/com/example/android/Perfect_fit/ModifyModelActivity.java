@@ -6,22 +6,32 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.database.Cursor;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModifyModelActivity extends AppCompatActivity {
 
     ImageView button_cancel;
     Button btn_createModel;
+    DatabaseHelper databaseHelper;
+    String name, height;
     RecyclerView recyclerView;
+    RecycleAdapter recycler;
     RecyclerView.LayoutManager layoutManager;
+    List<Data_model> datamodel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +43,29 @@ public class ModifyModelActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        databaseHelper = new DatabaseHelper(this);
 
+        String name = getIntent().getStringExtra("name");
+        String height = getIntent().getStringExtra("height");
+        Log.e("name,height",name+height);
+        if(name.isEmpty() && height.isEmpty()){
+            RefreshAdapter();
+        }else{
+            Data_model modeldata1 = new Data_model();
+            modeldata1.setName(name);
+            modeldata1.setHeight(height);
+            databaseHelper.insertdata(name, height);
+            RefreshAdapter();
+        }
+
+        /*
+        databaseHelper.insertdata(name, height);
         ArrayList<Data_model> ModelData = new ArrayList<>();
-
-        if(ModelData.isEmpty()) {
-            Global_Data data  = (Global_Data) getApplication();
-            String name = data.getName();
-            Data_model modeldata = new Data_model(name);
-            ModelData.add(modeldata);
-
-            Adapter_modify_model adapter = new Adapter_modify_model(ModelData);
-
-            recyclerView.setAdapter(adapter);
-        }
-        else {
-            Global_Data data  = (Global_Data) getApplication();
-            String name = data.getName();
-            Data_model modeldata = new Data_model(name);
-            ModelData.add(modeldata);
-
-            Adapter_modify_model adapter = new Adapter_modify_model(ModelData);
-            adapter.notifyDataSetChanged();
-
-        }
+        ModelData.add(modeldata);
+        Adapter_modify_model adapter = new Adapter_modify_model(ModelData); //어뎁터를 데이터로 적용시켜야함
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        */
 
 
         button_cancel.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +87,7 @@ public class ModifyModelActivity extends AppCompatActivity {
 
     public void CreateDialog() {
         final Dialog dialog = new Dialog(ModifyModelActivity.this);
-        if(dialog.getWindow() != null){
+        if (dialog.getWindow() != null) {
             dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -98,13 +108,27 @@ public class ModifyModelActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                name = edt_name.getText().toString();
+                height = edt_height.getText().toString();
+                if(name.isEmpty() && height.isEmpty()){
+                    Toast.makeText(ModifyModelActivity.this, "please fill all", Toast.LENGTH_SHORT).show();
+                }else{
+                    databaseHelper.insertdata(name,height);
+                    edt_height.setText("");
+                    edt_name.setText("");
+                    RefreshAdapter();
+                    dialog.dismiss();
+                }
+
+                /*
                 String name = null;
                 int height = 0;
 
-                if(!edt_name.getText().toString().isEmpty()) {
+                if (!edt_name.getText().toString().isEmpty()) {
                     name = edt_name.getText().toString();
                 }
-                if(!edt_height.getText().toString().isEmpty()) {
+                if (!edt_height.getText().toString().isEmpty()) {
                     height = Integer.parseInt(edt_height.getText().toString());
                 }
                 Global_Data data = (Global_Data) getApplication();
@@ -112,10 +136,25 @@ public class ModifyModelActivity extends AppCompatActivity {
                 data.setHeight(height);
                 dialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), CameraChooseActivity.class);
-                startActivity(intent);
+                */
+
             }
         });
         dialog.show();
+
+    }
+
+    public void RefreshAdapter(){
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        datamodel = databaseHelper.getdata();
+        recycler = new RecycleAdapter(datamodel);
+
+
+        Log.i("HIteshdata", "" + datamodel);
+        RecyclerView.LayoutManager reLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(reLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(recycler);
 
     }
 

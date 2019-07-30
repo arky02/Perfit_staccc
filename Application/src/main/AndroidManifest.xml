@@ -16,22 +16,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".Global_Data"
         android:allowBackup="true"
         android:icon="@drawable/logologo"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".PosenetActivity"></activity>
+        <activity android:name=".PosenetActivity" />
         <activity
             android:name=".ModifyModelActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CameraChooseActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ImageShowActivity"
             android:screenOrientation="portrait" />
