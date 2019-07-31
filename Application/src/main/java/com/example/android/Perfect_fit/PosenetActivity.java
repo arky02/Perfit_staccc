@@ -125,6 +125,8 @@ public class PosenetActivity extends AppCompatActivity {
 
             Intent intent = new Intent(PosenetActivity.this, MainActivity.class);
             intent.putExtra("posenet", o);
+            intent.putExtra("name",getIntent().getStringExtra("name"));
+            intent.putExtra("height",getIntent().getStringExtra("height"));
             Log.e("pose_0", o);
             startActivity(intent);
             // TODO: Spinner 내리기

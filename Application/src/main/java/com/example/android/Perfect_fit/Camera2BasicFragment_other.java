@@ -269,6 +269,8 @@ public class Camera2BasicFragment_other extends Fragment
                 assert getArguments() != null;
                 mintent.putExtras(getArguments());
                 mintent.putExtra("img",mFile.getAbsolutePath());
+                mintent.putExtra("name",getActivity().getIntent().getStringExtra("name"));
+                mintent.putExtra("height",getActivity().getIntent().getStringExtra("height"));
                 startActivity(mintent);
             }
         }
