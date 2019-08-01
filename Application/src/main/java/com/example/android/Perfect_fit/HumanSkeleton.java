@@ -12,6 +12,7 @@ public class HumanSkeleton {
     }
 
     double pose[][] = new double[18][2];
+    double dot[] = new double[6];
 
     private Point nose = null;
     private Point neck = null;
@@ -102,6 +103,97 @@ public class HumanSkeleton {
         leftear = new Point();
         leftear.x = pose[17][0];
         leftear.y = pose[17][1];
+
+        if(leftshoulder == null && rightshoulder != null) {
+            leftshoulder = getPoint(rightshoulder);
+        }
+        if(rightshoulder == null && leftshoulder != null) {
+            rightshoulder = getPoint(leftshoulder);
+        }
+        if(leftelbow == null && rightelbow != null) {
+            leftelbow = getPoint(rightelbow);
+        }
+        if(rightelbow == null && leftelbow != null) {
+            rightelbow = getPoint(leftelbow);
+        }
+        if(lefthip == null && righthip != null) {
+            lefthip = getPoint(righthip);
+        }
+        if(righthip == null && lefthip != null) {
+            righthip = getPoint(lefthip);
+        }
+        if(leftankle == null && rightelbow != null) {
+            leftelbow = getPoint(rightelbow);
+        }
+        if(rightankle == null && leftankle != null) {
+            rightankle = getPoint(leftankle);
+        }
+        if(leftwrist == null && rightwrist != null) {
+            leftwrist = getPoint(rightwrist);
+        }
+        if(rightknee == null && leftknee != null) {
+            rightknee = getPoint(leftknee);
+        }
+        if(leftknee == null && rightknee != null) {
+            leftknee = getPoint(rightknee);
+        }
+    }
+
+    //1. (왼쪽 어깨, 오른쪽어깨) 등 대칭점을 찾는다
+    //2. 목과 대칭점을 연결해서 가상의 선 생성
+    //3. null 일경우 선대칭
+
+    public Point getAve(Point a, Point b) {
+        //점의 중간점을 찾는 함수
+        Point Ave = new Point();
+        Ave.x = (a.x + b.x)/2;
+        Ave.y = (a.y + b.y)/2;
+        return Ave;
+    }
+
+    public Point getSymmetry() {
+        Point symmetry = new Point();
+
+        if(rightknee != null && leftknee != null) {
+            symmetry = getAve(rightknee, leftknee);
+        }
+        else if(rightankle != null && leftankle != null) {
+            symmetry = getAve(rightankle, leftankle);
+        }
+        else if(righthip != null && lefthip != null) {
+            symmetry = getAve(righthip, lefthip);
+        }
+        else if(rightshoulder != null && leftshoulder != null) {
+            symmetry = getAve(rightshoulder, leftshoulder);
+        }
+        else if(righteye != null && leftteye != null) {
+            symmetry = getAve(righteye, leftteye);
+        }
+        return symmetry;
+    }
+
+    public Point getPoint(Point a) {
+        //a점의 대칭점을 찾아주는 함수
+        getLine(neck, getSymmetry(), a);
+        return getRoot(dot[0], dot[1], dot[2], dot[3], dot[4], dot[5]);
+    }
+
+    public Point getRoot(double X1, double Y1, double Z1, double X2, double Y2, double Z2) {
+        //행렬을 통해 대칭점을 찾아주는 함수
+        Point point = new Point();
+        point.x = ((Z1 * Y2) + ((-1) * Y1 * Z2)) / ((X1 * Y2) - (Y1 * X2));
+        point.y = (((-1) * Z1 * X2) + (Z2 * X1)) / ((X1 * Y2) - (Y1 * X2));
+        return point;
+    }
+
+    public void getLine(Point a, Point b, Point c) {
+        //getRoot 함수를 돌리기위한 점들을 찾는 함수
+        dot[0] = b.x - a.x;
+        dot[1] = b.y - a.y;
+        dot[2] = (b.y * c.y) - (a.y * c.y) + (b.x * c.x) - (a.x * c.x);
+        dot[3] = (a.y - b.y) / (b.x - a.x);
+        dot[4] = 1;
+        dot[5] = ((((b.y * c.x) - (a.y * c.x) - (2 * a.x * b.y) + (2 * a.x * a.y)) / (b.x - a.x))) + (2 * a.y) - c.y;
     }
 
     public Point getNose() {
