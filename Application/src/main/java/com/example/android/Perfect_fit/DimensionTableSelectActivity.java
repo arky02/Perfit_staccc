@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 
 import androidx.appcompat.app.AlertDialog;
@@ -37,20 +39,22 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 
 public class DimensionTableSelectActivity extends AppCompatActivity {
 
-    private final int GET_GALLERY_IMAGE = 200;
-    private ImageView imageview;    ImageButton btn_okay;
+    private ImageView imageview;
+    ImageButton btn_okay;
     Button btn;
     private Uri resultUri = null;
     Bitmap image,bitmapimg; //사용되는 이미지
     private TessBaseAPI mTess; //Tess API reference
     String datapath = ""; //언어데이터가 있는 경로
-    ProgressBar progressBar;
-    AlertDialog dialog;
     LinearLayout ll;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,10 @@ public class DimensionTableSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dimension_table_select);
 
         btn_okay = findViewById(R.id.picture);
+        ProgressBar progress = findViewById(R.id.loader);
+        progress.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF1684"), PorterDuff.Mode.MULTIPLY);
 
         btn = findViewById(R.id.btn);
-        //progressBar = findViewById(R.id.progress1);
         imageview = findViewById(R.id.imageView);
         ll = findViewById(R.id.ll);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +78,16 @@ public class DimensionTableSelectActivity extends AppCompatActivity {
         btn_okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(resultUri!= null){
-//                    setProgressDialog();
-                    processImage();
-                    Toast.makeText(DimensionTableSelectActivity.this, "ocr 로딩 성공", Toast.LENGTH_SHORT).show();
+                    ll.bringToFront();
+                    ll.setVisibility(VISIBLE);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            processImage();
+                        }
+                    }).start();
 
                 }else{
                     Toast.makeText(DimensionTableSelectActivity.this, "선택된 이미지 파일이 없습니다", Toast.LENGTH_SHORT).show();
@@ -134,6 +143,8 @@ public class DimensionTableSelectActivity extends AppCompatActivity {
         }
     }
 
+
+
     //startOCR(selectedBitmap);
 
     //-----------OCR -----------
@@ -156,15 +167,13 @@ public class DimensionTableSelectActivity extends AppCompatActivity {
 
     //Process an Image
     public void processImage() {
-        Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
         String OCRresult = null;
         mTess.setImage(image);
         OCRresult = mTess.getUTF8Text();
         Intent intent = new Intent(getApplicationContext(),OCRActivity.class);
         intent.putExtra("OCRresult",OCRresult);
         startActivity(intent);
-//        dialog.dismiss();
-        ll.setVisibility(GONE);
+//        ll.setVisibility(INVISIBLE);
         finish();
     }
 

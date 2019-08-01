@@ -12,40 +12,53 @@
     <RelativeLayout
         android:layout_width = "match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        >
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="314dp"
             app:srcCompat="@drawable/image" />
+
+
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="horizontal"
-            android:id = "@+id/ll"
-            android:padding="13dp"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:id = "@+id/ll"
+            android:visibility = "gone"
+            android:padding="2dp"
+            android:background = "@color/perfit_background"
+            android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity = "center"
+            android:background = "#FFFFFF">
+
 
             <ProgressBar
-                android:id="@+id/progress1"
+                android:id="@+id/loader"
                 android:layout_marginEnd="5dp"
                 android:layout_width="45dp"
                 android:layout_height="45dp" />
             <TextView
                 android:layout_width="wrap_content"
-                android:text="치수표 텍스트를 추출중입니다!"
+                android:text="치수표 텍스트를 추출하고있어요!"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:layout_gravity="center_vertical"
-                android:id="@+id/loading_msg"
+                android:id="@+id/tv"
+                android:layout_margin="9dp"
                 android:layout_toEndOf="@+id/loader"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
-
 
 
     <FrameLayout
