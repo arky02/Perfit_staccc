@@ -16,5 +16,6 @@
 <resources>
     <style name="MaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="colorControlNormal">@color/perfit_edittext</item>
     </style>
 </resources>

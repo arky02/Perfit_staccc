@@ -24,13 +24,11 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/MaterialTheme">
+        <activity android:name=".ModelAdjustActivity"></activity>
+        <activity android:name=".SigninActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".OCRActivity" />
         <activity android:name=".DimensionTableSelectActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PosenetActivity" />
         <activity
@@ -57,7 +55,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".CameraActivity"
             android:label="@string/app_name"

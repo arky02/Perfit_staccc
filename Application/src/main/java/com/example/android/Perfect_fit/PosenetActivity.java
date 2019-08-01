@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -26,7 +27,10 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class PosenetActivity extends AppCompatActivity {
-
+    HumanSkeleton data;
+    double height, LShoulderToElbow, RShoulderToElbow, LElbowToWrist, RElbowToWrist, shoulderWidth, LAnkleToknee, RAnkleToknee, LKneeToHip, RKneeToHip, bodyDistance;
+    double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist, origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
+    double origin_leg, origin_arm;
     ProgressBar progress;
 
     private class PoseEstimationTask extends AsyncTask<File, Double, String> {
@@ -107,6 +111,7 @@ public class PosenetActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
@@ -115,11 +120,49 @@ public class PosenetActivity extends AppCompatActivity {
             super.onPostExecute(o);
             progress.setIndeterminate(false);
 
+            origin_Height = Double.parseDouble(getIntent().getStringExtra("height"));
+            try {
+                data = new HumanSkeleton(o);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            LShoulderToElbow = getDistance(data.getLeftshoulder(), data.getLeftelbow());
+            RShoulderToElbow = getDistance(data.getRightshoulder(), data.getRightelbow());
+            LElbowToWrist = getDistance(data.getLeftelbow(), data.getLeftwrist());
+            RElbowToWrist = getDistance(data.getRightelbow(), data.getRightwrist());
+            shoulderWidth = getDistance(data.getLeftshoulder(), data.getRightshoulder());
+            LAnkleToknee = getDistance(data.getLeftankle(), data.getLeftknee());
+            RAnkleToknee = getDistance(data.getRightankle(), data.getRightknee());
+            LKneeToHip = getDistance(data.getLeftknee(), data.getLefthip());
+            RKneeToHip = getDistance(data.getRightknee(), data.getRighthip());
+            bodyDistance = getDistance(getCenter(data.getLefthip(), data.getRighthip()), getCenter(data.getLeftshoulder(), data.getRightshoulder()));
+
+            //키 : 발목부터 눈까지 + 눈부터 목까지
+            height = getDistance(getCenter(data.getLeftankle(), data.getRightankle()), getCenter(data.getLeftteye(), data.getRighteye())) +
+                                 getDistance(data.getNeck(), getCenter(data.getLeftteye(), data.getRighteye()));
+
+            //진짜 길이 구하기
+            origin_LShoulderToElbow = getOrigin(LShoulderToElbow);
+            origin_bodyDistance = getOrigin(bodyDistance);
+            origin_RShoulderToElbow = getOrigin(RShoulderToElbow);
+            origin_LAnkleToknee = getOrigin(LAnkleToknee);
+            origin_RAnkleToknee = getOrigin(RAnkleToknee);
+            origin_LElbowToWrist = getOrigin(LElbowToWrist);
+            origin_RElbowToWrist = getOrigin(RElbowToWrist);
+            origin_LKneeToHip = getOrigin(LKneeToHip);
+            origin_RKneeToHip = getOrigin(RKneeToHip);
+            origin_shoulderWidth = getOrigin(shoulderWidth);
+            origin_arm = getAve(origin_LShoulderToElbow + origin_LElbowToWrist, origin_RShoulderToElbow + origin_LElbowToWrist);
+            origin_leg = getAve(origin_RAnkleToknee + origin_RKneeToHip, origin_LAnkleToknee + origin_RKneeToHip);
+
             Intent intent = new Intent(PosenetActivity.this, MainActivity.class);
-            intent.putExtra("posenet", o);
+            intent.putExtra("img",getIntent().getStringExtra("img"));
             intent.putExtra("name",getIntent().getStringExtra("name"));
             intent.putExtra("height",getIntent().getStringExtra("height"));
-            Log.e("pose_0", o);
+            intent.putExtra("legdistance", origin_leg);
+            intent.putExtra("armdistance", origin_arm);
+
             startActivity(intent);
             // TODO: Spinner 내리기
         }
@@ -162,4 +205,24 @@ public class PosenetActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public double getDistance (HumanSkeleton.Point a, HumanSkeleton.Point b) {
+        return Math.sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+    }
+
+    public HumanSkeleton.Point getCenter(HumanSkeleton.Point a, HumanSkeleton.Point b) {
+        HumanSkeleton.Point point = new HumanSkeleton.Point(0, 0);
+        point.x = (a.x + b.x)/2;
+        point.y = (a.y + b.y)/2;
+        return point;
+    }
+
+    public double getOrigin(double X) {
+        return (origin_Height * X)/height;
+    }
+
+    public double getAve(double a, double b) {
+        return (a + b)/2;
+    }
+
 }

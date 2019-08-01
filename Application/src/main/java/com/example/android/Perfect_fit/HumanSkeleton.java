@@ -1,5 +1,9 @@
 package com.example.android.Perfect_fit;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,9 +13,19 @@ public class HumanSkeleton {
     public static class Point {
         public double x = 0;
         public double y = 0;
+
+        public Point(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "("+x+", "+y+")";
+        }
     }
 
-    double pose[][] = new double[18][2];
     double dot[] = new double[6];
 
     private Point nose = null;
@@ -38,104 +52,118 @@ public class HumanSkeleton {
     //11 : 왼쪽 엉덩이, 12 : 왼쪽 무릎, 13 : 왼쪽 발목, 14 : 오른쪽 눈, 15 : 왼쪽 눈
     //16 : 오른쪽 귀, 17 : 왼쪽 귀
 
+    private static Point parseFromJSON(JSONObject arr, int idx) throws JSONException {
+        if(arr.has(""+idx)) {
+            JSONObject node = arr.getJSONObject(""+idx);
+            return new Point(node.getDouble("x"), node.getDouble("y"));
+        }
+
+        return null;
+    }
+
     public HumanSkeleton(String data) throws JSONException {
         JSONObject jsonObject = new JSONObject(data);
         JSONArray jsonArray = jsonObject.getJSONArray("predictions");
         JSONObject jsonObject1 = jsonArray.getJSONObject(0);
 
-        for (int i = 0; i <18 ; i++) {
-            JSONObject jsonObject2 = jsonObject1.getJSONObject(Integer.toString(i));
-            pose[i][0] = jsonObject2.getDouble("x");
-            pose[i][1] = jsonObject2.getDouble("y");
-        }
+        nose = parseFromJSON(jsonObject1, 0);
+        neck = parseFromJSON(jsonObject1, 1);
+        rightshoulder = parseFromJSON(jsonObject1, 2);
+        rightelbow = parseFromJSON(jsonObject1, 3);
+        rightwrist = parseFromJSON(jsonObject1, 4);
+        leftshoulder = parseFromJSON(jsonObject1, 5);
+        leftelbow = parseFromJSON(jsonObject1, 6);
+        leftwrist = parseFromJSON(jsonObject1, 7);
+        righthip = parseFromJSON(jsonObject1, 8);
+        rightknee = parseFromJSON(jsonObject1, 9);
+        rightankle = parseFromJSON(jsonObject1, 10);
+        lefthip = parseFromJSON(jsonObject1, 11);
+        leftknee = parseFromJSON(jsonObject1, 12);
+        leftankle = parseFromJSON(jsonObject1, 13);
+        righteye = parseFromJSON(jsonObject1, 14);
+        leftteye = parseFromJSON(jsonObject1, 15);
+        rightear = parseFromJSON(jsonObject1, 16);
+        leftear = parseFromJSON(jsonObject1, 17);
 
-        nose = new Point();
-        nose.x = pose[0][0];
-        nose.y = pose[0][1];
-        neck = new Point();
-        neck.x = pose[1][0];
-        neck.y = pose[1][1];
-        rightshoulder = new Point();
-        rightshoulder.x = pose[2][0];
-        rightshoulder.y = pose[2][1];
-        rightelbow = new Point();
-        rightelbow.x = pose[3][0];
-        rightelbow.y = pose[3][1];
-        rightwrist = new Point();
-        rightwrist.x = pose[4][0];
-        rightwrist.y = pose[4][1];
-        leftshoulder = new Point();
-        leftshoulder.x = pose[5][0];
-        leftshoulder.y = pose[5][1];
-        leftelbow = new Point();
-        leftelbow.x = pose[6][0];
-        leftelbow.y = pose[6][1];
-        leftwrist = new Point();
-        leftwrist.x = pose[7][0];
-        leftwrist.y = pose[7][1];
-        righthip = new Point();
-        righthip.x = pose[8][0];
-        righthip.y = pose[8][1];
-        rightknee = new Point();
-        rightknee.x = pose[9][0];
-        rightknee.y = pose[9][1];
-        rightankle = new Point();
-        rightankle.x = pose[10][0];
-        rightankle.y = pose[10][1];
-        lefthip = new Point();
-        lefthip.x = pose[11][0];
-        lefthip.y = pose[11][1];
-        leftknee = new Point();
-        leftknee.x = pose[12][0];
-        leftknee.y = pose[12][1];
-        leftankle = new Point();
-        leftankle.x = pose[13][0];
-        leftankle.y = pose[13][1];
-        righteye = new Point();
-        righteye.x = pose[14][0];
-        righteye.y = pose[14][1];
-        leftteye = new Point();
-        leftteye.x = pose[15][0];
-        leftteye.y = pose[15][1];
-        rightear = new Point();
-        rightear.x = pose[16][0];
-        rightear.y = pose[16][1];
-        leftear = new Point();
-        leftear.x = pose[17][0];
-        leftear.y = pose[17][1];
+
+        Log.e("test", ""+nose);
+        Log.e("test", ""+neck);
+        Log.e("test", ""+rightshoulder);
+        Log.e("test", ""+rightelbow);
+        Log.e("test", ""+rightwrist);
+        Log.e("test", ""+leftshoulder);
+        Log.e("test", ""+leftelbow);
+        Log.e("test", ""+leftwrist);
+        Log.e("test", ""+righthip);
+        Log.e("test", ""+rightknee);
+        Log.e("test", ""+rightankle);
+        Log.e("test", ""+lefthip);
+        Log.e("test", ""+leftknee);
+        Log.e("test", ""+leftankle);
+        Log.e("test", ""+righteye);
+        Log.e("test", ""+leftteye);
+        Log.e("test", ""+rightear);
+        Log.e("test", ""+leftear);
 
         if(leftshoulder == null && rightshoulder != null) {
+            Log.e("posenetcheck", "check1");
             leftshoulder = getPoint(rightshoulder);
+            Log.e("posenetcheck", getPoint(leftshoulder).toString());
         }
         if(rightshoulder == null && leftshoulder != null) {
+            Log.e("posenetcheck", "check2");
             rightshoulder = getPoint(leftshoulder);
+            Log.e("posenetcheck", getPoint(rightshoulder).toString());
         }
         if(leftelbow == null && rightelbow != null) {
+            Log.e("posenetcheck", "check3");
             leftelbow = getPoint(rightelbow);
+            Log.e("posenetcheck", getPoint(leftelbow).toString());
         }
         if(rightelbow == null && leftelbow != null) {
+            Log.e("posenetcheck", "check4");
             rightelbow = getPoint(leftelbow);
+            Log.e("posenetcheck", getPoint(rightelbow).toString());
         }
         if(lefthip == null && righthip != null) {
+            Log.e("posenetcheck", "check5");
             lefthip = getPoint(righthip);
+            Log.e("posenetcheck", getPoint(lefthip).toString());
         }
         if(righthip == null && lefthip != null) {
+            Log.e("posenetcheck", "check6");
             righthip = getPoint(lefthip);
+            Log.e("posenetcheck", getPoint(righthip).toString());
         }
         if(leftankle == null && rightelbow != null) {
+            Log.e("posenetcheck", "check7");
             leftelbow = getPoint(rightelbow);
+            Log.e("posenetcheck", getPoint(leftelbow).toString());
         }
         if(rightankle == null && leftankle != null) {
+            Log.e("posenetcheck", "check8");
             rightankle = getPoint(leftankle);
+            Log.e("posenetcheck", getPoint(rightankle).toString());
         }
         if(leftwrist == null && rightwrist != null) {
+            Log.e("posenetcheck", "check9");
             leftwrist = getPoint(rightwrist);
+            Log.e("posenetcheck", getPoint(leftwrist).toString());
+        }
+        if(rightwrist == null && leftwrist != null) {
+            Log.e("posenetcheck", "check9");
+            rightwrist = getPoint(leftwrist);
+            Log.e("posenetcheck", getPoint(leftwrist).toString());
         }
         if(rightknee == null && leftknee != null) {
+            Log.e("posenetcheck", "check10");
             rightknee = getPoint(leftknee);
+            Log.e("posenetcheck", getPoint(rightknee).toString());
         }
         if(leftknee == null && rightknee != null) {
+            Log.e("posenetcheck", "check11");
             leftknee = getPoint(rightknee);
+            Log.e("posenetcheck", getPoint(leftknee).toString());
         }
     }
 
@@ -145,14 +173,14 @@ public class HumanSkeleton {
 
     public Point getAve(Point a, Point b) {
         //점의 중간점을 찾는 함수
-        Point Ave = new Point();
+        Point Ave = new Point(0 , 0);
         Ave.x = (a.x + b.x)/2;
         Ave.y = (a.y + b.y)/2;
         return Ave;
     }
 
     public Point getSymmetry() {
-        Point symmetry = new Point();
+        Point symmetry = new Point(0, 0);
 
         if(rightknee != null && leftknee != null) {
             symmetry = getAve(rightknee, leftknee);
@@ -180,7 +208,7 @@ public class HumanSkeleton {
 
     public Point getRoot(double X1, double Y1, double Z1, double X2, double Y2, double Z2) {
         //행렬을 통해 대칭점을 찾아주는 함수
-        Point point = new Point();
+        Point point = new Point(0, 0);
         point.x = ((Z1 * Y2) + ((-1) * Y1 * Z2)) / ((X1 * Y2) - (Y1 * X2));
         point.y = (((-1) * Z1 * X2) + (Z2 * X1)) / ((X1 * Y2) - (Y1 * X2));
         return point;

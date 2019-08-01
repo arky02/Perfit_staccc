@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500180118174",
+    "firebase_url": "https://perfit-fba2b.firebaseio.com",
+    "project_id": "perfit-fba2b",
+    "storage_bucket": "perfit-fba2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500180118174:android:623b48813f3b2544",
+        "android_client_info": {
+          "package_name": "com.example.android.Perfect_fit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500180118174-tf5impr42cqcsekfipe9grq43p0bur03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoQ9-4dkw7Fi4TsmDn15L2pve4u44JrlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500180118174-tf5impr42cqcsekfipe9grq43p0bur03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
