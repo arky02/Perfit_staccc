@@ -3,6 +3,8 @@ package com.example.android.Perfect_fit;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,16 +37,16 @@ public class PosenetActivity extends AppCompatActivity {
 
     ProgressBar progress;
 
-    private class PoseEstimationTask extends AsyncTask<File, Double, JSONObject> {
+    private class PoseEstimationTask extends AsyncTask<File, Double, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progress.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF1684"), PorterDuff.Mode.MULTIPLY);
             progress.setIndeterminate(true);
-
         }
 
         @Override
-        protected JSONObject doInBackground(File... files) {
+        protected String doInBackground(File... files) {
             File file =  new File(PosenetActivity.this.getExternalFilesDir(null), "pic_resize.jpg");
 
             resize(files[0], file);
@@ -52,6 +54,7 @@ public class PosenetActivity extends AppCompatActivity {
             String clientId = "v06knzwc61";
             String clientSecret = "2pFHWbm0xkEDtvWJWGVCrChhQvUOzJ7MY58vbDPZ";
             String paramName = "image"; // 파라미터명은 image로 지정
+            StringBuffer response = new StringBuffer();
 
             // 1. File을 열어서 Binary  객체로 만들기
             try {
@@ -100,16 +103,12 @@ public class PosenetActivity extends AppCompatActivity {
                 }
                 String inputLine;
                 if (br != null) {
-                    StringBuffer response = new StringBuffer();
                     while ((inputLine = br.readLine()) != null) {
                         response.append(inputLine);
                     }
                     br.close();
 
-                    JSONObject result = new JSONObject(response.toString());
-                    Log.e("Pose Estimation", result.toString(2));
-
-                    return result;
+                    return response.toString();
                 } else {
                     Log.e("Pose Estimation", "error !!!");
                 }
@@ -120,11 +119,15 @@ public class PosenetActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(JSONObject o) {
+        protected void onPostExecute(String o) {
             super.onPostExecute(o);
             progress.setIndeterminate(false);
 
             Intent intent = new Intent(PosenetActivity.this, MainActivity.class);
+            intent.putExtra("posenet", o);
+            intent.putExtra("name",getIntent().getStringExtra("name"));
+            intent.putExtra("height",getIntent().getStringExtra("height"));
+            Log.e("pose_0", o);
             startActivity(intent);
             // TODO: Spinner 내리기
         }

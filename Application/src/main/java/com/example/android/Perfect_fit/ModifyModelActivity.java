@@ -1,7 +1,6 @@
 package com.example.android.Perfect_fit;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.database.Cursor;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModifyModelActivity extends AppCompatActivity {
@@ -48,7 +44,7 @@ public class ModifyModelActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("name");
         String height = getIntent().getStringExtra("height");
         Log.e("name,height",name+height);
-        if(name.isEmpty() && height.isEmpty()){
+        if(name == null && height == null){
             RefreshAdapter();
         }else{
             Data_model modeldata1 = new Data_model();
