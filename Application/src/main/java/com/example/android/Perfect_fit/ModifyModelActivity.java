@@ -3,11 +3,11 @@ package com.example.android.Perfect_fit;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import java.util.List;
 
 public class ModifyModelActivity extends AppCompatActivity {
@@ -53,7 +54,6 @@ public class ModifyModelActivity extends AppCompatActivity {
             databaseHelper.insertdata(name, height);
             RefreshAdapter();
         }
-
         /*
         databaseHelper.insertdata(name, height);
         ArrayList<Data_model> ModelData = new ArrayList<>();
@@ -62,8 +62,6 @@ public class ModifyModelActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         */
-
-
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,14 +69,12 @@ public class ModifyModelActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
             }
         });
-
         btn_createModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateDialog();
             }
         });
-
     }
 
     public void CreateDialog() {
@@ -116,7 +112,6 @@ public class ModifyModelActivity extends AppCompatActivity {
                     RefreshAdapter();
                     dialog.dismiss();
                 }
-
                 /*
                 String name = null;
                 int height = 0;
