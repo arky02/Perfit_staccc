@@ -58,18 +58,16 @@
     <FrameLayout
         android:id="@+id/control"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="bottom"
-        android:background="#fafafa"
-        android:paddingBottom="30dp">
+        android:background="#fafafa">
 
         <ImageView
-            android:layout_marginTop="3dp"
             android:id="@+id/picture"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/check"
             android:layout_gravity="center"
             />
