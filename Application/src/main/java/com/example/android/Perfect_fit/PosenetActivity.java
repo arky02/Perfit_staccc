@@ -1,5 +1,6 @@
 package com.example.android.Perfect_fit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class PosenetActivity extends AppCompatActivity {
+    public static Context context;
     HumanSkeleton data;
     double height, LShoulderToElbow, RShoulderToElbow, LElbowToWrist, RElbowToWrist, shoulderWidth, LAnkleToknee, RAnkleToknee, LKneeToHip, RKneeToHip, bodyDistance;
     double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist, origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
@@ -156,10 +158,11 @@ public class PosenetActivity extends AppCompatActivity {
             origin_arm = getAve(origin_LShoulderToElbow + origin_LElbowToWrist, origin_RShoulderToElbow + origin_LElbowToWrist);
             origin_leg = getAve(origin_RAnkleToknee + origin_RKneeToHip, origin_LAnkleToknee + origin_RKneeToHip);
 
-            Intent intent = new Intent(PosenetActivity.this, MainActivity.class);
-            intent.putExtra("img",getIntent().getStringExtra("img"));
+            Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
+
             intent.putExtra("name",getIntent().getStringExtra("name"));
             intent.putExtra("height",getIntent().getStringExtra("height"));
+            intent.putExtra("skeleton", data);
             intent.putExtra("legdistance", origin_leg);
             intent.putExtra("armdistance", origin_arm);
 

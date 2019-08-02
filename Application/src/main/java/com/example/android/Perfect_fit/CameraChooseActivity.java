@@ -28,7 +28,6 @@ public class CameraChooseActivity extends AppCompatActivity {
                 mintent.putExtra("CameraChoose", 1);
                 mintent.putExtra("name", getIntent().getStringExtra("name"));
                 mintent.putExtra("height", getIntent().getStringExtra("height"));
-
                 startActivity(mintent);
                 finish();
             }

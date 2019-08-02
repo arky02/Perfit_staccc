@@ -78,10 +78,9 @@ public class ModelCreateActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mintent = new Intent(getApplicationContext(),CameraChooseActivity.class);
+                Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
                 mintent.putExtra("name",name.getText().toString());
                 mintent.putExtra("height",key.getText().toString());
-                Log.e("name,height1",getIntent().getStringExtra("name")+getIntent().getStringExtra("height"));
                 startActivity(mintent);
             }
         });

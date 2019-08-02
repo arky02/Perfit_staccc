@@ -1,5 +1,8 @@
 package com.example.android.Perfect_fit;
 
+import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,9 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HumanSkeleton {
+public class HumanSkeleton implements Parcelable {
 
-    public static class Point {
+    public static class Point implements Parcelable {
         public double x = 0;
         public double y = 0;
 
@@ -18,6 +21,34 @@ public class HumanSkeleton {
             this.x = x;
             this.y = y;
         }
+
+        public Point(Parcel parcel) {
+            this.x = parcel.readDouble();
+            this.y = parcel.readDouble();
+        }
+
+        // create Parcelable
+        public static final Parcelable.Creator<Point> CREATOR = new Parcelable.Creator<Point>() {
+            @Override
+            public Point createFromParcel(Parcel parcel) {
+                return new Point(parcel);
+            }
+            @Override
+            public Point[] newArray(int size) {
+                return new Point[size];
+            }
+        };
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeDouble(this.x);
+            dest.writeDouble(this.y);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
 
         @NonNull
         @Override
@@ -46,6 +77,65 @@ public class HumanSkeleton {
     private Point leftteye = null;
     private Point rightear = null;
     private Point leftear = null;
+
+    public HumanSkeleton(Parcel parcel) {
+        this.neck = parcel.readParcelable(Point.class.getClassLoader());
+        this.rightshoulder = parcel.readParcelable(Point.class.getClassLoader());
+        this.rightelbow= parcel.readParcelable(Point.class.getClassLoader());
+        this.rightwrist= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftshoulder= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftelbow= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftwrist= parcel.readParcelable(Point.class.getClassLoader());
+        this.righthip= parcel.readParcelable(Point.class.getClassLoader());
+        this.rightknee= parcel.readParcelable(Point.class.getClassLoader());
+        this.rightankle= parcel.readParcelable(Point.class.getClassLoader());
+        this.lefthip= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftknee= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftankle= parcel.readParcelable(Point.class.getClassLoader());
+        this.righteye= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftteye= parcel.readParcelable(Point.class.getClassLoader());
+        this.rightear= parcel.readParcelable(Point.class.getClassLoader());
+        this.leftear= parcel.readParcelable(Point.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<HumanSkeleton> CREATOR = new Parcelable.Creator<HumanSkeleton>() {
+        @Override
+        public HumanSkeleton createFromParcel(Parcel parcel) {
+            return new HumanSkeleton(parcel);
+        }
+        @Override
+        public HumanSkeleton[] newArray(int size) {
+            return new HumanSkeleton[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.neck, 0);
+        dest.writeParcelable(this.rightshoulder, 0);
+        dest.writeParcelable(this.rightelbow, 0);
+        dest.writeParcelable(this.rightwrist, 0);
+        dest.writeParcelable(this.leftshoulder, 0);
+        dest.writeParcelable(this.leftelbow, 0);
+        dest.writeParcelable(this.leftwrist, 0);
+        dest.writeParcelable(this.righthip, 0);
+        dest.writeParcelable(this.rightknee, 0);
+        dest.writeParcelable(this.rightankle, 0);
+        dest.writeParcelable(this.lefthip, 0);
+        dest.writeParcelable(this.leftknee, 0);
+        dest.writeParcelable(this.leftankle, 0);
+        dest.writeParcelable(this.righteye, 0);
+        dest.writeParcelable(this.leftteye, 0);
+        dest.writeParcelable(this.rightear, 0);
+        dest.writeParcelable(this.leftear, 0);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 
     // 0 : 코, 1 : 목, 2 : 오른쪽 어깨, 3: 오른쪽 팔굼치, 4 : 오른쪽 손목, 5 : 왼쪽 어깨
     // 6 : 왼쪽 팔굼치, 7 : 왼쪽 손목, 8 : 오른쪽 엉덩이, 9 : 오른쪽 무릎, 10 : 오른쪽 발목
