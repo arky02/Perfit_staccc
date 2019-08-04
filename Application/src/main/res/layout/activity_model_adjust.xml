@@ -5,6 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ModelAdjustActivity"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.android.Perfect_fit.MySurfaceView
+            android:layout_height="500dp"
+            android:layout_width="match_parent"
+            android:id="@+id/surfaceview"/>
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ok"
+        android:id="@+id/btn_ok"/>
+
 
 </LinearLayout>

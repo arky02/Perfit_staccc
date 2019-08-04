@@ -30,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.text_test);
 
         Intent mintent = getIntent();
-        origin_leg  = mintent.getDoubleExtra("legdistance",0);
-        origin_arm  = mintent.getDoubleExtra("armdistance",0);
-        mintent.getStringExtra("armdistance");
-
-        text.setText("다리길이 : " + origin_leg + "팔길이" + origin_arm);
+        //mintent.getStringExtra("armdistance");
 
         button_name.setOnClickListener(new View.OnClickListener() {
             @Override

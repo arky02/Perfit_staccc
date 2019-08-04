@@ -27,7 +27,8 @@
         <activity android:name=".ModelAdjustActivity"></activity>
         <activity android:name=".SigninActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".OCRActivity" />
+        <activity android:name=".OCRActivity" >
+        </activity>
         <activity android:name=".DimensionTableSelectActivity">
         </activity>
         <activity android:name=".PosenetActivity" />
@@ -61,6 +62,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".CameraActivity"

@@ -77,6 +77,7 @@ public class HumanSkeleton implements Parcelable {
     private Point leftteye = null;
     private Point rightear = null;
     private Point leftear = null;
+    private Point top = null;
 
     public HumanSkeleton(Parcel parcel) {
         this.neck = parcel.readParcelable(Point.class.getClassLoader());
@@ -96,6 +97,7 @@ public class HumanSkeleton implements Parcelable {
         this.leftteye= parcel.readParcelable(Point.class.getClassLoader());
         this.rightear= parcel.readParcelable(Point.class.getClassLoader());
         this.leftear= parcel.readParcelable(Point.class.getClassLoader());
+        this.top = parcel.readParcelable(Point.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<HumanSkeleton> CREATOR = new Parcelable.Creator<HumanSkeleton>() {
@@ -128,7 +130,7 @@ public class HumanSkeleton implements Parcelable {
         dest.writeParcelable(this.leftteye, 0);
         dest.writeParcelable(this.rightear, 0);
         dest.writeParcelable(this.leftear, 0);
-
+        dest.writeParcelable(this.top, 0);
     }
 
     @Override
@@ -174,7 +176,6 @@ public class HumanSkeleton implements Parcelable {
         leftteye = parseFromJSON(jsonObject1, 15);
         rightear = parseFromJSON(jsonObject1, 16);
         leftear = parseFromJSON(jsonObject1, 17);
-
 
         Log.e("test", ""+nose);
         Log.e("test", ""+neck);
@@ -225,10 +226,10 @@ public class HumanSkeleton implements Parcelable {
             righthip = getPoint(lefthip);
             Log.e("posenetcheck", getPoint(righthip).toString());
         }
-        if(leftankle == null && rightelbow != null) {
+        if(leftankle == null && rightankle != null) {
             Log.e("posenetcheck", "check7");
-            leftelbow = getPoint(rightelbow);
-            Log.e("posenetcheck", getPoint(leftelbow).toString());
+            leftankle = getPoint(rightankle);
+            Log.e("posenetcheck", getPoint(leftankle).toString());
         }
         if(rightankle == null && leftankle != null) {
             Log.e("posenetcheck", "check8");
@@ -255,6 +256,25 @@ public class HumanSkeleton implements Parcelable {
             leftknee = getPoint(rightknee);
             Log.e("posenetcheck", getPoint(leftknee).toString());
         }
+
+        Log.e("test", ""+nose);
+        Log.e("test", ""+neck);
+        Log.e("test", ""+rightshoulder);
+        Log.e("test", ""+rightelbow);
+        Log.e("test", ""+rightwrist);
+        Log.e("test", ""+leftshoulder);
+        Log.e("test", ""+leftelbow);
+        Log.e("test", ""+leftwrist);
+        Log.e("test", ""+righthip);
+        Log.e("test", ""+rightknee);
+        Log.e("test", ""+rightankle);
+        Log.e("test", ""+lefthip);
+        Log.e("test", ""+leftknee);
+        Log.e("test", ""+leftankle);
+        Log.e("test", ""+righteye);
+        Log.e("test", ""+leftteye);
+        Log.e("test", ""+rightear);
+        Log.e("test", ""+leftear);
     }
 
     //1. (왼쪽 어깨, 오른쪽어깨) 등 대칭점을 찾는다
@@ -384,5 +404,28 @@ public class HumanSkeleton implements Parcelable {
 
     public Point getLeftear() {
         return leftear;
+    }
+
+    public Point getTop() {
+        Log.e("test", ""+nose);
+        Log.e("test", ""+neck);
+        Log.e("test", ""+rightshoulder);
+        Log.e("test", ""+rightelbow);
+        Log.e("test", ""+rightwrist);
+        Log.e("test", ""+leftshoulder);
+        Log.e("test", ""+leftelbow);
+        Log.e("test", ""+leftwrist);
+        Log.e("test", ""+righthip);
+        Log.e("test", ""+rightknee);
+        Log.e("test", ""+rightankle);
+        Log.e("test", ""+lefthip);
+        Log.e("test", ""+leftknee);
+        Log.e("test", ""+leftankle);
+        Log.e("test", ""+righteye);
+        Log.e("test", ""+leftteye);
+        Log.e("test", ""+rightear);
+        Log.e("test", ""+leftear);
+        top = new Point( neck.x,righteye.y + righteye.y - neck.y);
+        return top;
     }
 }

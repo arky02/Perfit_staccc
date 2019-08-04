@@ -163,8 +163,6 @@ public class PosenetActivity extends AppCompatActivity {
             intent.putExtra("name",getIntent().getStringExtra("name"));
             intent.putExtra("height",getIntent().getStringExtra("height"));
             intent.putExtra("skeleton", data);
-            intent.putExtra("legdistance", origin_leg);
-            intent.putExtra("armdistance", origin_arm);
 
             startActivity(intent);
             // TODO: Spinner 내리기
