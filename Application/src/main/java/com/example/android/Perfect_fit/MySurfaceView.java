@@ -11,8 +11,6 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import org.w3c.dom.Attr;
-
 import java.io.File;
 
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {

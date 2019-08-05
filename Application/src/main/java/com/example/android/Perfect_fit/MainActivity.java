@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button_name = findViewById(R.id.button_name);
-        text = findViewById(R.id.text_test);
+        //text = findViewById(R.id.text_test);
 
         Intent mintent = getIntent();
         //mintent.getStringExtra("armdistance");

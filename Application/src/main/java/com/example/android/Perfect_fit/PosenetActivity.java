@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,42 +130,46 @@ public class PosenetActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            LShoulderToElbow = getDistance(data.getLeftshoulder(), data.getLeftelbow());
-            RShoulderToElbow = getDistance(data.getRightshoulder(), data.getRightelbow());
-            LElbowToWrist = getDistance(data.getLeftelbow(), data.getLeftwrist());
-            RElbowToWrist = getDistance(data.getRightelbow(), data.getRightwrist());
-            shoulderWidth = getDistance(data.getLeftshoulder(), data.getRightshoulder());
-            LAnkleToknee = getDistance(data.getLeftankle(), data.getLeftknee());
-            RAnkleToknee = getDistance(data.getRightankle(), data.getRightknee());
-            LKneeToHip = getDistance(data.getLeftknee(), data.getLefthip());
-            RKneeToHip = getDistance(data.getRightknee(), data.getRighthip());
-            bodyDistance = getDistance(getCenter(data.getLefthip(), data.getRighthip()), getCenter(data.getLeftshoulder(), data.getRightshoulder()));
+            if(data.isOk()) {
+                LShoulderToElbow = getDistance(data.getLeftshoulder(), data.getLeftelbow());
+                RShoulderToElbow = getDistance(data.getRightshoulder(), data.getRightelbow());
+                LElbowToWrist = getDistance(data.getLeftelbow(), data.getLeftwrist());
+                RElbowToWrist = getDistance(data.getRightelbow(), data.getRightwrist());
+                shoulderWidth = getDistance(data.getLeftshoulder(), data.getRightshoulder());
+                LAnkleToknee = getDistance(data.getLeftankle(), data.getLeftknee());
+                RAnkleToknee = getDistance(data.getRightankle(), data.getRightknee());
+                LKneeToHip = getDistance(data.getLeftknee(), data.getLefthip());
+                RKneeToHip = getDistance(data.getRightknee(), data.getRighthip());
+                bodyDistance = getDistance(getCenter(data.getLefthip(), data.getRighthip()), getCenter(data.getLeftshoulder(), data.getRightshoulder()));
 
-            //키 : 발목부터 눈까지 + 눈부터 목까지
-            height = getDistance(getCenter(data.getLeftankle(), data.getRightankle()), getCenter(data.getLeftteye(), data.getRighteye())) +
-                                 getDistance(data.getNeck(), getCenter(data.getLeftteye(), data.getRighteye()));
+                //키 : 발목 중간부터 Top 까지
+                height = getDistance(getCenter(data.getLeftankle(), data.getRightankle()), data.getTop());
 
-            //진짜 길이 구하기
-            origin_LShoulderToElbow = getOrigin(LShoulderToElbow);
-            origin_bodyDistance = getOrigin(bodyDistance);
-            origin_RShoulderToElbow = getOrigin(RShoulderToElbow);
-            origin_LAnkleToknee = getOrigin(LAnkleToknee);
-            origin_RAnkleToknee = getOrigin(RAnkleToknee);
-            origin_LElbowToWrist = getOrigin(LElbowToWrist);
-            origin_RElbowToWrist = getOrigin(RElbowToWrist);
-            origin_LKneeToHip = getOrigin(LKneeToHip);
-            origin_RKneeToHip = getOrigin(RKneeToHip);
-            origin_shoulderWidth = getOrigin(shoulderWidth);
-            origin_arm = getAve(origin_LShoulderToElbow + origin_LElbowToWrist, origin_RShoulderToElbow + origin_LElbowToWrist);
-            origin_leg = getAve(origin_RAnkleToknee + origin_RKneeToHip, origin_LAnkleToknee + origin_RKneeToHip);
+                //진짜 길이 구하기
+                origin_LShoulderToElbow = getOrigin(LShoulderToElbow);
+                origin_bodyDistance = getOrigin(bodyDistance);
+                origin_RShoulderToElbow = getOrigin(RShoulderToElbow);
+                origin_LAnkleToknee = getOrigin(LAnkleToknee);
+                origin_RAnkleToknee = getOrigin(RAnkleToknee);
+                origin_LElbowToWrist = getOrigin(LElbowToWrist);
+                origin_RElbowToWrist = getOrigin(RElbowToWrist);
+                origin_LKneeToHip = getOrigin(LKneeToHip);
+                origin_RKneeToHip = getOrigin(RKneeToHip);
+                origin_shoulderWidth = getOrigin(shoulderWidth);
 
-            Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
+                Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
 
-            intent.putExtra("name",getIntent().getStringExtra("name"));
-            intent.putExtra("height",getIntent().getStringExtra("height"));
-            intent.putExtra("skeleton", data);
+                intent.putExtra("name",getIntent().getStringExtra("name"));
+                intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("skeleton", data);
 
-            startActivity(intent);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
             // TODO: Spinner 내리기
         }
     }
