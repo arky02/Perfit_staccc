@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -23,6 +25,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
     private HumanSkeleton humanSkeleton;
     com.example.android.Perfect_fit.MySurfaceView mySurfaceView;
     Button btn_ok;
+    double distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class ModelAdjustActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                distance = mySurfaceView.getDistance();
+
                 Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
                 intent1.putExtra("name",getIntent().getStringExtra("name"));
                 intent1.putExtra("height",getIntent().getStringExtra("height"));

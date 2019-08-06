@@ -78,7 +78,7 @@ public class ModelCreateActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
+                Intent mintent = new Intent(getApplicationContext(), PosenetActivity.class);
                 mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
                 mintent.putExtra("name",name.getText().toString());
                 mintent.putExtra("height",key.getText().toString());

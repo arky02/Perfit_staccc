@@ -7,7 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -15,10 +17,15 @@ import java.io.File;
 
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     Context context;
+    Canvas canvas = null;
     SurfaceHolder surfaceHolder;
     RenderingThread renderingThread;
     private HumanSkeleton humanSkeleton;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    float x1, x2, Head = 0, Bottom = 0;
+    RectF rect_Top = new RectF();
+    RectF rect_Bottom = new RectF();
+    int right, bottom;
 
     public MySurfaceView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -39,6 +46,14 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         renderingThread.start();
+    }
+
+    public double getDistance() {
+        double top, toe;
+        top = (double)Head / (double)bottom;
+        toe = (double)Bottom / (double)bottom;
+
+        return top - toe;
     }
 
     @Override
@@ -65,75 +80,82 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
         @Override
         public void run() {
-            Canvas canvas = null;
-
             while(true && humanSkeleton != null) {
                 canvas = surfaceHolder.lockCanvas();
                 try{
                     synchronized (surfaceHolder) {
                         int w = img.getWidth();
                         int h = img.getHeight();
-                        float x,y;
+                        x1 = canvas.getWidth() / 5;
+                        x2 = canvas.getWidth() - canvas.getWidth() / 5;
 
-                        int right = canvas.getWidth();
-                        int bottom = h * canvas.getWidth() / w;
+                        right = canvas.getWidth();
+                        bottom = h * canvas.getWidth() / w;
 
                         Rect src = new Rect(0, 0, w, h);
                         Rect dst = new Rect(0, 0, right, bottom);
                         canvas.drawBitmap(img, src, dst, paint);
 
-                        paint.setStyle(Paint.Style.STROKE);
-                        paint.setStrokeWidth(25);
+                        paint.setStrokeWidth(8f);
                         paint.setColor(Color.RED);
-                        x = (float)humanSkeleton.getNeck().x * right;
-                        y = (float)humanSkeleton.getNeck().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLeftshoulder().x * right;
-                        y = (float)humanSkeleton.getLeftshoulder().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRightshoulder().x * right;
-                        y = (float)humanSkeleton.getRightshoulder().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLeftelbow().x * right;
-                        y = (float)humanSkeleton.getLeftelbow().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRightelbow().x * right;
-                        y = (float)humanSkeleton.getRightelbow().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLeftwrist().x * right;
-                        y = (float)humanSkeleton.getLeftwrist().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRightwrist().x * right;
-                        y = (float)humanSkeleton.getRightwrist().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLefthip().x * right;
-                        y = (float)humanSkeleton.getLefthip().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRighthip().x * right;
-                        y = (float)humanSkeleton.getRighthip().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLeftknee().x * right;
-                        y = (float)humanSkeleton.getLeftknee().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRightknee().x * right;
-                        y = (float)humanSkeleton.getRightknee().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getLeftankle().x * right;
-                        y = (float)humanSkeleton.getLeftankle().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getRightankle().x * right;
-                        y = (float)humanSkeleton.getRightankle().y * bottom;
-                        canvas.drawPoint(x, y, paint);
-                        x = (float)humanSkeleton.getTop().x * right;
-                        y = (float)humanSkeleton.getTop().y * bottom;
-                        canvas.drawPoint(x, y, paint);
+
+                        if(Head == 0 && Bottom == 0) {
+                            Head = (float)humanSkeleton.getTop().y * bottom;
+                            Bottom = (float)humanSkeleton.getRightankle().y * bottom;
+                        }
+
+                        DrawRect(rect_Top, Head);
+                        DrawRect(rect_Bottom, Bottom);
+
                     }
                 }finally {
                     if(canvas == null)return;
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
-
             }
         }
+    }
+
+    public void DrawRect(RectF rect, float y) {
+        rect.set(x1, y, x2,y+10);
+        canvas.drawRect(rect, paint);
+    }
+
+    boolean TopCheck = false;
+    boolean BottomCheck = false;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                if (event.getY() >= Head - 30 && event.getY() <= Head + 30) {
+                    TopCheck = true;
+                }
+                else if(event.getY() >= Bottom - 30 && event.getY() <= Bottom + 30) {
+                    BottomCheck = true;
+                }
+                else {
+                    return true;
+                }
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if(TopCheck) {
+                    Head = event.getY();
+                }
+                else if(BottomCheck) {
+                    Bottom = event.getY();
+                }
+                else return true;
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+                TopCheck = false;
+                BottomCheck = false;
+        }
+        return true;
     }
 }

@@ -8,13 +8,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.File;
-
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout button_name;

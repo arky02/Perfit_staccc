@@ -5,15 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ModelAdjustActivity"
-    android:gravity="center"
+    android:gravity="center|top"
     android:orientation="vertical">
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="29dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="붉은선을 머리끝과 발끝에 맞춰주세요"
+        android:textColor="#292929"
+        android:textSize="19sp"
+        android:layout_marginBottom="29dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.example.android.Perfect_fit.MySurfaceView
-            android:layout_height="500dp"
+            android:layout_height="490dp"
             android:layout_width="match_parent"
             android:id="@+id/surfaceview"/>
 
@@ -24,6 +35,5 @@
         android:layout_height="wrap_content"
         android:text="ok"
         android:id="@+id/btn_ok"/>
-
 
 </LinearLayout>
