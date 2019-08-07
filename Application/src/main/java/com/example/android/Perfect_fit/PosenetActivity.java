@@ -31,9 +31,6 @@ import java.net.URLConnection;
 public class PosenetActivity extends AppCompatActivity {
     public static Context context;
     HumanSkeleton data;
-    double height, LShoulderToElbow, RShoulderToElbow, LElbowToWrist, RElbowToWrist, shoulderWidth, LAnkleToknee, RAnkleToknee, LKneeToHip, RKneeToHip, bodyDistance;
-    double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist, origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
-    double origin_leg, origin_arm;
     ProgressBar progress;
 
     private class PoseEstimationTask extends AsyncTask<File, Double, String> {
@@ -123,7 +120,6 @@ public class PosenetActivity extends AppCompatActivity {
             super.onPostExecute(o);
             progress.setIndeterminate(false);
 
-            origin_Height = Double.parseDouble(getIntent().getStringExtra("height"));
             try {
                 data = new HumanSkeleton(o);
             } catch (JSONException e) {
@@ -131,32 +127,6 @@ public class PosenetActivity extends AppCompatActivity {
             }
 
             if(data.isOk()) {
-                LShoulderToElbow = getDistance(data.getLeftshoulder(), data.getLeftelbow());
-                RShoulderToElbow = getDistance(data.getRightshoulder(), data.getRightelbow());
-                LElbowToWrist = getDistance(data.getLeftelbow(), data.getLeftwrist());
-                RElbowToWrist = getDistance(data.getRightelbow(), data.getRightwrist());
-                shoulderWidth = getDistance(data.getLeftshoulder(), data.getRightshoulder());
-                LAnkleToknee = getDistance(data.getLeftankle(), data.getLeftknee());
-                RAnkleToknee = getDistance(data.getRightankle(), data.getRightknee());
-                LKneeToHip = getDistance(data.getLeftknee(), data.getLefthip());
-                RKneeToHip = getDistance(data.getRightknee(), data.getRighthip());
-                bodyDistance = getDistance(getCenter(data.getLefthip(), data.getRighthip()), getCenter(data.getLeftshoulder(), data.getRightshoulder()));
-
-                //키 : 발목 중간부터 Top 까지
-                height = getDistance(getCenter(data.getLeftankle(), data.getRightankle()), data.getTop());
-
-                //진짜 길이 구하기
-                origin_LShoulderToElbow = getOrigin(LShoulderToElbow);
-                origin_bodyDistance = getOrigin(bodyDistance);
-                origin_RShoulderToElbow = getOrigin(RShoulderToElbow);
-                origin_LAnkleToknee = getOrigin(LAnkleToknee);
-                origin_RAnkleToknee = getOrigin(RAnkleToknee);
-                origin_LElbowToWrist = getOrigin(LElbowToWrist);
-                origin_RElbowToWrist = getOrigin(RElbowToWrist);
-                origin_LKneeToHip = getOrigin(LKneeToHip);
-                origin_RKneeToHip = getOrigin(RKneeToHip);
-                origin_shoulderWidth = getOrigin(shoulderWidth);
-
                 Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
 
                 intent.putExtra("name",getIntent().getStringExtra("name"));
@@ -190,7 +160,6 @@ public class PosenetActivity extends AppCompatActivity {
         // 1. 불러온 인텐트 값을 이용해서 파일을 바이너리로 읽는다.
         // 2. Http Connection  을 열어서  Naver 로 결과를 받아온다.
         // 3. 받아온 결과를 출력한다.
-
     }
 
     private void resize(File inFile, File outFile){
@@ -211,24 +180,4 @@ public class PosenetActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    public double getDistance (HumanSkeleton.Point a, HumanSkeleton.Point b) {
-        return Math.sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
-    }
-
-    public HumanSkeleton.Point getCenter(HumanSkeleton.Point a, HumanSkeleton.Point b) {
-        HumanSkeleton.Point point = new HumanSkeleton.Point(0, 0);
-        point.x = (a.x + b.x)/2;
-        point.y = (a.y + b.y)/2;
-        return point;
-    }
-
-    public double getOrigin(double X) {
-        return (origin_Height * X)/height;
-    }
-
-    public double getAve(double a, double b) {
-        return (a + b)/2;
-    }
-
 }

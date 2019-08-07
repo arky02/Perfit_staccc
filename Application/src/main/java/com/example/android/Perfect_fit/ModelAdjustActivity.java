@@ -25,6 +25,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
     private HumanSkeleton humanSkeleton;
     com.example.android.Perfect_fit.MySurfaceView mySurfaceView;
     Button btn_ok;
+
     double distance;
 
     @Override
@@ -47,6 +48,8 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
                 intent1.putExtra("name",getIntent().getStringExtra("name"));
                 intent1.putExtra("height",getIntent().getStringExtra("height"));
+                intent1.putExtra("distance",distance);
+                intent1.putExtra("skeleton", getIntent().getParcelableExtra("skeleton"));
                 startActivity(intent1);
             }
         });

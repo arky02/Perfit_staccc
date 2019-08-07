@@ -3,6 +3,7 @@ package com.example.android.Perfect_fit;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.graphics.Color;
 
 import androidx.core.content.ContextCompat;
@@ -75,10 +76,11 @@ public class ModelCreateActivity extends AppCompatActivity {
             }
         });
 
+
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mintent = new Intent(getApplicationContext(), PosenetActivity.class);
+                Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
                 mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
                 mintent.putExtra("name",name.getText().toString());
                 mintent.putExtra("height",key.getText().toString());
