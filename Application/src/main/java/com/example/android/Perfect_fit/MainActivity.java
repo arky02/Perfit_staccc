@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist,
             origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
     double origin_leg, origin_arm, distance;
-    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button_name = findViewById(R.id.button_name);
-        tv = findViewById(R.id.tv);
 
         Intent mintent = getIntent();
         data = mintent.getParcelableExtra("skeleton");
@@ -42,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         origin_LKneeToHip = getOrigin(getDistance(data.getLeftknee(), data.getLefthip()));
         origin_RKneeToHip = getOrigin(getDistance(data.getRightknee(), data.getRighthip()));
         origin_shoulderWidth = getOrigin(getDistance(data.getLeftshoulder(), data.getRightshoulder()));
-
-        tv.setText("다리길이 : " + (origin_RKneeToHip + origin_RAnkleToknee));
 
         button_name.setOnClickListener(new View.OnClickListener() {
             @Override
