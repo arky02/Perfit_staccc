@@ -3,6 +3,7 @@ package com.example.android.Perfect_fit;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.graphics.Color;
 
 import androidx.core.content.ContextCompat;
@@ -39,11 +40,11 @@ public class ModelCreateActivity extends AppCompatActivity {
                 isNameInputed = name.getId() == R.id.name && s.length() > 0;
                 check.setEnabled(isNameInputed && isKeyInputed);
                 if (check.isEnabled()){
-                    check.setTextColor(Color.parseColor("#000000"));
-                    check.setBackgroundResource(R.drawable.buttondesign);
+//                    check.setTextColor(Color.parseColor("#000000"));
+//                    check.setBackgroundResource(R.drawable.buttondesign);
                 }else{
-                    check.setTextColor(Color.parseColor("#80000000"));
-                    check.setBackgroundResource(R.drawable.buttondesign_disabled);
+//                    check.setTextColor(Color.parseColor("#80000000"));
+//                    check.setBackgroundResource(R.drawable.buttondesign_disabled);
                 }
             }
 
@@ -61,12 +62,12 @@ public class ModelCreateActivity extends AppCompatActivity {
                 isKeyInputed = key.getId() == R.id.key && s.length() > 0;
                 check.setEnabled(isNameInputed && isKeyInputed);
                 if (check.isEnabled()){
-                    check.setTextColor(Color.parseColor("#80000000"));
-                    check.setBackgroundResource(R.drawable.buttondesign);
+//                    check.setTextColor(Color.parseColor("#80000000"));
+//                    check.setBackgroundResource(R.drawable.buttondesign);
 
                 }else{
-                    check.setTextColor(Color.parseColor("#A0A0A0"));
-                    check.setBackgroundResource(R.drawable.buttondesign_disabled);
+//                    check.setTextColor(Color.parseColor("#A0A0A0"));
+//                    check.setBackgroundResource(R.drawable.buttondesign_disabled);
                 }
             }
 
@@ -75,10 +76,11 @@ public class ModelCreateActivity extends AppCompatActivity {
             }
         });
 
+
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mintent = new Intent(getApplicationContext(), PosenetActivity.class);
+                Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
                 mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
                 mintent.putExtra("name",name.getText().toString());
                 mintent.putExtra("height",key.getText().toString());
