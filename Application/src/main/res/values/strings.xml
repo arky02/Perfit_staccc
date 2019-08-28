@@ -23,6 +23,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="text_forget"><u>FORGET PASSWORD?</u></string>
+    <string name="title_activity_fitting">fittingActivity</string>
 
 
 </resources>

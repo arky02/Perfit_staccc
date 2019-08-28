@@ -5,19 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.Perfect_fit.CameraActivity"
-    android:gravity="center"
+    android:gravity="center|top"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="96.9dp"
-        android:layout_height="85dp"
-        android:src="@drawable/logo_color" />
+        android:layout_marginTop="230dp"
+        android:layout_width="137dp"
+        android:layout_height="115dp"
+        android:src="@drawable/logo_text" />
+    
+    <ImageView
+        android:layout_marginTop="170dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/wifi_white"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="WI-FI를 권장합니다"
         android:textColor="#ee6d80"
-        android:text="perfit"
-        android:textSize="27sp"/>
+        android:textSize="8sp"
+        android:fontFamily="@font/nanumsquare"
+        android:layout_marginTop="2dp"/>
+
+
 
 </LinearLayout>

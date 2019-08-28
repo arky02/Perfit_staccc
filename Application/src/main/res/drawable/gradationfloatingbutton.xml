@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+            <gradient
+                android:angle="90"
+                android:startColor="#ee6d80"
+                android:endColor="#e890e8" />
+        </shape>
+
+    </item>
+    <item android:gravity="center">
+        <bitmap android:src="@drawable/cloth_icon"
+            android:gravity="fill_horizontal" />
+    </item>
+
+</layer-list>

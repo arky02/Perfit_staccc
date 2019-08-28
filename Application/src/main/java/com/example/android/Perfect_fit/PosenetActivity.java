@@ -125,22 +125,24 @@ public class PosenetActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Log.e("error", ""+data.isOk());
 
             if(data.isOk()) {
                 Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
 
                 intent.putExtra("name",getIntent().getStringExtra("name"));
                 intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("CameraChoose", getIntent().getIntExtra("CameraChoose", 0));
+                Log.e("cameraq", ""+getIntent().getIntExtra("CameraChoose", 0));
                 intent.putExtra("skeleton", data);
 
                 startActivity(intent);
+                finish();
             }
             else {
                 Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
                 finish();
             }
-
-            // TODO: Spinner 내리기
         }
     }
 

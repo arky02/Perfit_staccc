@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:fontFamily="@font/nanumsquare"
         android:textStyle="bold"
         android:layout_marginTop="29dp"
         android:gravity="center"
@@ -41,6 +42,8 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_rePic"
+                android:fontFamily="@font/nanumsquare"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -54,6 +57,7 @@
                 android:background="#000000"></LinearLayout>
 
             <Button
+                android:fontFamily="@font/nanumsquare"
                 android:background="#FFFFFF"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"

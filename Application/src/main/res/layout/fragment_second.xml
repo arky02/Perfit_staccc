@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:id="@+id/btn_dress"
+            android:clickable="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="146dp"
+            android:layout_height="146dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/buttondesign5">
+
+            <ImageView
+                android:layout_width="130.6dp"
+                android:layout_height="79dp"
+                android:src="@drawable/dress"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원피스/드레스"
+                android:textSize="11sp"
+                android:layout_marginTop="10.3dp"
+                android:textColor="#4b4b4b"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_skirt"
+            android:clickable="true"
+            android:layout_width="146dp"
+            android:layout_height="146dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/buttondesign5">
+
+            <ImageView
+                android:layout_marginLeft="8dp"
+                android:layout_width="92dp"
+                android:layout_height="79.7dp"
+                android:src="@drawable/skirt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="치마/스커트"
+                android:textSize="11sp"
+                android:layout_marginTop="10.3dp"
+                android:textColor="#4b4b4b"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

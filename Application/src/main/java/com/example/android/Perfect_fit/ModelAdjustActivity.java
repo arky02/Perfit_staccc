@@ -24,7 +24,10 @@ public class ModelAdjustActivity extends AppCompatActivity {
 
     private HumanSkeleton humanSkeleton;
     com.example.android.Perfect_fit.MySurfaceView mySurfaceView;
-    Button btn_ok;
+    Button btn_ok, btn_rePic;
+    int isPick;
+    final int PICH_ME = 1;
+    final int PICK_OTHER = 2;
 
     double distance;
 
@@ -35,9 +38,12 @@ public class ModelAdjustActivity extends AppCompatActivity {
 
         mySurfaceView = findViewById(R.id.surfaceview);
         btn_ok = findViewById(R.id.btn_ok);
+        btn_rePic = findViewById(R.id.btn_rePic);
 
         Intent intent = getIntent();
         humanSkeleton = intent.getParcelableExtra("skeleton");
+        isPick = intent.getIntExtra("CameraChoose", 0);
+        Log.e("camera", ""+isPick);
         mySurfaceView.setHumanSkeleton(humanSkeleton);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +57,28 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 intent1.putExtra("distance",distance);
                 intent1.putExtra("skeleton", getIntent().getParcelableExtra("skeleton"));
                 startActivity(intent1);
+                finish();
             }
         });
 
+        btn_rePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (isPick) {
+                    case PICH_ME :
+                        Intent intent = new Intent(ModelAdjustActivity.this, CameraActivity.class);
+                        intent.putExtra("CameraChoose", 1);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case PICK_OTHER :
+                        Intent intent1 = new Intent(ModelAdjustActivity.this, CameraActivity.class);
+                        intent1.putExtra("CameraChoose", 2);
+                        startActivity(intent1);
+                        finish();
+                        break;
+                }
+            }
+        });
     }
 }
