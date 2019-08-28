@@ -49,7 +49,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 intent1.putExtra("name",getIntent().getStringExtra("name"));
                 intent1.putExtra("height",getIntent().getStringExtra("height"));
                 intent1.putExtra("distance",distance);
-                intent1.putExtra("skeleton", getIntent().getParcelableExtra("skeleton"));
+//                intent1.putExtra("skeleton", getIntent().getParcelableExtra("skeleton"));
                 startActivity(intent1);
             }
         });

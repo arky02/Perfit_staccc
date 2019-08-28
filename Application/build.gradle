@@ -29,6 +29,7 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.gms:play-services-vision:18.0.0'
 
     testImplementation 'junit:junit:4.12'
     implementation 'com.rmtheis:tess-two:5.4.1'
@@ -77,6 +78,10 @@ android {
         androidTest.setRoot('tests')
         androidTest.java.srcDirs = ['tests/src']
 
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 
 

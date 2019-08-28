@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -14,29 +16,19 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/logologo"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".EditDistance">
-
-        </activity>
+        <activity android:name=".VisionOCR"></activity>
+        <activity android:name=".EditDistance"></activity>
         <activity android:name=".ModelAdjustActivity" />
         <activity android:name=".SigninActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".OCRActivity" />
         <activity android:name=".TableimageToString">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PosenetActivity" />
         <activity
@@ -63,12 +55,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".CameraActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="orc" />
     </application>
 
 </manifest>
