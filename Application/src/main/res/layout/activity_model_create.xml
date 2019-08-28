@@ -15,6 +15,7 @@
         android:src="@drawable/logo_color" />
 
     <TextView
+        android:fontFamily="@font/nanumsquare"
         android:layout_marginTop="29.8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
         android:textSize="19sp" />
 
     <TextView
+        android:fontFamily="@font/nanumsquare"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +42,7 @@
         android:gravity="center">
 
         <EditText
+            android:fontFamily="@font/nanumsquare"
             android:id="@+id/name"
             android:layout_width="230dp"
             android:layout_height="40dp"
@@ -56,6 +59,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:fontFamily="@font/nanumsquare"
                 android:id="@+id/key"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
@@ -66,6 +70,7 @@
                 android:textColorHint="#4b4b4b" />
 
             <TextView
+                android:fontFamily="@font/nanumsquare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@+id/key"
@@ -79,6 +84,7 @@
     </LinearLayout>
 
     <Button
+        android:fontFamily="@font/nanumsquare"
         android:id="@+id/check"
         android:layout_width="203dp"
         android:layout_height="41dp"

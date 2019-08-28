@@ -60,22 +60,23 @@ public class EditDistance extends AppCompatActivity {
         hashmap_UP.put("armholedouble", "암홀둘레");
 
 
-        List<String> values = new ArrayList(hashmap_UP.values());
 
 
-//        HashMap<String,String> hashmap_DOWN = new HashMap<>();
-//        hashmap_DOWN.put("waist","허리(밴딩),밴딩,허리,허리너비,밴딩길이,허리길이,허리단면,밴딩단면");
-//        hashmap_DOWN.put("waistdouble","허리둘레,밴딩둘레");
-//        hashmap_DOWN.put("hip","엉덩이,엉덩이단면,엉덩이길이");
-//        hashmap_DOWN.put("hipdouble", "엉덩이둘레");
-//        hashmap_DOWN.put("thigh", "허벅지,허벅지단면");
-//        hashmap_DOWN.put("thighdouble", "허벅지둘레");
-//        hashmap_DOWN.put("mitwe", "밑위,밑위길이,밑위단면");
-//        hashmap_DOWN.put("bottomlength","밑단,밑단단면,밑단길이");
-//        hashmap_DOWN.put("bottomlengthdouble","밑단둘레");
-//        hashmap_DOWN.put("verticallength", "총기장,총장,옷길이,총길이,기장");
+
+        HashMap<String,String> hashmap_DOWN = new HashMap<>();
+        hashmap_DOWN.put("waist","허리(밴딩),밴딩,허리,허리너비,밴딩길이,허리길이,허리단면,밴딩단면");
+        hashmap_DOWN.put("waistdouble","허리둘레,밴딩둘레");
+        hashmap_DOWN.put("hip","엉덩이,엉덩이단면,엉덩이길이");
+        hashmap_DOWN.put("hipdouble", "엉덩이둘레");
+        hashmap_DOWN.put("thigh", "허벅지,허벅지단면");
+        hashmap_DOWN.put("thighdouble", "허벅지둘레");
+        hashmap_DOWN.put("mitwe", "밑위,밑위길이,밑위단면");
+        hashmap_DOWN.put("bottomlength","밑단,밑단단면,밑단길이");
+        hashmap_DOWN.put("bottomlengthdouble","밑단둘레");
+        hashmap_DOWN.put("verticallength", "총기장,총장,옷길이,총길이,기장");
 
         //이미지 디코딩을 위한 초기화
+
         String OCRresult = getIntent().getStringExtra("OCRresult");
         Log.d("OCRresult", OCRresult);
         // 텍스트 유사도 분석을 위한 split
@@ -86,19 +87,8 @@ public class EditDistance extends AppCompatActivity {
             finalList[i] = list1[i].split(" ");
         }
 
-        for (int i = 0; i <= finalList[0].length - 1; i++) {
-            for (int k = 0; k <= values.size(); k++) {
-                int levendis = levenshteinDistance(finalList[0][i], values.get(k));
-                if (levendis < min) {
-                    min = levendis;
-                }
-            }
-            finalList[0][i] = Objects.requireNonNull(getKey(hashmap_UP, values.get(min))).toString();
-        }
 
-                for(int y = 0; y<=  finalList[0].length; y++ ){
-                    Log.e("finallist"+y, finalList[0][y]);
-                }
+        applyFinalListJASO(hashmap_UP);
 
 //
 //
@@ -148,6 +138,25 @@ public class EditDistance extends AppCompatActivity {
 
 //            tv.setText(finalList[0][0]);
 //            tv2.setText(String.valueOf(b));
+
+        }
+
+        public void applyFinalListJASO(HashMap<String, String> hashMap){
+            List<String> values = new ArrayList(hashMap.values());
+
+            for (int i = 0; i <= finalList[0].length - 1; i++) {
+                for (int k = 0; k <= values.size(); k++) {
+                    int levendis = levenshteinDistance(finalList[0][i], values.get(k));
+                    if (levendis < min) {
+                        min = levendis;
+                    }
+                }
+                finalList[0][i] = Objects.requireNonNull(getKey(hashMap, values.get(min))).toString();
+            }
+
+            for(int y = 0; y<=  finalList[0].length; y++ ){
+                Log.e("finallist"+y, finalList[0][y]);
+            }
 
         }
 

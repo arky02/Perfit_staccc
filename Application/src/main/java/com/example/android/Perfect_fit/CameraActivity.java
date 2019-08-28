@@ -32,6 +32,8 @@ public class CameraActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("name",getIntent().getStringExtra("name"));
                 bundle.putString("height",getIntent().getStringExtra("height"));
+                bundle.putInt("CameraChoose",getIntent().getIntExtra("CameraChoose", 0));
+                Log.e("cameraq", ""+getIntent().getIntExtra("CameraChoose", 0));
 
                 Camera2BasicFragment frag = Camera2BasicFragment.newInstance();
                 frag.setArguments(bundle);
@@ -43,6 +45,8 @@ public class CameraActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("name",getIntent().getStringExtra("name"));
                 bundle.putString("height",getIntent().getStringExtra("height"));
+                bundle.putInt("CameraChoose",getIntent().getIntExtra("CameraChoose", 0));
+                Log.e("cameraq", ""+getIntent().getIntExtra("CameraChoose", 0));
                 Log.e("name,height2",getIntent().getStringExtra("name")+getIntent().getStringExtra("height"));
                 Camera2BasicFragment_other frag1 = Camera2BasicFragment_other.newInstance();
                 frag1.setArguments(bundle);

@@ -41,10 +41,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         surfaceHolder.addCallback(this);
         renderingThread = new MySurfaceView.RenderingThread();
         Resources r = context.getResources();
-        img_toe = BitmapFactory.decodeResource(r, R.drawable.toebar);
-        img_head = BitmapFactory.decodeResource(r, R.drawable.headbar);
-        resize_img_toe = Bitmap.createScaledBitmap(img_toe, img_toe.getWidth() * 5 , img_toe.getHeight() * 4, true);
-        resize_img_head = Bitmap.createScaledBitmap(img_head, img_head.getWidth() * 5, img_head.getHeight() * 4, true);
+        img_toe = BitmapFactory.decodeResource(r, R.drawable.toebar_fin);
+        img_head = BitmapFactory.decodeResource(r, R.drawable.headbar_fin);
+        resize_img_toe = Bitmap.createScaledBitmap(img_toe, img_toe.getWidth() , img_toe.getHeight(), true);
+        resize_img_head = Bitmap.createScaledBitmap(img_head, img_head.getWidth(), img_head.getHeight() , true);
     }
 
     public MySurfaceView(Context context, AttributeSet attrs) {
@@ -106,6 +106,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                         h = img.getHeight();
                         x1 = canvas.getWidth() / 5;
                         x2 = canvas.getWidth() - canvas.getWidth() / 5;
+                        float x, y;
 
                         right = canvas.getWidth();
                         bottom = h * canvas.getWidth() / w;
@@ -123,8 +124,28 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                         if(Head == 0 && Bottom == 0) {
                             Head = (float)humanSkeleton.getTop().y * bottom;
                             Bottom = (float)humanSkeleton.getRightankle().y * bottom;
-                        }
 
+                            x = (float) (humanSkeleton.getLeftankle().x * right);
+                            y = (float) (humanSkeleton.getLeftankle().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+                            x = (float) (humanSkeleton.getRightankle().x * right);
+                            y = (float) (humanSkeleton.getRightankle().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+                            x = (float) (humanSkeleton.getLeftknee().x * right);
+                            y = (float) (humanSkeleton.getLeftknee().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+                            x = (float) (humanSkeleton.getRightknee().x * right);
+                            y = (float) (humanSkeleton.getRightknee().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+                            x = (float) (humanSkeleton.getLefthip().x * right);
+                            y = (float) (humanSkeleton.getLefthip().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+                            x = (float) (humanSkeleton.getRighthip().x * right);
+                            y = (float) (humanSkeleton.getRighthip().y * bottom);
+                            canvas.drawPoint(x,y,paint);
+
+                        }
+                        //문제 : 긴바지 입고있으면 무릎, 발목인식 못함
                         DrawImg(resize_img_toe, (int)Bottom);
                         DrawImg(resize_img_head, (int)Head);
 
@@ -141,7 +162,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         Rect src = new Rect(0, 0, w, h);
         Rect dst = new Rect(0, y, right, y + bottom);
         canvas.drawBitmap(bitmap, src, dst, paint);
-        Log.e("draw Check", "check");
     }
 
     boolean TopCheck = false;
@@ -153,10 +173,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getY() >= Head - 60 && event.getY() <= Head + 60) {
+                if (event.getY() >= Head - 80 && event.getY() <= Head + 80) {
                     TopCheck = true;
                 }
-                else if(event.getY() >= Bottom - 60 && event.getY() <= Bottom + 60) {
+                else if(event.getY() >= Bottom - 80 && event.getY() <= Bottom + 80) {
                     BottomCheck = true;
                 }
                 else {
@@ -166,12 +186,14 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
             case MotionEvent.ACTION_MOVE:
                 if(TopCheck) {
-                    if(event.getY() >= Head -30 && event.getY() <= Head + 30) {
+                    if(event.getY() >= Head -160 && event.getY() <= Head + 160) {
+                        Log.e("check", "isget");
                         Head = event.getY();
                     }
                 }
                 else if(BottomCheck) {
-                    if(event.getY() >= Bottom - 150 && event.getY() <= Bottom + 150) {
+                    if(event.getY() >= Bottom - 160 && event.getY() <= Bottom + 160) {
+                        Log.e("check", "isget");
                         Bottom = event.getY();
                     }
                 }

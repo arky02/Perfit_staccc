@@ -273,10 +273,13 @@ Camera2BasicFragment extends Fragment
 
             if (isDone) {
                 Intent mintent = new Intent(getActivity(), PosenetActivity.class);
-                mintent.putExtra("img",mFile.getAbsolutePath());
                 assert getArguments() != null;
-                mintent.putExtra("height",getArguments().getBundle("height"));
-                mintent.putExtra("name",getArguments().getBundle("name"));
+                mintent.putExtras(getArguments());
+                mintent.putExtra("img",mFile.getAbsolutePath());
+                mintent.putExtra("name",getActivity().getIntent().getStringExtra("name"));
+                mintent.putExtra("height",getActivity().getIntent().getStringExtra("height"));
+                mintent.putExtra("CameraChoose", getActivity().getIntent().getIntExtra("CameraChoose", 0));
+                Log.e("cameraq", ""+getActivity().getIntent().getIntExtra("CameraChoose", 0));
                 startActivity(mintent);
             }
         }
@@ -579,8 +582,6 @@ Camera2BasicFragment extends Fragment
         text_countdown = view.findViewById(R.id.text_countdown);
         text_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-
-        Toast.makeText(getActivity(), "me", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -1008,7 +1009,6 @@ Camera2BasicFragment extends Fragment
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }

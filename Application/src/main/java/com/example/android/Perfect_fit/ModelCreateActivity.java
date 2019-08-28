@@ -3,24 +3,23 @@ package com.example.android.Perfect_fit;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
-import android.graphics.Color;
 
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ModelCreateActivity extends AppCompatActivity {
 
     EditText name, key;
     boolean isNameInputed, isKeyInputed;
     Button check;
+    final int UNCONNECTED = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +75,17 @@ public class ModelCreateActivity extends AppCompatActivity {
             }
         });
 
-
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
-                mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
-                mintent.putExtra("name",name.getText().toString());
-                mintent.putExtra("height",key.getText().toString());
-                startActivity(mintent);
+                if(InternetCheck()) {
+                    Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
+                    mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
+                    mintent.putExtra("name",name.getText().toString());
+                    mintent.putExtra("height",key.getText().toString());
+                    startActivity(mintent);
+                    finish();
+                }
             }
         });
 
@@ -133,6 +134,17 @@ public class ModelCreateActivity extends AppCompatActivity {
 
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }
+
+    public boolean InternetCheck() {
+        int status = NetworkStatus.getConnectivityStatus(getApplicationContext());
+        if(status == UNCONNECTED) {
+            Toast.makeText(this, "인터넷 연결을 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            return true;
         }
     }
 }

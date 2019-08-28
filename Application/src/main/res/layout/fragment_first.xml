@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:id="@+id/btn_shirt"
+            android:clickable="true"
+            android:layout_width="146dp"
+            android:layout_height="146dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/buttondesign5">
+
+            <ImageView
+                android:layout_width="101.6dp"
+                android:layout_height="84dp"
+                android:src="@drawable/tshirt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="티셔츠/가디건/니트/남방"
+                android:textSize="11sp"
+                android:layout_marginTop="10.3dp"
+                android:textColor="#4b4b4b"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_pants"
+            android:clickable="true"
+            android:layout_width="146dp"
+            android:layout_height="146dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/buttondesign5">
+
+            <ImageView
+                android:layout_marginLeft="8dp"
+                android:layout_width="91.8dp"
+                android:layout_height="86.7dp"
+                android:src="@drawable/pants"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="바지/팬츠"
+                android:textSize="11sp"
+                android:layout_marginTop="10.3dp"
+                android:textColor="#4b4b4b"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

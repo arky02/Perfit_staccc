@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="286dp"
+        android:layout_height="300dp"
         android:orientation="vertical">
 
         <ImageView
@@ -29,30 +29,33 @@
             android:orientation="vertical">
 
             <TextView
+                android:fontFamily="@font/nanumsquare"
+                android:layout_marginTop="20dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="생성할 모델의"
-                android:textColor="#ff1783"
+                android:textColor="#292929"
                 android:textSize="16dp" />
 
             <TextView
+                android:fontFamily="@font/nanumsquare"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="이름과 키를 입력하세요"
-                android:textColor="#ff1783"
+                android:textColor="#292929"
                 android:textSize="16dp" />
 
             <EditText
+                android:fontFamily="@font/nanumsquare"
+                android:textColorHint="#000000"
                 android:id="@+id/edt_name"
-                android:layout_width="250dp"
+                android:layout_width="230dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="17dp"
-                android:background="#ffe6f1"
+                android:layout_marginTop="30dp"
                 android:hint="이름"
                 android:padding="10dp"
-                android:textColorHint="#b83b75"
                 android:textSize="13sp" />
 
             <RelativeLayout
@@ -60,17 +63,19 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:fontFamily="@font/nanumsquare"
+                    android:textColorHint="#000000"
                     android:id="@+id/edt_height"
-                    android:layout_width="250dp"
+                    android:layout_width="230dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="9dp"
-                    android:background="#ffe6f1"
                     android:hint="키"
                     android:padding="10dp"
-                    android:textColorHint="#b83b75"
                     android:textSize="13sp" />
 
                 <TextView
+                    android:fontFamily="@font/nanumsquare"
+                    android:textColor="#000000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignRight="@+id/edt_height"
@@ -82,13 +87,15 @@
             </RelativeLayout>
 
             <Button
+                android:fontFamily="@font/nanumsquare"
                 android:id="@+id/btn_ok"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
+                android:layout_width="203dp"
+                android:layout_height="41dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/buttondesign2"
                 android:text="OK"
                 android:textColor="#FFFFFF"
+                android:layout_marginBottom="58dp"
                 android:textSize="16sp" />
 
         </LinearLayout>

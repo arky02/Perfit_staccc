@@ -217,10 +217,12 @@ public class HumanSkeleton implements Parcelable {
         if(nose == null || (rightwrist == null && leftwrist == null) || (rightknee == null && leftknee == null) || neck == null || (rightankle == null && leftankle == null)
          || (righthip == null && lefthip == null) || (rightelbow == null && leftelbow == null) || (rightshoulder == null && leftshoulder == null)) {
             isOk = false;
+            Log.e("error check1", "ok");
         }
         else {
             top = new Point(nose.x, nose.y + nose.y - neck.y);
             isOk = true;
+            Log.e("error check2", "ok");
         }
     }
 

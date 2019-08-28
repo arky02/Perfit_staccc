@@ -269,7 +269,10 @@ public class Camera2BasicFragment_other extends Fragment
                 mintent.putExtra("img",mFile.getAbsolutePath());
                 mintent.putExtra("name",getActivity().getIntent().getStringExtra("name"));
                 mintent.putExtra("height",getActivity().getIntent().getStringExtra("height"));
+                mintent.putExtra("CameraChoose", getActivity().getIntent().getIntExtra("CameraChoose", 0));
+                Log.e("cameraq", ""+getActivity().getIntent().getIntExtra("CameraChoose", 0));
                 startActivity(mintent);
+
             }
         }
 
@@ -509,7 +512,6 @@ public class Camera2BasicFragment_other extends Fragment
         txt_perfectlevel.setVisibility(View.INVISIBLE);
         txt_guide = view.findViewById(R.id.txt_guide);
         mTextureView = view.findViewById(R.id.texture);
-        Toast.makeText(getActivity(), "other", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -921,7 +923,6 @@ public class Camera2BasicFragment_other extends Fragment
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }
