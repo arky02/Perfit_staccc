@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -44,6 +45,7 @@ import static org.opencv.imgproc.Imgproc.erode;
 import static org.opencv.imgproc.Imgproc.getStructuringElement;
 import static org.opencv.imgproc.Imgproc.resize;
 import static org.opencv.imgproc.Imgproc.threshold;
+import static com.example.android.Perfect_fit.VisionOCR.ACTIVITY_SERVICE;
 
 
 public class TableimageToString extends AppCompatActivity {
@@ -55,9 +57,8 @@ public class TableimageToString extends AppCompatActivity {
     private TessBaseAPI mTess; //Tess API reference
     String datapath = ""; //언어데이터가 있는 경로
     LinearLayout ll;
-    public static int thresholdMin = 85; // Threshold 80 to 105 is Ok
+    public static int thresholdMin = 145; // Threshold 80 to 105 is Ok
     private int thresholdMax = 255; // Always 255
-
     public String recognizeResult = "";
     Mat origin;
 
@@ -68,6 +69,7 @@ public class TableimageToString extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dimension_table_select);
 
+        OpenCVLoader.initDebug();
         btn_okay = findViewById(R.id.picture);
         ProgressBar progress = findViewById(R.id.loader);
         progress.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FF1684"), PorterDuff.Mode.MULTIPLY);
@@ -82,20 +84,23 @@ public class TableimageToString extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//
-
                 if(resultUri!= null){
                     ll.bringToFront();
                     ll.setVisibility(VISIBLE);
+                    Log.e("recognizeResult", "okaybtn");
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             BitmaptoMat(bitmapimg);
+                            Log.e("recognizeResult", "thread");
+                            Log.e("recognizeResult", recognizeResult);
+//                            Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
+////                            mintent.putExtra("OCR result", recognizeResult);
                             Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
-                            mintent.putExtra("OCR result", recognizeResult);
+                            mintent.putExtra("OCRresult", recognizeResult);
                             startActivity(mintent);
-
+                            //TODO
                         }
                     }).start();
 
@@ -182,6 +187,8 @@ public class TableimageToString extends AppCompatActivity {
 //      mTess.setImage(image);  이 image는...? 연결 필요
         mTess.setImage(bitmap);
         OCRresult = mTess.getUTF8Text();
+        Log.e("OCRresult", OCRresult);
+        Log.e("OCRresult","OCRresult" );
 
         return OCRresult;
 //        Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
@@ -256,6 +263,7 @@ public class TableimageToString extends AppCompatActivity {
         originGray = processNoisy(originGray);  //노이즈 제거
 
         recognizeResult = matToString(originGray); //matToString 함수 거침>> OCR로 텍스트 추출 결과 반환 -- recognizeResult = OCR로 변환된 String
+        matToString(originGray);
         Log.i("tag","Done recognize");
 
         originGray.release();
@@ -268,28 +276,18 @@ public class TableimageToString extends AppCompatActivity {
     /**
      * Process noisy or blur image with simplest filters
      * @param grayMat
-     * @return
+     * @returni
      */
     private Mat processNoisy(Mat grayMat) {
         Mat element1 = getStructuringElement(MORPH_RECT, new Size(2, 2), new Point(1, 1));
         Mat element2 = getStructuringElement(MORPH_RECT, new Size(2, 2), new Point(1, 1));
         dilate(grayMat, grayMat, element1);
         erode(grayMat, grayMat, element2);
-
-        GaussianBlur(grayMat, grayMat, new Size(3, 3), 0);
-        // The thresold value will be used here
         threshold(grayMat, grayMat, thresholdMin, thresholdMax, THRESH_BINARY);
 
         return grayMat;
     }
 
-    private String matToString(Mat source) {
-        int newWidth = source.width()/2;
-        resize(source, source, new Size(newWidth, (source.height() * newWidth) / source.width()));
-        String result = processImage(toBitmap(source));
-        //result = result.replace("O", "0"); // Replace O to 0 if have.
-        return result;
-    }
 
     /**
      * Convert mat to bitmap
@@ -303,6 +301,16 @@ public class TableimageToString extends AppCompatActivity {
         Utils.matToBitmap(mat, bitmap);
         return bitmap;
     }
+
+    private String matToString(Mat source) {
+        int newWidth = source.width()/2;
+        resize(source, source, new Size(newWidth, (source.height() * newWidth) / source.width()));
+        String result = processImage(toBitmap(source));
+
+        return result;
+
+    }
+
     //-------------------------- Image improving ----------------------------
 
 

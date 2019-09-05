@@ -31,6 +31,7 @@ public class CameraChooseActivity extends AppCompatActivity {
         btn_pic_other = findViewById(R.id.btn_pic_other);
         btn_pic_me = findViewById(R.id.btn_pic_me);
 
+        btn_pic_me.setOnClickListener(v -> {
         btn_pic_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,11 +88,18 @@ public class CameraChooseActivity extends AppCompatActivity {
                 mintent.putExtra("name", getIntent().getStringExtra("name"));
                 mintent.putExtra("height", getIntent().getStringExtra("height"));
                 startActivity(mintent);
-                dialog.dismiss();
                 finish();
             }
         });
 
+        btn_pic_other.setOnClickListener(v ->
+        {Intent mintent2 = new Intent(getApplicationContext(), CameraActivity.class);
+        mintent2.putExtra("CameraChoose", 2);
+        mintent2.putExtra("name", getIntent().getStringExtra("name"));
+        mintent2.putExtra("height", getIntent().getStringExtra("height"));
+        Log.e("name,height2", getIntent().getStringExtra("name") + getIntent().getStringExtra("height"));
+        startActivity(mintent2);
+        finish();});
         dialog.show();
     }
 
