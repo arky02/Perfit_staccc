@@ -32,6 +32,7 @@ public class PosenetActivity extends AppCompatActivity {
     public static Context context;
     HumanSkeleton data;
     ProgressBar progress;
+    boolean isError = false;
 
     private class PoseEstimationTask extends AsyncTask<File, Double, String> {
         @Override
@@ -95,6 +96,7 @@ public class PosenetActivity extends AppCompatActivity {
                     br = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 } else {  // 에러 발생
                     Log.e("Pose Estimation", "error!!!!!!! responseCode= " + responseCode);
+                    isError = true;
                     br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                 }
                 String inputLine;
@@ -107,11 +109,11 @@ public class PosenetActivity extends AppCompatActivity {
                     return response.toString();
                 } else {
                     Log.e("Pose Estimation", "error !!!");
+                    isError = true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -120,28 +122,34 @@ public class PosenetActivity extends AppCompatActivity {
             super.onPostExecute(o);
             progress.setIndeterminate(false);
 
-            try {
-                data = new HumanSkeleton(o);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.e("error", ""+data.isOk());
-
-            if(data.isOk()) {
-                Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
-
-                intent.putExtra("name",getIntent().getStringExtra("name"));
-                intent.putExtra("height",getIntent().getStringExtra("height"));
-                intent.putExtra("CameraChoose", getIntent().getIntExtra("CameraChoose", 0));
-                Log.e("cameraq", ""+getIntent().getIntExtra("CameraChoose", 0));
-                intent.putExtra("skeleton", data);
-
-                startActivity(intent);
+            if(isError) {
+                Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {
-                Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
-                finish();
+                try {
+                    data = new HumanSkeleton(o);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("error", ""+data.isOk());
+
+                if(data.isOk()) {
+                    Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
+
+                    intent.putExtra("name",getIntent().getStringExtra("name"));
+                    intent.putExtra("height",getIntent().getStringExtra("height"));
+                    intent.putExtra("CameraChoose", getIntent().getIntExtra("CameraChoose", 0));
+                    Log.e("cameraq", ""+getIntent().getIntExtra("CameraChoose", 0));
+                    intent.putExtra("skeleton", data);
+
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         }
     }

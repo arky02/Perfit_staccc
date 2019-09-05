@@ -29,7 +29,6 @@ public class ModifyModelActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     List<Data_model> datamodel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +138,6 @@ public class ModifyModelActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
         datamodel = databaseHelper.getdata();
         recycler = new RecycleAdapter(datamodel);
-
 
         Log.i("HIteshdata", "" + datamodel);
         RecyclerView.LayoutManager reLayoutManager = new LinearLayoutManager(getApplicationContext());
