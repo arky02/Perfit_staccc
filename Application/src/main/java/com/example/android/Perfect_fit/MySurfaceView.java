@@ -159,8 +159,9 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void DrawImg(Bitmap bitmap, int y) {
-        Rect src = new Rect(0, 0, w, h);
-        Rect dst = new Rect(0, y, right, y + bottom);
+        Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        Rect dst = new Rect(0, y, right, y + (int)((double)right/ bitmap.getWidth() * bitmap.getHeight()));
+//        Rect dst = new Rect(0, y, right, y + right / bitmap.getWidth() * bitmap.getHeight());
         canvas.drawBitmap(bitmap, src, dst, paint);
     }
 

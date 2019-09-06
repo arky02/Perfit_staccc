@@ -12,12 +12,28 @@ import androidx.fragment.app.Fragment;
 
 public class FirstFragmentActivity extends Fragment {
 
+    boolean check = false;
+
     public FirstFragmentActivity() {
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(isVisibleToUser) {
+            if(check) {
+                ((GlobalData) getActivity().getApplicationContext()).setCheckFragment(1);
+            }
+        } else {
+
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        check = true;
     }
 
     @Nullable

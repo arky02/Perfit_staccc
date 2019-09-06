@@ -15,6 +15,15 @@ public class SecondFragmentActivity extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(isVisibleToUser) {
+            ((GlobalData) getActivity().getApplicationContext()).setCheckFragment(2);
+        } else {
+
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
