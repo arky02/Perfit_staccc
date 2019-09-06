@@ -32,9 +32,7 @@ import java.util.Objects;
 public class EditDistance extends AppCompatActivity {
 
     TextView tv,tv2;
-    ArrayList<String> listsize = null;
-    ArrayList<String> list = null;
-    String[] list1;
+    List<String> list1 = null;
     String[][] finalList;
     int min = 100000;
     ListView listview;
@@ -78,13 +76,15 @@ public class EditDistance extends AppCompatActivity {
         //이미지 디코딩을 위한 초기화
 
         String OCRresult = getIntent().getStringExtra("OCRresult");
-        Log.d("OCRresult", OCRresult);
+        Log.d("Editdistance_OCRresult", OCRresult);
         // 텍스트 유사도 분석을 위한 split
 
-        list1 = OCRresult.split("\n");
+        list1 =  Arrays.asList(OCRresult.split("\n"));
+        Log.d("list1[0]", list1.get(0));
+        Log.d("list[1]", list1.get(1));
 
-        for (int i = 0; i <= list1.length - 1; i++) {
-            finalList[i] = list1[i].split(" ");
+        for (int i = 0; i <= list1.size() - 1; i++) {
+            finalList[i] = list1.get(i).split(" ");
         }
 
 
