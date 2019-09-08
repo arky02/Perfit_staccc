@@ -3,6 +3,7 @@ package com.example.android.Perfect_fit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -31,11 +32,12 @@ import java.util.Objects;
 
 public class EditDistance extends AppCompatActivity {
 
-    TextView tv,tv2;
-    List<String> list1 = null;
-    String[][] finalList;
+    TextView tv, tv2;
+    String[] list1;
+    String[][] finalList, realFinalList;
     int min = 100000;
     ListView listview;
+    ArrayList<String> array;
 
 
     @Override
@@ -45,32 +47,30 @@ public class EditDistance extends AppCompatActivity {
 
 
         HashMap<String, String> hashmap_UP = new HashMap<>();
-        hashmap_UP.put("shoulder", "어깨넓이,어깨너비,어깨폭,어깨,어깨단면");
-        hashmap_UP.put("chest", "가슴폭,가슴,가슴단면");
-        hashmap_UP.put("arm", "소매,소매기장,소매길이,소매장,팔길이,소매단면,팔");
-        hashmap_UP.put("wrist", "손목단면,손목,손목길이");
+        hashmap_UP.put("shoulder", "어깨넓이,어깨너비,어깨폭,어깨,어깨단면");//5
+        hashmap_UP.put("chest", "가슴폭,가슴,가슴단면");//3
+        hashmap_UP.put("arm", "소매,소매기장,소매길이,소매길이(어깨포함),소매장,팔길이,팔");//7
+        hashmap_UP.put("wrist", "손목단면,손목,손목길이,소매단면");//3
         hashmap_UP.put("wristdouble", "손목둘레");
-        hashmap_UP.put("horizonarmdouble", "팔통둘레");
-        hashmap_UP.put("verticallength", "총기장,총장,옷길이,총길이,기장");
-        hashmap_UP.put("bottomlength", "밑단,밑단폭,밑단길이,밑단너비,밑단단면");
+        hashmap_UP.put("horizonarmdouble", "팔통둘레");///20
+        hashmap_UP.put("verticallength", "총기장,총장,옷길이,총길이,기장"); //5
+        hashmap_UP.put("bottomlength", "밑단,밑단폭,밑단길이,밑단너비,밑단단면"); //5
         hashmap_UP.put("chestdouble", "가슴둘레");
         hashmap_UP.put("armhole", "암홀단면,암홀");
         hashmap_UP.put("armholedouble", "암홀둘레");
 
 
 
-
-
-        HashMap<String,String> hashmap_DOWN = new HashMap<>();
-        hashmap_DOWN.put("waist","허리(밴딩),밴딩,허리,허리너비,밴딩길이,허리길이,허리단면,밴딩단면");
-        hashmap_DOWN.put("waistdouble","허리둘레,밴딩둘레");
-        hashmap_DOWN.put("hip","엉덩이,엉덩이단면,엉덩이길이");
+        HashMap<String, String> hashmap_DOWN = new HashMap<>();
+        hashmap_DOWN.put("waist", "허리(밴딩),밴딩,허리,허리너비,밴딩길이,허리길이,허리단면,밴딩단면");
+        hashmap_DOWN.put("waistdouble", "허리둘레,밴딩둘레");
+        hashmap_DOWN.put("hip", "엉덩이,엉덩이단면,엉덩이길이");
         hashmap_DOWN.put("hipdouble", "엉덩이둘레");
         hashmap_DOWN.put("thigh", "허벅지,허벅지단면");
         hashmap_DOWN.put("thighdouble", "허벅지둘레");
         hashmap_DOWN.put("mitwe", "밑위,밑위길이,밑위단면");
-        hashmap_DOWN.put("bottomlength","밑단,밑단단면,밑단길이");
-        hashmap_DOWN.put("bottomlengthdouble","밑단둘레");
+        hashmap_DOWN.put("bottomlength", "밑단,밑단단면,밑단길이");
+        hashmap_DOWN.put("bottomlengthdouble", "밑단둘레");
         hashmap_DOWN.put("verticallength", "총기장,총장,옷길이,총길이,기장");
 
         //이미지 디코딩을 위한 초기화
@@ -79,93 +79,95 @@ public class EditDistance extends AppCompatActivity {
         Log.d("Editdistance_OCRresult", OCRresult);
         // 텍스트 유사도 분석을 위한 split
 
-        list1 =  Arrays.asList(OCRresult.split("\n"));
-        Log.d("list1[0]", list1.get(0));
-        Log.d("list[1]", list1.get(1));
+        int listLength = OCRresult.split("\n").length;
+        list1 = new String[listLength];
 
-        for (int i = 0; i <= list1.size() - 1; i++) {
-            finalList[i] = list1.get(i).split(" ");
+        list1 = OCRresult.split("\n");
+        Log.d("list1[0]", list1[0]);
+        Log.d("list[1]", list1[1]);
+
+        finalList = new String[listLength][];
+        realFinalList = new String[listLength][];
+
+        for (int i = 0; i <= list1.length - 1; i++) {
+            finalList[i] = new String[list1[i].split(" ").length];
+            realFinalList[i] = new String[list1[i].split(" ").length];
+        }
+
+        for (int i = 0; i <= list1.length - 1; i++) {
+            finalList[i] = list1[i].split(" ");
+            if (i > 0) {
+                realFinalList[i] = list1[i].split(" ");
+            }
         }
 
 
         applyFinalListJASO(hashmap_UP);
 
-//
-//
-//            for (int j = 0; j <= finalList2.size() - 1; j++) {
-//                for (int i = 0; i <= finalList[j].length - 1; j++) {
-//                    for (int k = 0; k <= values.size(); k++) {
-//                        int levendis = levenshteinDistance(finalList[j][i], values.get(k));
-//                        if (levendis < min) {
-//                            min = levendis;
-//                            finalList[j][i] = values.get(k);
-//                        }
-//                    }
-//                }
-//            }
+        tv = findViewById(R.id.tv);
+        tv2 = findViewById(R.id.tv2);
 
-
-//        int max, min;
-//        int i;
-//
-//        max = arr[0];
-//        min = arr[0];
-//
-//        for (i = 0; i < SIZE; i++) {
-//            if (arr[i] > max) {
-//                max = arr[i];
-//            }
-//            if (arr[i] < min) {
-//                min = arr[i];
-//            }
-//        }
-//
-//        printf("max = %d\n", max); // max = 8
-//        printf("min = %d\n", min); // min = 1
-//
-//        return 0;
-//
-
-
-//        ArrayList<String> finalList1 = null;
-//        ArrayList<ArrayList<String>> finalList2 = null;
-
-            //레벤스타인 거리 구하기
-
-
-            tv = findViewById(R.id.tv);
-            tv2 = findViewById(R.id.tv2);
+        System.out.println(hashmap_UP.values());
+        System.out.println(hashmap_UP.values().size());
 
 //            tv.setText(finalList[0][0]);
 //            tv2.setText(String.valueOf(b));
 
-        }
+    }
 
-        public void applyFinalListJASO(HashMap<String, String> hashMap){
-            List<String> values = new ArrayList(hashMap.values());
+    public void applyFinalListJASO(HashMap<String, String> hashMap) {
+        List<String> values = new ArrayList(hashMap.values());
+        List<String> keys = new ArrayList(hashMap.keySet());
 
-            for (int i = 0; i <= finalList[0].length - 1; i++) {
-                for (int k = 0; k <= values.size(); k++) {
-                    int levendis = levenshteinDistance(finalList[0][i], values.get(k));
+        System.out.println("1" + values);
+        System.out.println("2" + values.size());
+
+        // 초기화 - min = 10000
+
+        String findKey = "";
+        // 1. finalList[0] =  이깨단먼 가슴단떤 소매갈이 임졸단면 소매단면 춤갈이
+        for (int j = 0; j < finalList[0].length; j++) {
+            for (int k = 0; k < values.size(); k++) {
+                String[] arrItem = values.get(k).split(",");
+                for (int i = 0; i < arrItem.length; i++) {
+                    int levendis = levenshteinDistance(finalList[0][j], arrItem[i]);
                     if (levendis < min) {
                         min = levendis;
+                        findKey = keys.get(k);
                     }
                 }
-                finalList[0][i] = Objects.requireNonNull(getKey(hashMap, values.get(min))).toString();
             }
-
-            for(int y = 0; y<=  finalList[0].length; y++ ){
-                Log.e("finallist"+y, finalList[0][y]);
-            }
+            realFinalList[0][j] = findKey;
+            System.out.println(j + "reallll" + realFinalList[0][j]);
 
         }
+
+        //proper realFinalList = {shoulder,chest,arm,armhole,wrist,verticallength}
+
+
+//        for (int i = 0; i <= finalList[0].length - 1; i++) {
+//            for (int k = 0; k <= hashmapUp_valLength - 1; k++) {
+//                int levendis = levenshteinDistance(finalList[0][i], values.get(k));
+//                if (levendis < min) {
+//                    min = levendis;
+//                }
+//            }
+//            finalList[0][i] = Objects.requireNonNull(getKey(hashMap, values.get(min))).toString();
+//            Log.d("finalList[0][i]" + i, i + "+" + values.get(min));
+//            System.out.println(finalList[0][i]);
+//        }
+
+
+    }
 
 
     public static Object getKey(HashMap<String, String> m, Object value) {
-        for(Object o: m.keySet()) {
-            if(m.get(o).equals(value)) {
-                return o; }
-        } return null;
+        for (Object o : m.keySet()) {
+            if (m.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
     }
 
 
@@ -199,7 +201,7 @@ public class EditDistance extends AppCompatActivity {
             }
         }
 
-         displayCostMatrix(costMatrix);
+        displayCostMatrix(costMatrix);
 
         return costMatrix[word1_len - 1][word2_len - 1];
     }
@@ -208,9 +210,9 @@ public class EditDistance extends AppCompatActivity {
 
         for (int i = 0; i < costMatrix.length; i++) {
             for (int j = 0; j < costMatrix[i].length; j++) {
-                Log.d("editdistance",costMatrix[i][j] + "\t");
+//                Log.d("editdistance", costMatrix[i][j] + "\t");
             }
-            Log.d("editdistance","newline");
+//            Log.d("editdistance", "newline");
         }
     }
 
@@ -251,8 +253,6 @@ public class EditDistance extends AppCompatActivity {
 
         return minimum;
     }
-
-
 
 
 }

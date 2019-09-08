@@ -1,0 +1,254 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--   Root container of Floating Widget View  -->
+    <RelativeLayout
+        android:id="@+id/root_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--  View while view is collapsed  -->
+
+        <RelativeLayout
+            android:id="@+id/collapse_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!--   ImageView of floating widget  -->
+            <ImageView
+                android:id="@+id/collapsed_iv"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/logo_with_shade"
+                tools:ignore="ContentDescription" />
+
+            <!--   Close button to close Floating Widget View  -->
+            <ImageView
+                android:id="@+id/close_floating_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle_shape"
+                android:src="@drawable/ic_close_white"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <!--   View while view is expanded   -->
+        <LinearLayout
+            android:id="@+id/expanded_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/floating_widget_image_view"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/logo_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#C72062"
+                    android:id="@+id/title"
+                    android:text="옷의 종류를 골라주세요" />
+
+
+                <!--  ImageView to Close Expanded View  -->
+                <ImageView
+                    android:id="@+id/close_expanded_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_close_black" />
+
+                <!--  ImageView to Open Activity  -->
+                <ImageView
+                    android:id="@+id/open_activity_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+
+                    android:src="@drawable/ic_aspect_ratio_black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear1table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TableRow>
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="상의류/외투"
+                            android:background="#DA809F"
+                            android:layout_margin="3dp"
+                            android:id="@+id/btn_tshirt"/>
+
+                        <Button
+                            android:layout_height="wrap_content"
+                            android:text="바지/팬츠"
+                            android:layout_width="100dp"
+                            android:layout_margin="3dp"
+                            android:background="#E95A8B"
+                            android:id="@+id/btn_pant"/>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="원피스/드레스"
+                            android:layout_margin="3dp"
+                            android:background="#E95A8B"
+                            android:id="@+id/btn_onepiece"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="치마/스커트"
+                            android:layout_margin="3dp"
+                            android:background="#DA809F"
+                            android:id ="@+id/chima"/>
+
+                    </TableRow>
+                </TableLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear2edt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="어깨 폭"
+                            android:textColor="#442522"
+                            android:id="@+id/txt_table1"
+                            android:layout_marginRight="20dp"/>
+
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/edt_table1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#664138"
+                            android:text="cm" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="팔 길이"
+                            android:textColor="#442522"
+                            android:id="@+id/txt_table2"/>
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="100dp"
+                            android:id="@+id/edt_table2"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textColor="#664138"
+                            android:layout_height="wrap_content"
+                            android:text="cm" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="밑단 폭"
+                            android:textColor="#442522"
+                            android:id="@+id/txt_table3"/>
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/edt_table3"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#664138"
+                            android:text="cm" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="총 길이"
+                            android:textColor="#442522"
+                            android:id="@+id/txt_table4"/>
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/edt_table4"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#664138"
+                            android:text="cm" />
+                    </TableRow>
+                </TableLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:id="@+id/btn_finish"
+                    android:layout_marginLeft="13dp"
+                    android:background="#3F55C5"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#FFFFFF"
+                    android:text="가상피팅 하러가기!"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
