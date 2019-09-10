@@ -32,20 +32,20 @@ public class CameraChooseActivity extends AppCompatActivity {
         btn_pic_me = findViewById(R.id.btn_pic_me);
 
         btn_pic_me.setOnClickListener(v -> {
-        btn_pic_me.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PickMeCreateDialog();
-            }
+
+            PickMeCreateDialog();
+
         });
 
         btn_pic_other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PickOtherCreateDialog();
+
             }
         });
     }
+
     public void PickMeCreateDialog() {
         final Dialog dialog = new Dialog(CameraChooseActivity.this);
         if (dialog.getWindow() != null) {

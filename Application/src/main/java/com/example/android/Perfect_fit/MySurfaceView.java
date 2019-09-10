@@ -128,6 +128,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                             x = (float) (humanSkeleton.getLeftankle().x * right);
                             y = (float) (humanSkeleton.getLeftankle().y * bottom);
                             canvas.drawPoint(x,y,paint);
+                            Log.e("check paint", "chekc");
                             x = (float) (humanSkeleton.getRightankle().x * right);
                             y = (float) (humanSkeleton.getRightankle().y * bottom);
                             canvas.drawPoint(x,y,paint);
