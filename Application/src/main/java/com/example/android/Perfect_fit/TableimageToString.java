@@ -97,7 +97,7 @@ public class TableimageToString extends AppCompatActivity {
                             Log.e("recognizeResult", recognizeResult);
 //                            Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
 ////                            mintent.putExtra("OCR result", recognizeResult);
-                            Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
+                            Intent mintent = new Intent(TableimageToString.this, com.example.android.Perfect_fit.EditDistance.class);
                             mintent.putExtra("OCRresult", recognizeResult);
                             startActivity(mintent);
                             //TODO
@@ -263,7 +263,6 @@ public class TableimageToString extends AppCompatActivity {
         originGray = processNoisy(originGray);  //노이즈 제거
 
         recognizeResult = matToString(originGray); //matToString 함수 거침>> OCR로 텍스트 추출 결과 반환 -- recognizeResult = OCR로 변환된 String
-        matToString(originGray);
         Log.i("tag","Done recognize");
 
         originGray.release();

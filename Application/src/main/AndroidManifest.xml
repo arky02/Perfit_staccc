@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -33,17 +35,23 @@
         <activity
             android:name=".FittingActivity"
             android:label="@string/title_activity_fitting"
-            android:theme="@style/MaterialTheme.NoActionBar"></activity>
+            android:theme="@style/MaterialTheme.NoActionBar" />
         <activity android:name=".ModelAdjustActivity" />
         <activity android:name=".OCRActivity" />
-        <activity android:name=".DimensionTableSelectActivity" />
         <activity android:name=".PosenetActivity" />
+        <activity android:name=".EditDistance" />
+        <activity android:name=".TableimageToString" />
         <activity
             android:name=".ModifyModelActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".CameraChooseActivity"
@@ -57,11 +65,7 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CameraActivity"

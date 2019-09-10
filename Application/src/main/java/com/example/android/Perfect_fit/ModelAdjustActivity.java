@@ -71,7 +71,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 origin_arm = origin_LElbowToWrist + origin_LShoulderToElbow;
                 origin_shoulder = origin_shoulderWidth;
 
-                Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
+                Intent intent1 = new Intent(ModelAdjustActivity.this, FinalActivity.class);
                 intent1.putExtra("name", getIntent().getStringExtra("name"));
                 intent1.putExtra("height", getIntent().getStringExtra("height"));
                 intent1.putExtra("armDistance", origin_arm);
