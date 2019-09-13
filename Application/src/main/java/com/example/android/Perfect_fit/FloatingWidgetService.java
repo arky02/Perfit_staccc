@@ -25,9 +25,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.android.Perfect_fit.MainActivity;
-import com.example.android.Perfect_fit.R;
-
 
 public class FloatingWidgetService extends Service implements View.OnClickListener {
     private WindowManager mWindowManager;
@@ -39,7 +36,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
     private TextView txt_title;
     private LinearLayout linear1table;
     static InputMethodManager ime = null;
-    static Context mContext = null;
+    public static Context mContext;
     int selected_state = -1;
 
 
@@ -66,6 +63,8 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         getWindowManagerDefaultDisplay();
+        GlobalData.isWidgetDistroyed = false;
+        mContext = this;
 
 
         //Init LayoutInflater
@@ -219,6 +218,11 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
 
         }
 
+        public void stopWidget(){
+         stopSelf();
+         GlobalData.isWidgetDistroyed = true;
+        }
+
 
 
     /*  Add Remove View to Window Manager  */
@@ -354,6 +358,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                         //If user drag and drop the floating widget view into remove view then stop the service
                         if (inBounded) {
                             stopSelf();
+                            GlobalData.isWidgetDistroyed = true;
                             inBounded = false;
                             break;
                         }
@@ -467,6 +472,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                 linear2edt.setVisibility(View.GONE);
                 txt_title.setText("옷의 종류를 골라주세요");
                 stopSelf();
+                GlobalData.isWidgetDistroyed = true;
                 break;
             case R.id.close_expanded_view:
                 collapsedView.setVisibility(View.VISIBLE);
@@ -487,6 +493,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
 
                 //close the service and remove view from the view hierarchy
                 stopSelf();
+                GlobalData.isWidgetDistroyed = true;
                 break;
         }
     }

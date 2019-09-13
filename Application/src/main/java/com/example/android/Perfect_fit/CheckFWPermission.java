@@ -15,23 +15,22 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class CheckFWPermission extends AppCompatActivity {
-
     public Context context;
     public static boolean isPermissionOkay = false;
     Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tray_main);
         context = getApplicationContext();
 
         overlayPermission();
 
     }
     public void mintent(){
-            startService(new Intent(CheckFWPermission.this, FloatingWidgetService.class));
+        startService(new Intent(CheckFWPermission.this, FloatingWidgetService.class));
+        GlobalData.isWidgetDistroyed = false;
 
-//        finish();
+        finish();
     }
 
     public void overlayPermission() {
@@ -88,7 +87,7 @@ public class CheckFWPermission extends AppCompatActivity {
                     mintent();
                 } else {
                     Toast.makeText(getApplicationContext(), "퍼미션 수락 필요", Toast.LENGTH_SHORT).show();
-                    Intent grantIntent = new Intent(getApplicationContext(), Main2Activity.class);
+                    Intent grantIntent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(grantIntent);
 
                 }
