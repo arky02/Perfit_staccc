@@ -40,6 +40,7 @@
         <activity android:name=".OCRActivity" />
         <activity android:name=".PosenetActivity" />
         <activity android:name=".EditDistance" />
+        <activity android:name=".FinalActivity"/>
         <activity android:name=".TableimageToString" />
         <activity
             android:name=".ModifyModelActivity"
@@ -47,11 +48,6 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CameraChooseActivity"
@@ -61,7 +57,13 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".ModelCreateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
