@@ -101,6 +101,52 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         return toe - top;
     }
 
+    // 0 : 왼쪽 발목, 1 : 오른쪽 발목, 2 : 왼쪽 무릎, 3 : 오른쪽 무릎, 4 : 왼쪽 엉덩이, 5 : 오른쪽 엉덩이
+    // 6 : 왼쪽 어깨, 7 : 오른쪽 어깨, 8 : 왼쪽 팔꿈치, 9 : 오른쪽 팔꿈치, 10 : 왼쪽 손목, 11 : 오른쪽 손목
+
+
+    public double getLShoulderToElbow() {
+        return Math.sqrt((location[6][0]/(double)right - location[8][0]/(double)right) * (location[6][0]/(double)right - location[8][0]/(double)right) +
+                (location[6][1]/(double)bottom - location[8][1]/(double)bottom) * (location[6][1]/(double)bottom - location[8][1]/(double)bottom));
+    }
+
+    public double getbodyDistance() {
+        return Math.sqrt(( (location[4][0]/(double)right + location[5][0]/(double)right) / 2 - (location[6][0]/(double)right + location[7][0]/(double)right) / 2) * ((location[4][0]/(double)right + location[5][0]/(double)right) / 2 - (location[6][0]/(double)right + location[7][0]/(double)right) / 2)
+                + ((location[4][1]/(double)bottom + location[5][1]/(double)bottom) / 2 - (location[6][1]/(double)bottom + location[7][1]/(double)bottom) / 2) * ((location[4][0]/(double)right + location[5][0]/(double)right) / 2 - (location[6][0]/(double)right + location[7][0]/(double)right) / 2));
+    }//이거 이상함
+
+    public double getRShoulderToElbow() {
+        return Math.sqrt((location[7][0]/(double)right - location[9][0]/(double)right) * (location[7][0]/(double)right - location[9][0]/(double)right) + (location[7][1]/(double)bottom - location[9][1]/(double)bottom) * (location[7][1]/(double)bottom - location[9][1]/(double)bottom));
+    }
+
+    public double getLAnkleToknee() {
+        return Math.sqrt((location[0][0]/(double)right - location[2][0]/(double)right) * (location[0][0]/(double)right - location[2][0]/(double)right) + (location[0][1]/(double)bottom - location[2][1]/(double)bottom) * (location[0][1]/(double)bottom - location[2][1]/(double)bottom));
+    }
+
+    public double getRAnkleToknee() {
+        return Math.sqrt((location[1][0]/(double)right - location[3][0]/(double)right) * (location[1][0]/(double)right - location[3][0]/(double)right) + (location[1][1]/(double)bottom - location[3][1]/(double)bottom) * (location[1][1]/(double)bottom - location[3][1]/(double)bottom));
+    }
+
+    public double getLElbowToWrist() {
+        return Math.sqrt((location[8][0]/(double)right - location[10][0]/(double)right) * (location[8][0]/(double)right - location[10][0]/(double)right) + (location[8][1]/(double)bottom - location[10][1]/(double)bottom) * (location[8][1]/(double)bottom - location[10][1]/(double)bottom));
+    }
+
+    public double getRElbowToWrist() {
+        return Math.sqrt((location[9][0]/(double)right - location[11][0]/(double)right) * (location[9][0]/(double)right - location[11][0]/(double)right) + (location[9][1]/(double)bottom - location[11][1]/(double)bottom) * (location[9][1]/(double)bottom - location[11][1]/(double)bottom));
+    }
+
+    public double getLKneeToHip() {
+        return Math.sqrt((location[2][0]/(double)right - location[4][0]/(double)right) * (location[2][0]/(double)right - location[4][0]/(double)right) + (location[2][1]/(double)bottom - location[4][1]/(double)bottom) * (location[2][1]/(double)bottom - location[4][1]/(double)bottom));
+    }
+
+    public double getRKneeToHip() {
+        return Math.sqrt((location[3][0]/(double)right - location[5][0]/(double)right) * (location[3][0]/(double)right - location[5][0]/(double)right) + (location[3][1]/(double)bottom - location[5][1]/(double)bottom) * (location[3][1]/(double)bottom - location[5][1]/(double)bottom));
+    }
+
+    public double getShoulderWidth() {
+        return Math.sqrt((location[6][0]/(double)right - location[7][0]/(double)right) * (location[6][0]/(double)right - location[7][0]/(double)right) + (location[6][1]/(double)bottom - location[7][1]/(double)bottom) * (location[6][1]/(double)bottom - location[7][1]/(double)bottom));
+    }
+
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
@@ -155,6 +201,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                         if(Head == 0 && Bottom == 0) {
                             Head = (float)humanSkeleton.getTop().y * bottom;
                             Bottom = (float)humanSkeleton.getRightankle().y * bottom;
+                            location[0][0] = (float) (humanSkeleton.getLeftankle().x * right); //왼쪽 발목
+                            location[0][1] = (float) (humanSkeleton.getLeftankle().y * bottom);
+                            location[1][0] = (float) (humanSkeleton.getRightankle().x * right); //오른쪽 무릎
+                            location[1][1] = (float) (humanSkeleton.getRightankle().y * bottom);
                             location[2][0] = (float) (humanSkeleton.getLeftknee().x * right); //왼쪽 무릎
                             location[2][1] = (float) (humanSkeleton.getLeftknee().y * bottom);
                             location[3][0] = (float) (humanSkeleton.getRightknee().x * right); //오른쪽 무릎

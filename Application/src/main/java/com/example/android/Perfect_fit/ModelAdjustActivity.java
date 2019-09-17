@@ -56,22 +56,22 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 distance = mySurfaceView.getDistance();
 
                 //진짜 길이 구하기
-                origin_LShoulderToElbow = getOrigin(getDistance(data.getLeftshoulder(), data.getLeftelbow()));
-                origin_bodyDistance = getOrigin(getDistance(getCenter(data.getLefthip(), data.getRighthip()), getCenter(data.getLeftshoulder(), data.getRightshoulder())));
-                origin_RShoulderToElbow = getOrigin(getDistance(data.getRightshoulder(), data.getRightelbow()));
-                origin_LAnkleToknee = getOrigin(getDistance(data.getLeftankle(), data.getLeftknee()));
-                origin_RAnkleToknee = getOrigin(getDistance(data.getRightankle(), data.getRightknee()));
-                origin_LElbowToWrist = getOrigin(getDistance(data.getLeftelbow(), data.getLeftwrist()));
-                origin_RElbowToWrist = getOrigin(getDistance(data.getRightelbow(), data.getRightwrist()));
-                origin_LKneeToHip = getOrigin(getDistance(data.getLeftknee(), data.getLefthip()));
-                origin_RKneeToHip = getOrigin(getDistance(data.getRightknee(), data.getRighthip()));
-                origin_shoulderWidth = getOrigin(getDistance(data.getLeftshoulder(), data.getRightshoulder()));
+                origin_LShoulderToElbow = getOrigin(mySurfaceView.getLShoulderToElbow());
+                origin_bodyDistance = getOrigin(mySurfaceView.getbodyDistance());
+                origin_RShoulderToElbow = getOrigin(mySurfaceView.getRShoulderToElbow());
+                origin_LAnkleToknee = getOrigin(mySurfaceView.getLAnkleToknee());
+                origin_RAnkleToknee = getOrigin(mySurfaceView.getRAnkleToknee());
+                origin_LElbowToWrist = getOrigin(mySurfaceView.getLElbowToWrist());
+                origin_RElbowToWrist = getOrigin(mySurfaceView.getRElbowToWrist());
+                origin_LKneeToHip = getOrigin(mySurfaceView.getLKneeToHip());
+                origin_RKneeToHip = getOrigin(mySurfaceView.getRKneeToHip());
+                origin_shoulderWidth = getOrigin(mySurfaceView.getShoulderWidth());
 
                 origin_leg = origin_LAnkleToknee + origin_LKneeToHip;
                 origin_arm = origin_LElbowToWrist + origin_LShoulderToElbow;
                 origin_shoulder = origin_shoulderWidth;
 
-                Intent intent1 = new Intent(ModelAdjustActivity.this, FinalActivity.class); //finalActivity
+                Intent intent1 = new Intent(ModelAdjustActivity.this, FinalActivity.class);
                 intent1.putExtra("name", getIntent().getStringExtra("name"));
                 intent1.putExtra("height", getIntent().getStringExtra("height"));
                 intent1.putExtra("armDistance", origin_arm);
