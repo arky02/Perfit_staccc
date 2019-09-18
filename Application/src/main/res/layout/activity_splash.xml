@@ -4,14 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.Perfect_fit.CameraActivity"
+    tools:context="com.example.android.Perfect_fit.Camera.CameraActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="137dp"
-        android:layout_height="115dp"    />
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip" >
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="137dp"
+            android:layout_height="115dp" />
+
+        <FrameLayout
+            android:id="@+id/placeholder"
+            android:layout_width="137dp"
+            android:layout_height="115dp"
+            android:background="#FFFFFF">
+        </FrameLayout>
+
+    </FrameLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

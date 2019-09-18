@@ -12,6 +12,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.example.android.Perfect_fit.FloatingMiniPerfit.CheckFWPermission;
+import com.example.android.Perfect_fit.FloatingMiniPerfit.FloatingWidgetService;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;

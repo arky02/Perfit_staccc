@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.Perfect_fit.ModelData.Data_model;
+
 import java.util.ArrayList;
 
 public class Adapter_modify_model extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

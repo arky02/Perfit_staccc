@@ -2,23 +2,13 @@ package com.example.android.Perfect_fit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import java.io.File;
+import com.example.android.Perfect_fit.Camera.CameraActivity;
+import com.example.android.Perfect_fit.PoseEstimation.HumanSkeleton;
 
 public class ModelAdjustActivity extends AppCompatActivity {
 
@@ -71,7 +61,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 origin_arm = origin_LElbowToWrist + origin_LShoulderToElbow;
                 origin_shoulder = origin_shoulderWidth;
 
-                Intent intent1 = new Intent(ModelAdjustActivity.this, FinalActivity.class);
+                Intent intent1 = new Intent(ModelAdjustActivity.this, ModifyModelActivity.class);
                 intent1.putExtra("name", getIntent().getStringExtra("name"));
                 intent1.putExtra("height", getIntent().getStringExtra("height"));
                 intent1.putExtra("armDistance", origin_arm);
