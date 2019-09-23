@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CameraChooseActivity"
+    tools:context=".Camera.CameraChooseActivity"
     android:orientation="vertical"
     android:gravity="center|top"
     android:background="#FFFFFF">

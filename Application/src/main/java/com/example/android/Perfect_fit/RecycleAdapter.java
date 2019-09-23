@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.Perfect_fit.ModelData.Data_model;
+
 import java.util.List;
 
 /**
@@ -19,6 +21,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Myholder
         this.dataModelArrayList = dataModelArrayList;
     }
 
+    public interface OnItemClickListener{
+        void onItemClick(View v,int pos);
+    }
+    private OnItemClickListener mListener = null;
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
+
     class Myholder extends RecyclerView.ViewHolder {
         TextView name, city;
 
@@ -27,6 +37,18 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Myholder
 
             name = (TextView) item_model.findViewById(R.id.item_name);
             city = (TextView) item_model.findViewById(R.id.item_height);
+
+            item_model.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if(mListener != null){
+                            mListener.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
         }
     }
 

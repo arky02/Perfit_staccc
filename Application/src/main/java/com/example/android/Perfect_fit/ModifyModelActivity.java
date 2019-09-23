@@ -1,6 +1,7 @@
 package com.example.android.Perfect_fit;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.android.Perfect_fit.Camera.CameraChooseActivity;
+import com.example.android.Perfect_fit.ModelData.Data_model;
+import com.example.android.Perfect_fit.ModelData.DatabaseHelper;
 
 import java.util.List;
 
@@ -43,14 +48,23 @@ public class ModifyModelActivity extends AppCompatActivity {
 
         String name = getIntent().getStringExtra("name");
         String height = getIntent().getStringExtra("height");
+        Double arm_length = getIntent().getDoubleExtra("armDistance",0);
+        Double leg_length = getIntent().getDoubleExtra("legDistance",0);
+        Double shoulder_length = getIntent().getDoubleExtra("shoulderWidth",0);
+
+
+
         Log.e("name,height",name+height);
-        if(name == null && height == null){
+        if(name == null && height == null&&arm_length== 0&&leg_length == 0&&shoulder_length ==0){
             RefreshAdapter();
         }else{
             Data_model modeldata1 = new Data_model();
             modeldata1.setName(name);
             modeldata1.setHeight(height);
-            databaseHelper.insertdata(name, height);
+            modeldata1.setArm(arm_length);
+            modeldata1.setLeg(leg_length);
+            modeldata1.setShoulder(shoulder_length);
+            databaseHelper.insertdata(name, height,arm_length,leg_length,shoulder_length);
             RefreshAdapter();
         }
         /*
@@ -74,6 +88,24 @@ public class ModifyModelActivity extends AppCompatActivity {
                 CreateDialog();
             }
         });
+        recycler.setOnItemClickListener(
+                new RecycleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        System.out.println(pos);
+                        datamodel = databaseHelper.getdata();
+                        String modelHigth = datamodel.get(pos).getHeight();
+                        String modelName = datamodel.get(pos).getName();
+                        Double modelArm = datamodel.get(pos).getArm();
+                        Double modelLeg = datamodel.get(pos).getLeg();
+                        Double modelShoulder = datamodel.get(pos).getShoulder();
+
+                        System.out.println(pos+","+modelName+","+modelHigth+","+modelArm+","+modelLeg+","+modelShoulder);
+
+//                        Toast.makeText(ModifyModelActivity.this, pos, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
     public void CreateDialog() {
@@ -102,13 +134,16 @@ public class ModifyModelActivity extends AppCompatActivity {
 
                 name = edt_name.getText().toString();
                 height = edt_height.getText().toString();
-                if(name.isEmpty() && height.isEmpty()){
-                    Toast.makeText(ModifyModelActivity.this, "please fill all", Toast.LENGTH_SHORT).show();
+                if(name.isEmpty() || height.isEmpty()){
+                    Toast.makeText(ModifyModelActivity.this, "이름과 키를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else{
-                    databaseHelper.insertdata(name,height);
+                    Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
+                    mintent.putExtra("name", edt_name.getText().toString());
+                    mintent.putExtra("height", edt_height.getText().toString());
+//                    databaseHelper.insertdata(name,height);
                     edt_height.setText("");
                     edt_name.setText("");
-                    RefreshAdapter();
+//                    RefreshAdapter();
                     dialog.dismiss();
                 }
                 /*

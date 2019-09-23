@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.android.Perfect_fit.Camera.CameraChooseActivity;
+
 public class ModelCreateActivity extends AppCompatActivity {
 
     EditText name, key;

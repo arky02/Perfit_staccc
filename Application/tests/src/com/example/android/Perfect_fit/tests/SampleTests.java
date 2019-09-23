@@ -15,7 +15,7 @@
 */
 package com.example.android.Perfect_fit.tests;
 
-import com.example.android.Perfect_fit.*;
+import com.example.android.Perfect_fit.Camera.CameraActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
