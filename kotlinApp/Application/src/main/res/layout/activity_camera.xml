@@ -19,4 +19,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context="com.example.android.Perfect_fit.Camera.CameraActivity" />
+    tools:context="com.peftif.android.Perfect_fit.Camera.CameraActivity" />
