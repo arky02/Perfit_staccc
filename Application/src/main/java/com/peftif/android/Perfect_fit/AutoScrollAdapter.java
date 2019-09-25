@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;

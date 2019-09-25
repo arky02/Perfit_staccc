@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.peftif.android.Perfect_fit.R;
 
+
 public class CameraActivity extends AppCompatActivity {
 
     @Override

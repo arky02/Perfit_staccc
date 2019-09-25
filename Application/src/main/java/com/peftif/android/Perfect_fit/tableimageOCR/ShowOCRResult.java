@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
-
 import com.peftif.android.Perfect_fit.R;
 
 public class ShowOCRResult extends AppCompatActivity {

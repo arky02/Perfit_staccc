@@ -66,7 +66,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.peftif.android.Perfect_fit.PoseEstimation.PosenetActivity;
 import com.peftif.android.Perfect_fit.R;
 

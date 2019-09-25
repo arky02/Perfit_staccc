@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.peftif.android.Perfect_fit.R;
 
+
 public class CameraChooseActivity extends AppCompatActivity {
 
     Button btn_pic_other, btn_pic_me;

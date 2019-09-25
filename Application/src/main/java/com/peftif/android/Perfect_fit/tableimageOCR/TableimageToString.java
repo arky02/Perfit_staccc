@@ -19,10 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.peftif.android.Perfect_fit.R;
 import com.googlecode.tesseract.android.TessBaseAPI;
+import com.peftif.android.Perfect_fit.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.opencv.android.OpenCVLoader;
