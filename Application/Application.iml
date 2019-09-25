@@ -200,10 +200,5 @@
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="module" module-name="opencv" />
     <orderEntry type="module" module-name="opencv" />
-    <orderEntry type="module" module-name="opencv" />
-    <orderEntry type="module" module-name="opencv" />
-    <orderEntry type="module" module-name="opencv" />
-    <orderEntry type="module" module-name="opencv" />
-    <orderEntry type="module" module-name="opencv" />
   </component>
 </module>

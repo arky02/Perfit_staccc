@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android.Perfect_fit.Camera.CameraChooseActivity;
+import com.example.android.Perfect_fit.PoseEstimation.PosenetActivity;
 
 public class ModelCreateActivity extends AppCompatActivity {
 

@@ -34,9 +34,6 @@ public class FinalActivity extends AppCompatActivity {
         arrayListarm = getIntent().getStringArrayListExtra("arrayListArm");
         arrayListvertical = getIntent().getStringArrayListExtra("arrayListVertical");
 
-
-
-
         user_arm = findViewById(R.id.final_user_arm);
         user_leg = findViewById(R.id.final_user_leg);
         user_shoulder= findViewById(R.id.final_user_shoulder);

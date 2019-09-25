@@ -5,7 +5,343 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FinalActivity"
+    android:background="@drawable/gradation"
+    android:gravity="center|top"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:clickable="true"
+            android:id="@+id/btn_home"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/home"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sad"/>
+
+    <TextView
+        android:fontFamily="@font/nanumsquare"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="옷이 좀 크네요!"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lineardesign">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="신체 치수 비교"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:fontFamily="@font/nanumsquare"
+            android:textStyle="bold"
+            android:layout_marginTop="33dp"
+            android:layout_marginLeft="37dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="39dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/body1"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="머리"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#707070">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/difference1"
+                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="적당"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#707070"
+                android:layout_marginLeft="140dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/body2"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="머리"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#707070">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/difference2"
+                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="적당"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#707070"
+                android:layout_marginLeft="140dp"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/body3"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="머리"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#707070">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/difference3"
+                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="적당"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#707070"
+                android:layout_marginLeft="140dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/body4"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="머리"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#707070">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/difference4"
+                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="적당"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#707070"
+                android:layout_marginLeft="140dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/body5"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="머리"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#707070">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/difference5"
+                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#707070"/>
+
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="적당"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#707070"
+                android:layout_marginLeft="140dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp">
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"

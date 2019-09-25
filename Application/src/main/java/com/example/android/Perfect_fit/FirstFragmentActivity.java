@@ -1,18 +1,28 @@
 package com.example.android.Perfect_fit;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.vision.text.Line;
+
 public class FirstFragmentActivity extends Fragment {
 
     boolean check = false;
+    changeButtonEvent listner;
+
+    public interface changeButtonEvent{
+        void onChangeButtonListener(int id);
+    }
 
     public FirstFragmentActivity() {
     }
@@ -36,10 +46,35 @@ public class FirstFragmentActivity extends Fragment {
         check = true;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
+
+        LinearLayout btn_shirt = layout.findViewById(R.id.btn_shirt);
+        LinearLayout btn_pants = layout.findViewById(R.id.btn_pants);
+
+        btn_shirt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listner.onChangeButtonListener(1);
+            }
+        });
+
+        btn_pants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listner.onChangeButtonListener(2);
+            }
+        });
+
         return layout;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listner = (changeButtonEvent) context;
     }
 }

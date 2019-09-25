@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.android.Perfect_fit.FloatingMiniPerfit.CheckFWPermission;
 import com.example.android.Perfect_fit.FloatingMiniPerfit.FloatingWidgetService;
+import com.example.android.Perfect_fit.tableimageOCR.TableimageToString;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -37,7 +38,7 @@ import java.util.List;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FirstFragmentActivity.changeButtonEvent{
 
     LinearLayout button_name;
     ViewPager vp;
@@ -140,6 +141,13 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    public void onChangeButtonListener(int id) {
+        Intent intent = new Intent(getApplicationContext(), TableimageToString.class);
+        startActivity(intent);
+        finish();
+    }
+
     class MoviePagerAdapter extends FragmentStatePagerAdapter {
 
         ArrayList<Fragment> items = new ArrayList<>();
@@ -175,10 +183,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
-
-
-
-
 
     @Override
     public void onBackPressed() {
