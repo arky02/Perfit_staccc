@@ -102,6 +102,52 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
         linear2edt.setVisibility(View.GONE);
         txt_title.setText("옷의 종류를 골라주세요");
 
+        edt_table1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                edt_table1.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table1, 0);
+
+            }
+        });
+
+        edt_table2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table2.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table2, 0);
+            }
+        });
+
+        edt_table3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table3.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table3, 0);
+
+            }
+        });
+        edt_table4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table4.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table4 ,0);
+            }
+        });
+
 
         btn_tshirt.setOnClickListener(view->{
             txt_table1.setText("어깨 폭");
