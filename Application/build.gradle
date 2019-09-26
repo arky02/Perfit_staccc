@@ -57,8 +57,11 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
+        applicationId "com.peftif.android.Perfect_fit"
         minSdkVersion 26
         targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
     }
 
     packagingOptions {
