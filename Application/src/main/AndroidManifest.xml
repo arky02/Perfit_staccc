@@ -46,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
         </activity>
 
         <service
@@ -81,7 +82,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"
+            />
         <activity
             android:theme="@style/MaterialTheme.NoActionBar"
             android:name="com.peftif.android.Perfect_fit.ModelCreateActivity"
@@ -89,7 +91,10 @@
         <activity
             android:theme="@style/MaterialTheme.NoActionBar"
             android:name="com.peftif.android.Perfect_fit.SplashActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+
+        </activity>
 
         <activity
             android:theme="@style/MaterialTheme.NoActionBar"
