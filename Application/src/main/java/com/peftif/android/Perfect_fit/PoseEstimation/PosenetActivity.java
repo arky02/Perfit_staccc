@@ -168,10 +168,6 @@ public class PosenetActivity extends AppCompatActivity {
 
         PoseEstimationTask task = new PoseEstimationTask();
         task.execute(new File(path));
-
-        // 1. 불러온 인텐트 값을 이용해서 파일을 바이너리로 읽는다.
-        // 2. Http Connection  을 열어서  Naver 로 결과를 받아온다.
-        // 3. 받아온 결과를 출력한다.
     }
 
     private void resize(File inFile, File outFile){

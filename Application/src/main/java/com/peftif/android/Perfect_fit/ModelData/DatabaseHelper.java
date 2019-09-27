@@ -10,10 +10,6 @@ import android.content.ContentValues;
 import java.util.ArrayList;
         import java.util.List;
 
-/**
- * Created by csa on 3/1/2017.
- */
-
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
@@ -23,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String ARM ="arm";
     public static String LEG="leg";
     public static String SHOULDER="shoulder";
-    public static String HEIGHT ="height"; //city = height
+    public static String HEIGHT ="height";
     String br;
 
     public DatabaseHelper(Context context) {
@@ -33,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //  br= "CREATE TABLE mytable(name TEXT,city TEXT,);";
         br = "CREATE TABLE "+TABLE+"("+NAME+ " Text,"+ HEIGHT + " Text, "+ ARM + " Text,"+ LEG + " Text,"+ SHOULDER + " Text);";
         db.execSQL(br);
 

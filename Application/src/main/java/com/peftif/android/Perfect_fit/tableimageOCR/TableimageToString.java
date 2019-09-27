@@ -62,7 +62,7 @@ public class TableimageToString extends AppCompatActivity {
     String datapath = ""; //언어데이터가 있는 경로
     LinearLayout ll,layout2;
     RelativeLayout layout1;
-    public static int thresholdMin = 145; // Threshold 80 to 105 is Ok
+    public static int thresholdMin = 145; // Threshold 80 to 105
     private int thresholdMax = 255; // Always 255
     public String recognizeResult = "";
     Mat origin;
@@ -87,8 +87,6 @@ public class TableimageToString extends AppCompatActivity {
         layout1.setVisibility(VISIBLE);
         CropImage.activity().start(TableimageToString.this);
         startOCR();
-        //이미지 디코딩을 위한 초기화
-        //이미지파일
 
 
 

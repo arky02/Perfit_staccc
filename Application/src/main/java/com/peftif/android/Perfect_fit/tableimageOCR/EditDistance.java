@@ -13,14 +13,6 @@ import com.peftif.android.Perfect_fit.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-///**
-// * 편집거리를 구하기 위한 알고리즘으로 levenshtein distance 알고리즘을 사용합니다.
-// * - 한글의 다차원 특성상 자소분리를 통해 거리를 측정합니다.
-// *
-// * @param word1
-// * @param word2
-// * @return
-// */
 
 
 public class EditDistance extends AppCompatActivity {
@@ -118,7 +110,7 @@ public class EditDistance extends AppCompatActivity {
         // 초기화 - min = 10000
 
         String findKey = "";
-        // 1. finalList[0] =  이깨단먼 가슴단떤 소매갈이 임졸단면 소매단면 춤갈이
+        // ex) finalList[0] =  이깨단먼 가슴단떤 소매갈이 임졸단면 소매단면 춤갈이(OCR 인식 결과)
         for (int j = 0; j < finalList[0].length; j++) {
             for (int k = 0; k < values.size(); k++) {
                 String[] arrItem = values.get(k).split(",");
