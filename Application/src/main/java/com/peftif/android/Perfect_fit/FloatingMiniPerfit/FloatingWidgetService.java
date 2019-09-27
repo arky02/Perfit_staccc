@@ -227,38 +227,43 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                 if (edt_table1.getText().toString().equals("")||edt_table2.getText().toString().equals("")||edt_table3.getText().toString().equals("")||edt_table4.getText().toString().equals("")){
                     Toast.makeText(FloatingWidgetService.this, "주어진 치수표의 치수를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent mintent = new Intent(FloatingWidgetService.this, FinalActivity.class);
-                    mintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
                     switch (selected_state){
                         case 1:
                             //티셔츠
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Intent mintent = new Intent(FloatingWidgetService.this, FinalActivity.class);
+                            mintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mintent.putExtra("arm", edt_table1.getText().toString());
+                            mintent.putExtra("shoulder", edt_table2.getText().toString());
+                            startActivity(mintent);
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                             break;
                         case 2:
                             //바지
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Toast.makeText(getApplicationContext(), "바지 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
 
                         case 3:
                             //드레스
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Toast.makeText(getApplicationContext(), "드레스 및 원피스 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                         case 4:
-                            //치마
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+//                            //치마
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+                            Toast.makeText(getApplicationContext(), "치마 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                     }
-                    startActivity(mintent);
+
 
 
                 }

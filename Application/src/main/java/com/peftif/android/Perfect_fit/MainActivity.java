@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private SwitchCompat switchh;
     List<Data_model> datamodel;
     DatabaseHelper databaseHelper;
+    int check =0;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,21 +135,22 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        button_name.setOnClickListener(new View.OnClickListener() { //추후 업데이트
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
-//                intent.putExtra("height",getIntent().getStringExtra("height"));
-//                intent.putExtra("name",getIntent().getStringExtra("name"));
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
-//            }
-//        });
+        button_name.setOnClickListener(new View.OnClickListener() { //추후 업데이트
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
+                intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("name",getIntent().getStringExtra("name"));
+                startActivity(intent);
+                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
+            }
+        });
     }
 
     @Override
     public void onChangeButtonListener(int id) {
         switch(id) {
+            
             case 1 :
                 showDialog2();
                 break;
@@ -194,6 +198,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        dialog.dismiss();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -220,11 +225,116 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            PickOtherCreateDialog();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void PickOtherCreateDialog() {
+        dialog = new Dialog(MainActivity.this);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        dialog.setContentView(R.layout.tutorial);
+        dialog.setCancelable(true);
+
+        final ImageView btn_next = dialog.findViewById(R.id.btn_next);
+        final ImageView btn_before = dialog.findViewById(R.id.btn_before);
+        final ImageView image = dialog.findViewById(R.id.image);
+        final LinearLayout tutorial = dialog.findViewById(R.id.tutorial);
+        final LinearLayout end = dialog.findViewById(R.id.end);
+        final Button btn_ok = dialog.findViewById(R.id.btn_ok00);
+        btn_before.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check <= 0){
+                    check = 0;
+                }else{
+                    --check;
+                }
+
+                switch (check) {
+                    case 0:
+                        image.setImageResource(R.drawable.story_1);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        image.setImageResource(R.drawable.story_2);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        image.setImageResource(R.drawable.story_3);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        image.setImageResource(R.drawable.story_4);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 4:
+                        image.setImageResource(R.drawable.story_5);
+                        btn_ok.setVisibility(View.VISIBLE);
+                        break;
+
+
+//                    case 5 :
+//                        tutorial.setVisibility(View.GONE);
+//                        end.setVisibility(View.VISIBLE);
+                }
+                Log.e("check", check+"");
+            }
+        });
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check >= 4){
+                    check = 4;
+                }else{
+                    ++check;
+                }
+
+                switch (check) {
+                    case 0:
+                        image.setImageResource(R.drawable.story_1);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        image.setImageResource(R.drawable.story_2);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        image.setImageResource(R.drawable.story_3);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        image.setImageResource(R.drawable.story_4);
+                        btn_ok.setVisibility(View.GONE);
+                        break;
+                    case 4:
+                        image.setImageResource(R.drawable.story_5);
+                        btn_ok.setVisibility(View.VISIBLE);
+                        break;
+
+//                    case 5 :
+//                        tutorial.setVisibility(View.GONE);
+//                        end.setVisibility(View.VISIBLE);
+                }
+                Log.e("check", check+"");
+            }
+        });
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

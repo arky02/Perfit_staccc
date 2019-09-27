@@ -178,6 +178,7 @@
                         <EditText
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
+                            android:inputType="number"
                             android:id="@+id/edt_table1"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -196,6 +197,7 @@
                         <EditText
                             android:layout_height="wrap_content"
                             android:layout_width="100dp"
+                            android:inputType="number"
                             android:id="@+id/edt_table2"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -214,6 +216,7 @@
                         <EditText
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
+                            android:inputType="number"
                             android:id="@+id/edt_table3" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -231,6 +234,7 @@
                             android:id="@+id/txt_table4"/>
                         <EditText
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:layout_width="wrap_content"
                             android:id="@+id/edt_table4"/>
                         <TextView

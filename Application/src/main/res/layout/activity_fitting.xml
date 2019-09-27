@@ -28,13 +28,15 @@
                 android:layout_height="wrap_content"
                 android:text="가상 피팅"
                 android:textStyle="bold"
+                android:layout_marginStart="25dp"
+                android:textColor="#353535"
                 android:textSize="20sp"/>
 
             <ImageView
                 android:layout_marginLeft="90dp"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:layout_height="26dp"
-                android:src="@drawable/home"/>
+                android:src="@drawable/homeb"/>
 
         </LinearLayout>
 
@@ -43,6 +45,12 @@
             android:layout_height="1dp"
             android:background="#d4d4d4"></LinearLayout>
     </LinearLayout>
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:src ="@drawable/model_pose2"/>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu"

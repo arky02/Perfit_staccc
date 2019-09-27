@@ -66,6 +66,7 @@ public class TableimageToString extends AppCompatActivity {
     private int thresholdMax = 255; // Always 255
     public String recognizeResult = "";
     Mat origin;
+    Boolean isDone = false;
 
 
 
@@ -113,6 +114,7 @@ public class TableimageToString extends AppCompatActivity {
                             Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
                             mintent.putExtra("OCRresult", recognizeResult);
                             startActivity(mintent);
+                            isDone = false;
                             finish();
                             //TODO
                         }
@@ -136,6 +138,16 @@ public class TableimageToString extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if(isDone = false){
+            this.finish();
+        }
+        super.onBackPressed();
+
+    }
+
     //    private void setDialog(boolean show){
 //        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 //        //View view = getLayoutInflater().inflate(R.layout.progress);
@@ -164,8 +176,12 @@ public class TableimageToString extends AppCompatActivity {
     @Override
 
 
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            isDone = true;
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 resultUri = result.getUri();

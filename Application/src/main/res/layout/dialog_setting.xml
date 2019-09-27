@@ -6,35 +6,35 @@
     android:gravity="center"
     >
     <LinearLayout
-        android:background="#CCf5f5f5"
+        android:background="#AAFFFFFF"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="308dp"
-        android:layout_height="520dp">
+        android:layout_width="370dp"
+        android:layout_height="640dp">
         <TextView
             android:textStyle="bold"
-            android:fontFamily="@font/nanumsquare"
-            android:textSize="25sp"
-            android:textColor="#707070"
+            android:fontFamily="@font/nanumsquareeb"
+            android:textSize="28sp"
+            android:textColor="#646060"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="해당 옷 종류의"/>
         <TextView
             android:textStyle="bold"
-            android:fontFamily="@font/nanumsquare"
-            android:textSize="25sp"
-            android:textColor="#707070"
+            android:fontFamily="@font/nanumsquareeb"
+            android:textSize="28sp"
+            android:textColor="#646060"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="치수표 인식 기능을"/>
+            android:text="치수표 인식 기능은"/>
         <TextView
             android:textStyle="bold"
-            android:fontFamily="@font/nanumsquare"
-            android:textSize="25sp"
-            android:textColor="#707070"
+            android:fontFamily="@font/nanumsquareeb"
+            android:textSize="28sp"
+            android:textColor="#646060"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="준비 중 입니다"/>
+            android:text="곧 업데이트 될 예정입니다!"/>
     </LinearLayout>
 
 
