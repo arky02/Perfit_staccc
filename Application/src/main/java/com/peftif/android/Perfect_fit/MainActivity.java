@@ -1,6 +1,9 @@
 package com.peftif.android.Perfect_fit;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -14,6 +17,8 @@ import android.view.MenuItem;
 
 import com.peftif.android.Perfect_fit.FloatingMiniPerfit.CheckFWPermission;
 import com.peftif.android.Perfect_fit.FloatingMiniPerfit.FloatingWidgetService;
+import com.peftif.android.Perfect_fit.ModelData.Data_model;
+import com.peftif.android.Perfect_fit.ModelData.DatabaseHelper;
 import com.peftif.android.Perfect_fit.tableimageOCR.TableimageToString;
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,6 +32,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity
     ImageButton btn_navi;
     AutoScrollViewPager autoViewPager;
     private SwitchCompat switchh;
+    List<Data_model> datamodel;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +73,6 @@ public class MainActivity extends AppCompatActivity
         image_1 = findViewById(R.id.image_1);
         image_2 = findViewById(R.id.image_2);
       //  btn_navi = findViewById(R.id.navi_bar);
-
-        Intent intent = getIntent();
-
-//        Log.e("check disance", ""+intent.getDoubleExtra("legDistance", 0.0));
-//        Log.e("check disance", ""+intent.getDoubleExtra("armDistance", 0.0));
 
         List datas = new ArrayList();
         datas.add(R.drawable.illust_1);
@@ -129,23 +132,28 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        button_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
-                intent.putExtra("height",getIntent().getStringExtra("height"));
-                intent.putExtra("name",getIntent().getStringExtra("name"));
-                startActivity(intent);
-                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
-            }
-        });
+//        button_name.setOnClickListener(new View.OnClickListener() { //추후 업데이트
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
+//                intent.putExtra("height",getIntent().getStringExtra("height"));
+//                intent.putExtra("name",getIntent().getStringExtra("name"));
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
+//            }
+//        });
     }
 
     @Override
     public void onChangeButtonListener(int id) {
-        Intent intent = new Intent(getApplicationContext(), TableimageToString.class);
-        startActivity(intent);
-        finish();
+        switch(id) {
+            case 1 :
+                showDialog2();
+                break;
+            case 2 :
+                showDialog1();
+                break;
+        }
     }
 
     class MoviePagerAdapter extends FragmentStatePagerAdapter {
@@ -238,6 +246,31 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showDialog1() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_setting);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public void showDialog2() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_setting2);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final Button button = dialog.findViewById(R.id.btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TableimageToString.class);
+                dialog.dismiss();
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.show();
     }
 }
 

@@ -8,10 +8,17 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import com.peftif.android.Perfect_fit.ModelData.Data_model;
+import com.peftif.android.Perfect_fit.ModelData.DatabaseHelper;
+
+import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,6 +26,8 @@ public class SplashActivity extends AppCompatActivity {
     VideoView videoView;
     Boolean isFinish = false;
     Boolean ifModelExist;
+    List<Data_model> datamodel;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +43,21 @@ public class SplashActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
 //                startNextActivity();
-                Intent intent = new Intent(getApplicationContext(), ModelCreateActivity.class);
-                startActivity(intent);
-                finish();
+                databaseHelper = new DatabaseHelper(getApplicationContext());
+                datamodel = databaseHelper.getdata();
+
+                Log.e("check", datamodel.toString());
+
+                if(datamodel.toString() == "[]") {
+                    Intent intent = new Intent(getApplicationContext(), ModelCreateActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         videoView.start();

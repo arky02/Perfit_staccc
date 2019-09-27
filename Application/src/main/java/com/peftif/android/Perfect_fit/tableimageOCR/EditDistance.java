@@ -8,30 +8,18 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.peftif.android.Perfect_fit.FinalActivity;
 import com.peftif.android.Perfect_fit.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-///**
-// * 편집거리를 구하기 위한 알고리즘으로 levenshtein distance 알고리즘을 사용합니다.
-// * - 한글의 다차원 특성상 자소분리를 통해 거리를 측정합니다.
-// *
-// * @param word1
-// * @param word2
-// * @return
-// */
-
 
 public class EditDistance extends AppCompatActivity {
 
-    TextView tv, tv2;
     String[] list1;
     String[][] finalList, realFinalList;
     int min = 100000;
-    ListView listview;
-    ArrayList<String> array;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +33,7 @@ public class EditDistance extends AppCompatActivity {
         hashmap_UP.put("arm", "소매,소매기장,소매길이,소매길이(어깨포함),소매장,팔길이,팔");//7
         hashmap_UP.put("wrist", "손목단면,손목,손목길이,소매단면");//3
         hashmap_UP.put("wristdouble", "손목둘레");
-        hashmap_UP.put("horizonarmdouble", "팔통둘레");///20
+        hashmap_UP.put("horizonarmdouble", "팔통둘레");//20
         hashmap_UP.put("verticallength", "총기장,총장,옷길이,총길이,기장"); //5
         hashmap_UP.put("bottomlength", "밑단,밑단폭,밑단길이,밑단너비,밑단단면"); //5
         hashmap_UP.put("chestdouble", "가슴둘레");
@@ -69,7 +57,7 @@ public class EditDistance extends AppCompatActivity {
         //이미지 디코딩을 위한 초기화
 
         String OCRresult = getIntent().getStringExtra("OCRresult");
-        Log.d("Editdistance_OCRresult", OCRresult);
+        Log.e("Editdistance_OCRresult", OCRresult);
         // 텍스트 유사도 분석을 위한 split
 
         int listLength = OCRresult.split("\n").length;
@@ -78,43 +66,46 @@ public class EditDistance extends AppCompatActivity {
         list1 = OCRresult.split("\n");
         Log.d("list1[0]", list1[0]);
         Log.d("list[1]", list1[1]);
+        //0 : 어깨, 1 : 가슴단면, 3 : 소매길이, 4 : 암홀단면, 5 : 총길이
 
-        finalList = new String[listLength][];
-        realFinalList = new String[listLength][];
-
-        for (int i = 0; i <= list1.length - 1; i++) {
-            finalList[i] = new String[list1[i].split(" ").length];
-            realFinalList[i] = new String[list1[i].split(" ").length];
+        for (int i = 0; i < 5; i++) {
+            Log.e("chekc data1", ""+split(list1[1])[i]);
         }
 
-        for (int i = 0; i <= list1.length - 1; i++) {
-            finalList[i] = list1[i].split(" ");
-            if (i > 0) {
-                realFinalList[i] = list1[i].split(" ");
-            }
-        }
+        Intent intent = new Intent(EditDistance.this, FinalActivity.class);
+        intent.putExtra("shoulder", Integer.parseInt(split(list1[1])[0]));
+        intent.putExtra("arm", Integer.parseInt(split(list1[1])[3]));
 
+        startActivity(intent);
+        finish();
 
-        applyFinalListJASO(hashmap_UP);
+//        finalList = new String[listLength][];
+//        realFinalList = new String[listLength][];
+//
+//        for (int i = 0; i <= list1.length - 1; i++) {
+//            finalList[i] = new String[list1[i].split(" ").length];
+//            realFinalList[i] = new String[list1[i].split(" ").length];
+//        }
+//
+//        for (int i = 0; i <= list1.length - 1; i++) {
+//            finalList[i] = list1[i].split(" ");
+//            if (i > 0) {
+//                realFinalList[i] = list1[i].split(" ");
+//            }
+//        }
+//
+//
+//        applyFinalListJASO(hashmap_UP);
+    }
 
-        tv = findViewById(R.id.tv);
-        tv2 = findViewById(R.id.tv2);
-
-        System.out.println(hashmap_UP.values());
-        System.out.println(hashmap_UP.values().size());
-
-//            tv.setText(finalList[0][0]);
-//            tv2.setText(String.valueOf(b));
-
+    public String[] split(String result) {
+        String returnData[] = result.split(" ");
+        return returnData;
     }
 
     public void applyFinalListJASO(HashMap<String, String> hashMap) {
         List<String> values = new ArrayList(hashMap.values());
         List<String> keys = new ArrayList(hashMap.keySet());
-
-        System.out.println("1" + values);
-        System.out.println("2" + values.size());
-
         // 초기화 - min = 10000
 
         String findKey = "";
@@ -131,8 +122,8 @@ public class EditDistance extends AppCompatActivity {
                 }
             }
             realFinalList[0][j] = findKey;
-            System.out.println(j + "reallll" + realFinalList[0][j]);
         }
+
         ArrayList<String> arrayListShoulder = new ArrayList<>();
         ArrayList<String> arrayListarm= new ArrayList<>();
         ArrayList<String> arrayListvertical= new ArrayList<>();
@@ -147,13 +138,12 @@ public class EditDistance extends AppCompatActivity {
                 arrayListvertical.add(realFinalList[1][j]);
             }
         }
-        Intent mintent= new Intent(getApplicationContext(),ShowOCRResult.class);
+        Intent mintent= new Intent(getApplicationContext(), FinalActivity.class);
         mintent.putStringArrayListExtra("arrayListShoulder",arrayListShoulder);
         mintent.putStringArrayListExtra("arrayListArm",arrayListarm);
         mintent.putStringArrayListExtra("arrayListVertical",arrayListvertical);
         startActivity(mintent);
     }
-
 
     public static Object getKey(HashMap<String, String> m, Object value) {
         for (Object o : m.keySet()) {
@@ -163,7 +153,6 @@ public class EditDistance extends AppCompatActivity {
         }
         return null;
     }
-
 
     public int levenshteinDistance(String word1, String word2) {
 
@@ -206,7 +195,6 @@ public class EditDistance extends AppCompatActivity {
             for (int j = 0; j < costMatrix[i].length; j++) {
 //                Log.d("editdistance", costMatrix[i][j] + "\t");
             }
-//            Log.d("editdistance", "newline");
         }
     }
 

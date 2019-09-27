@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(LEG, leg);
         contentValues.put(SHOULDER, shoulder);
         db.insert(TABLE,null,contentValues);
+        db.close();
 
 
     }

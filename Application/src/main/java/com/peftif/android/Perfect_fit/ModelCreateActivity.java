@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.peftif.android.Perfect_fit.Camera.CameraChooseActivity;
 import com.peftif.android.Perfect_fit.PoseEstimation.PosenetActivity;
 
 public class ModelCreateActivity extends AppCompatActivity {
@@ -81,8 +82,8 @@ public class ModelCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(InternetCheck()) {
-                    Intent mintent = new Intent(getApplicationContext(), PosenetActivity.class);
-                    mintent.putExtra("img", "/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
+                    Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
+                    mintent.putExtra("img", "/storage/emulated/0/Android/data/com.peftif.android.Perfect_fit/files/pic.jpg");
                     mintent.putExtra("name",name.getText().toString());
                     mintent.putExtra("height",key.getText().toString());
                     startActivity(mintent);
