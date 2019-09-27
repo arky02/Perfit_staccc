@@ -44,7 +44,7 @@ import java.util.List;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, FirstFragmentActivity.changeButtonEvent{
+        implements NavigationView.OnNavigationItemSelectedListener, FirstFragmentActivity.changeButtonEvent, SecondFragmentActivity.changeButtonEvent{
 
     LinearLayout button_name;
     ViewPager vp;
@@ -132,16 +132,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        button_name.setOnClickListener(new View.OnClickListener() { //추후 업데이트
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
-//                intent.putExtra("height",getIntent().getStringExtra("height"));
-//                intent.putExtra("name",getIntent().getStringExtra("name"));
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
-//            }
-//        });
+        button_name.setOnClickListener(new View.OnClickListener() { //추후 업데이트
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ModifyModelActivity.class);
+                intent.putExtra("height",getIntent().getStringExtra("height"));
+                intent.putExtra("name",getIntent().getStringExtra("name"));
+                startActivity(intent);
+                overridePendingTransition(R.anim.sliding_up, R.anim.stay);
+            }
+        });
     }
 
     @Override
@@ -155,6 +155,12 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
+    @Override
+    public void onChangeButtonListener2(int id) {
+        showDialog1();
+    }
+
 
     class MoviePagerAdapter extends FragmentStatePagerAdapter {
 
