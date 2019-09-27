@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -164,11 +165,12 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     };
 
      class RenderingThread extends Thread {
-        File mfile = new File("/storage/emulated/0/Android/data/com.example.android.Perfect_fit/files/pic.jpg");
+        File mfile = new File("/storage/emulated/0/Android/data/com.peftif.android.Perfect_fit/files/pic.jpg");
         Bitmap img;
 
         public RenderingThread() {
             img = BitmapFactory.decodeFile(mfile.getAbsolutePath());
+            Log.e("check img", ""+img);
         }
 
         @Override

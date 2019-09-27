@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.peftif.android.Perfect_fit.Camera.CameraActivity;
+import com.peftif.android.Perfect_fit.ModelData.DatabaseHelper;
 import com.peftif.android.Perfect_fit.PoseEstimation.HumanSkeleton;
 
 public class ModelAdjustActivity extends AppCompatActivity {
@@ -22,7 +24,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
 
     double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist,
             origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
-    double origin_leg, origin_arm, origin_shoulder, distance;
+    double origin_leg, origin_arm, origin_shoulder, distance, origin_armShort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class ModelAdjustActivity extends AppCompatActivity {
         mySurfaceView = findViewById(R.id.surfaceview);
         btn_ok = findViewById(R.id.btn_ok);
         btn_rePic = findViewById(R.id.btn_rePic);
+
+        final DatabaseHelper db = new DatabaseHelper(this);
 
         Intent intent = getIntent();
         humanSkeleton = intent.getParcelableExtra("skeleton");
@@ -60,13 +64,12 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 origin_leg = origin_LAnkleToknee + origin_LKneeToHip;
                 origin_arm = origin_LElbowToWrist + origin_LShoulderToElbow;
                 origin_shoulder = origin_shoulderWidth;
+                origin_armShort = origin_LShoulderToElbow;
 
-                Intent intent1 = new Intent(ModelAdjustActivity.this, ModifyModelActivity.class);
-                intent1.putExtra("name", getIntent().getStringExtra("name"));
-                intent1.putExtra("height", getIntent().getStringExtra("height"));
-                intent1.putExtra("armDistance", origin_arm);
-                intent1.putExtra("legDistance", origin_leg);
-                intent1.putExtra("shoulderWidth", origin_shoulder);
+                Log.e("check", "data push");
+                db.insertdata("룰루랄라", ""+origin_Height, origin_armShort, origin_leg, origin_shoulder);
+
+                Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
                 startActivity(intent1);
                 finish();
             }

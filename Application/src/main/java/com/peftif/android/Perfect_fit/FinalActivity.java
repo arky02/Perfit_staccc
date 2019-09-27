@@ -2,72 +2,120 @@ package com.peftif.android.Perfect_fit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.peftif.android.Perfect_fit.ModelData.Data_model;
+import com.peftif.android.Perfect_fit.ModelData.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FinalActivity extends AppCompatActivity {
 
-    TextView user_shoulder,user_leg,user_arm,cloth_arm,cloth_shoulder,cloth_verticallength,cloth_horizontallength,shoulder_difference,arm_difference;
+    TextView comment_arm, comment_shoulder, difference_arm, difference_shoulder, txt_totalComment;
+    double arm, shoulder;
+    ImageView btn_cloth, btn_home;
+    ImageView img_icon;
+    List<Data_model> datamodel;
+    DatabaseHelper databaseHelper;
+    int big = 0, small = 0, good = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
 
-        double armLength_user = getIntent().getDoubleExtra("armDistance",0);
-        double legLength_user = getIntent().getDoubleExtra("legDistance", 0);
-        double shoulderWidth_user = getIntent().getDoubleExtra("shoulderWidth", 0);
+        comment_arm = findViewById(R.id.comment_arm);
+        comment_shoulder = findViewById(R.id.comment_shoulder);
+        difference_arm = findViewById(R.id.difference_arm);
+        difference_shoulder = findViewById(R.id.difference_shoulder);
+        txt_totalComment = findViewById(R.id.txt_totalComment);
+        img_icon = findViewById(R.id.img_icon);
+        btn_cloth = findViewById(R.id.btn_cloth);
+        btn_home = findViewById(R.id.btn_home);
 
-        int armLength_cloth = getIntent().getIntExtra("armDistance1",0);
-        int shoulderWidth_cloth  = getIntent().getIntExtra("shoulderWidth",0);
+        //intent ocr
+        int armLength_cloth = getIntent().getIntExtra("arm",0);
+        int shoulderWidth_cloth  = getIntent().getIntExtra("shoulder",0);
         int vertical_cloth = getIntent().getIntExtra("verticalWidth", 0);
         int horizontal_cloth = getIntent().getIntExtra("horizontalWidth",0);
 
-        ArrayList<String> arrayListShoulder = new ArrayList<>();
-        ArrayList<String> arrayListarm= new ArrayList<>();
-        ArrayList<String> arrayListvertical= new ArrayList<>();
-        arrayListShoulder = getIntent().getStringArrayListExtra("arrayListShoulder");
-        arrayListarm = getIntent().getStringArrayListExtra("arrayListArm");
-        arrayListvertical = getIntent().getStringArrayListExtra("arrayListVertical");
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        datamodel = databaseHelper.getdata();
 
-        user_arm = findViewById(R.id.final_user_arm);
-        user_leg = findViewById(R.id.final_user_leg);
-        user_shoulder= findViewById(R.id.final_user_shoulder);
-        cloth_arm = findViewById(R.id.final_cloth_arm);
-        cloth_horizontallength = findViewById(R.id.final_cloth_horizontallength);
-        cloth_shoulder = findViewById(R.id.final_cloth_shoulder);
-        cloth_verticallength = findViewById(R.id.final_cloth_verticallength);
-        arm_difference = findViewById(R.id.final_arm_difference);
-        shoulder_difference = findViewById(R.id.final_shoulder_difference);
+        Log.e("check arm cloth", ""+armLength_cloth);
+        Log.e("check arm dis", ""+datamodel.get(0).getArm());
 
-        if (armLength_user !=0 &&legLength_user!=0&&shoulderWidth_user!=0){
-            Toast.makeText(getApplicationContext(), "신체 치수 데이터가 존재하지 않습니다.\n신체 치수 측정을 다시 진행해주세요.", Toast.LENGTH_SHORT).show();
-        }else if(armLength_cloth!=0&&shoulderWidth_cloth!=0){
-            if(arrayListarm !=null||arrayListShoulder!=null||arrayListvertical !=null){
+        arm = Math.round(datamodel.get(0).getArm() * 10)/10 - (double)armLength_cloth;
+        shoulder = Math.round(datamodel.get(0).getShoulder() * 10)/10 - (double)shoulderWidth_cloth;
 
-                user_arm.setText(armLength_user +"cm");
-                user_leg.setText(legLength_user +"cm");
-                user_shoulder.setText(shoulderWidth_user+"cm");
-                cloth_verticallength.setText(arrayListvertical.get(0) +"cm");
-                cloth_shoulder.setText(arrayListShoulder.get(0)+"cm");
-                cloth_arm.setText(arrayListarm.get(0)+"cm");
+        difference_arm.setText(""+arm);
+        difference_shoulder.setText(""+shoulder);
+        setComment(comment_arm, arm);
+        setComment(comment_shoulder, shoulder);
+        setTotalComment();
 
-            }else{
-                Toast.makeText(getApplicationContext(), "옷 치수 데이터가 존재하지 않습니다. 옷 치수 데이터를 입력한 뒤 다시 진행해주세요", Toast.LENGTH_SHORT).show();
+        btn_cloth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
             }
+        });
 
-        }else{
-            user_arm.setText(armLength_user +"cm");
-            user_leg.setText(legLength_user +"cm");
-            user_shoulder.setText(shoulderWidth_user+"cm");
-            cloth_verticallength.setText(vertical_cloth+"cm");
-            cloth_shoulder.setText(shoulderWidth_cloth+"cm");
-            cloth_horizontallength.setText(horizontal_cloth +"cm");
-            cloth_arm.setText(armLength_cloth+"cm");
+        btn_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FinalActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    public void showDialog() {
+        Dialog dialog = new Dialog(FinalActivity.this);
+        dialog.setContentView(R.layout.dialog_setting3);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+    }
+
+    public void setComment(TextView textView, double difference) {
+        if(difference <= 10 && difference >= -10) {
+            textView.setText("적당");
+            good++;
+        }
+        else if(difference > 10) {
+            textView.setText("작음");
+            small++;
+        }
+        else {
+            textView.setText("큼");
+            big++;
+        }
+    }
+
+    public void setTotalComment() {
+        if(small == 1) {
+            txt_totalComment.setText("옷이 좀 작네요!");
+            img_icon.setImageResource(R.drawable.sad);
+        }
+        else if(big == 1) {
+            txt_totalComment.setText("옷이 좀 크네요!");
+            img_icon.setImageResource(R.drawable.sad);
+        }
+        else {
+            txt_totalComment.setText("옷이 딱 맞네요!");
+            img_icon.setImageResource(R.drawable.smile);
         }
     }
 }
