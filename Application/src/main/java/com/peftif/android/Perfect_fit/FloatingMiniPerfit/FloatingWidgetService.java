@@ -102,6 +102,52 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
         linear2edt.setVisibility(View.GONE);
         txt_title.setText("옷의 종류를 골라주세요");
 
+        edt_table1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                edt_table1.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table1, 0);
+
+            }
+        });
+
+        edt_table2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table2.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table2, 0);
+            }
+        });
+
+        edt_table3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table3.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table3, 0);
+
+            }
+        });
+        edt_table4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_table4.requestFocus();
+                //키보드 보이기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                imm.showSoftInput(edt_table4 ,0);
+            }
+        });
+
 
         btn_tshirt.setOnClickListener(view->{
             txt_table1.setText("어깨 폭");
@@ -181,38 +227,43 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                 if (edt_table1.getText().toString().equals("")||edt_table2.getText().toString().equals("")||edt_table3.getText().toString().equals("")||edt_table4.getText().toString().equals("")){
                     Toast.makeText(FloatingWidgetService.this, "주어진 치수표의 치수를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent mintent = new Intent(FloatingWidgetService.this, FinalActivity.class);
-                    mintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
                     switch (selected_state){
                         case 1:
                             //티셔츠
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Intent mintent = new Intent(FloatingWidgetService.this, FinalActivity.class);
+                            mintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mintent.putExtra("arm", edt_table1.getText().toString());
+                            mintent.putExtra("shoulder", edt_table2.getText().toString());
+                            startActivity(mintent);
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                             break;
                         case 2:
                             //바지
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Toast.makeText(getApplicationContext(), "바지 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
 
                         case 3:
                             //드레스
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+                            Toast.makeText(getApplicationContext(), "드레스 및 원피스 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                         case 4:
-                            //치마
-                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
-                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
-                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
-                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
+//                            //치마
+//                            mintent.putExtra("armDistance1", edt_table1.getText().toString());
+                            Toast.makeText(getApplicationContext(), "치마 가상피팅 기능은 곧 업데이트 될 예정입니다!", Toast.LENGTH_SHORT).show();
+//                            mintent.putExtra("shoulderWidth", edt_table2.getText().toString());
+//                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
+//                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());
                     }
-                    startActivity(mintent);
+
 
 
                 }
@@ -240,7 +291,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT);
 
         //Specify the view position
@@ -265,7 +316,7 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.TRANSLUCENT);
 
 

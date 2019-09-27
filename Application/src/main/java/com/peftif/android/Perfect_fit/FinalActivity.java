@@ -49,7 +49,9 @@ public class FinalActivity extends AppCompatActivity {
         int vertical_cloth = getIntent().getIntExtra("verticalWidth", 0);
         int horizontal_cloth = getIntent().getIntExtra("horizontalWidth",0);
 
-        databaseHelper = new DatabaseHelper(getApplicationContext());
+
+
+       databaseHelper = new DatabaseHelper(getApplicationContext());
         datamodel = databaseHelper.getdata();
 
         Log.e("check arm cloth", ""+armLength_cloth);
@@ -63,6 +65,7 @@ public class FinalActivity extends AppCompatActivity {
         setComment(comment_arm, arm);
         setComment(comment_shoulder, shoulder);
         setTotalComment();
+        Toast.makeText(getApplicationContext(), "더 다양하고 세부적인 치수들의 비교는 곧 업데이트 될 예정입니다!", Toast.LENGTH_LONG).show();
 
         btn_cloth.setOnClickListener(new View.OnClickListener() {
             @Override

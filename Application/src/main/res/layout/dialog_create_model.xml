@@ -68,6 +68,7 @@
                     android:id="@+id/edt_height"
                     android:layout_width="230dp"
                     android:layout_height="40dp"
+                    android:inputType="number|textShortMessage"
                     android:layout_marginTop="9dp"
                     android:hint="키"
                     android:padding="10dp"

@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.peftif.android.Perfect_fit.Camera.CameraChooseActivity;
@@ -33,6 +34,8 @@ public class ModifyModelActivity extends AppCompatActivity {
     RecycleAdapter recycler;
     RecyclerView.LayoutManager layoutManager;
     List<Data_model> datamodel;
+    Dialog dialog;
+    Boolean ok = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,43 +112,66 @@ public class ModifyModelActivity extends AppCompatActivity {
     }
 
     public void CreateDialog() {
-        final Dialog dialog = new Dialog(ModifyModelActivity.this);
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final Dialog mdialog = new Dialog(ModifyModelActivity.this);
+        if (mdialog.getWindow() != null) {
+            mdialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            mdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-        dialog.setContentView(R.layout.dialog_create_model);
+        mdialog.setContentView(R.layout.dialog_create_model);
 
-        final EditText edt_name = dialog.findViewById(R.id.edt_name);
-        final EditText edt_height = dialog.findViewById(R.id.edt_height);
-        ImageView btn_cancel = dialog.findViewById(R.id.btn_cancel);
-        Button btn_ok = dialog.findViewById(R.id.btn_ok);
+        final EditText edt_name = mdialog.findViewById(R.id.edt_name);
+        final EditText edt_height = mdialog.findViewById(R.id.edt_height);
+        ImageView btn_cancel = mdialog.findViewById(R.id.btn_cancel);
+        Button btn_ok = mdialog.findViewById(R.id.btn_ok);
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                mdialog.dismiss();
             }
         });
+
+
+
+
+
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                name = edt_name.getText().toString();
-                height = edt_height.getText().toString();
-                if(name.isEmpty() || height.isEmpty()){
-                    Toast.makeText(ModifyModelActivity.this, "이름과 키를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
-                    mintent.putExtra("name", edt_name.getText().toString());
-                    mintent.putExtra("height", edt_height.getText().toString());
-//                    databaseHelper.insertdata(name,height);
-                    edt_height.setText("");
-                    edt_name.setText("");
-//                    RefreshAdapter();
-                    dialog.dismiss();
+                dialog = new Dialog(ModifyModelActivity.this);
+
+                if (dialog.getWindow() != null) {
+                    dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 }
+                dialog.setContentView(R.layout.dialogg);
+                dialog.setCancelable(true);
+
+
+                final Button btn_ok = dialog.findViewById(R.id.btn_ok33);
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        name = edt_name.getText().toString();
+                        height = edt_height.getText().toString();
+                        if (name.isEmpty() || height.isEmpty()) {
+                            Toast.makeText(ModifyModelActivity.this, "이름과 키를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent mintent = new Intent(getApplicationContext(), CameraChooseActivity.class);
+                            mintent.putExtra("name", edt_name.getText().toString());
+                            mintent.putExtra("height", edt_height.getText().toString());
+                            mintent.putExtra("img", "/storage/emulated/0/Android/data/com.peftif.android.Perfect_fit/files/pic.jpg");
+//                    databaseHelper.insertdata(name,height);
+                            edt_height.setText("");
+                            edt_name.setText("");
+//                    RefreshAdapter();
+                            mdialog.dismiss();
+                            startActivity(mintent);
+                            dialog.dismiss();
+                        }
+
                 /*
                 String name = null;
                 int height = 0;
@@ -162,10 +188,13 @@ public class ModifyModelActivity extends AppCompatActivity {
                 dialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), CameraChooseActivity.class);
                 */
+                    }
 
+                });
+                dialog.show();
             }
-        });
-        dialog.show();
+        });mdialog.show();
+
 
     }
 

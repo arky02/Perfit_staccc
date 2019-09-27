@@ -62,10 +62,11 @@ public class TableimageToString extends AppCompatActivity {
     String datapath = ""; //언어데이터가 있는 경로
     LinearLayout ll,layout2;
     RelativeLayout layout1;
-    public static int thresholdMin = 145; // Threshold 80 to 105 is Ok
+    public static int thresholdMin = 145; // Threshold 80 to 105
     private int thresholdMax = 255; // Always 255
     public String recognizeResult = "";
     Mat origin;
+    Boolean isDone = false;
 
 
 
@@ -87,8 +88,6 @@ public class TableimageToString extends AppCompatActivity {
         layout1.setVisibility(VISIBLE);
         CropImage.activity().start(TableimageToString.this);
         startOCR();
-        //이미지 디코딩을 위한 초기화
-        //이미지파일
 
 
 
@@ -115,6 +114,7 @@ public class TableimageToString extends AppCompatActivity {
                             Intent mintent = new Intent(getApplicationContext(),EditDistance.class);
                             mintent.putExtra("OCRresult", recognizeResult);
                             startActivity(mintent);
+                            isDone = false;
                             finish();
                             //TODO
                         }
@@ -138,6 +138,16 @@ public class TableimageToString extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if(isDone = false){
+            this.finish();
+        }
+        super.onBackPressed();
+
+    }
+
     //    private void setDialog(boolean show){
 //        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 //        //View view = getLayoutInflater().inflate(R.layout.progress);
@@ -166,8 +176,12 @@ public class TableimageToString extends AppCompatActivity {
     @Override
 
 
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            isDone = true;
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 resultUri = result.getUri();

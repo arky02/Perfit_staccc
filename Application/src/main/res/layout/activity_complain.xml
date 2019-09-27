@@ -52,7 +52,7 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:layout_width="570dp"
+        android:layout_width="300dp"
         android:layout_height="5dp"
         android:background="#F58CA0"/>
 
@@ -92,6 +92,7 @@
             android:textSize="17sp"
             android:textColor="#271611"
             android:layout_marginEnd="40dp"/>
+
 
         <EditText
             android:id="@+id/et_apply_part"

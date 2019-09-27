@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_design">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="276dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="276dp"
+            android:layout_height="276dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="visible">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#424040"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="감사합니다.\n성공적으로 접수되었습니다."
+                android:fontFamily="@font/nanumsquareeb"/>
+
+
+            <Button
+                android:id="@+id/btn_ok44"
+                android:layout_width="124dp"
+                android:layout_height="38.8dp"
+                android:text="OK"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="45dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/buttondesign3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
