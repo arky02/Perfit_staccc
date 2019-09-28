@@ -68,8 +68,11 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.peftif.android.Perfect_fit.ModelCreateActivity;
 import com.peftif.android.Perfect_fit.PoseEstimation.PosenetActivity;
 import com.peftif.android.Perfect_fit.R;
 
@@ -106,6 +109,7 @@ Camera2BasicFragment extends Fragment
     TextView text_degree, txt_perfectlevel, text_countdown, text_guide;
     CountDownTimer mCountDown = null;
     Double angleYZ = -1.0;
+    Button btn;
     Boolean isActivated = false, NotWork = false, isDone = false;
 
 
@@ -463,12 +467,26 @@ Camera2BasicFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_camera2_basic, container, false);
+        btn = v.findViewById(R.id.btngoback);
+
+
         msensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         mAccelometerSensor = msensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAcclis = new AocelometerListener();
 
         msensorManager.registerListener(mAcclis, mAccelometerSensor, SensorManager.SENSOR_DELAY_UI);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ddd", "ddd");
+                Intent mintent = new Intent(getActivity(), ModelCreateActivity.class);
+                startActivity(mintent);
+            }
+        });
 
 
         return inflater.inflate(R.layout.fragment_camera2_basic, container, false);
@@ -503,7 +521,7 @@ Camera2BasicFragment extends Fragment
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
                 text_guide.setBackgroundColor(Color.parseColor("#EC407A"));
                 text_guide.setTextColor(Color.parseColor("#FFFFFF"));
-                //CountDown();
+                CountDown();
             }
         } else {
             NotWork = true;
@@ -535,13 +553,13 @@ Camera2BasicFragment extends Fragment
 
             @Override
             public void onFinish() {
-                takePicture();
+                //takePicture();
 
 //                    Intent mintent = new Intent(getActivity(),ImageShowActivity.class);
 //                    mintent.putExtra(mFile);
 //                    startActivity(mintent);
 //                }
-                isDone = true;
+                //isDone = true;
             }
         }.start();
 
@@ -579,11 +597,20 @@ Camera2BasicFragment extends Fragment
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         text_degree = view.findViewById(R.id.text_degree);
+        btn = view.findViewById(R.id.btngoback);
         txt_perfectlevel = view.findViewById(R.id.img_perfectlevel);
         txt_perfectlevel.setVisibility(View.INVISIBLE);
         text_countdown = view.findViewById(R.id.text_countdown);
         text_guide = view.findViewById(R.id.txt_guide);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ddd", "ddd");
+                Intent mintent = new Intent(getActivity(), ModelCreateActivity.class);
+                startActivity(mintent);
+            }
+        });
     }
 
     @Override

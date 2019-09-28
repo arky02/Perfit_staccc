@@ -36,13 +36,7 @@
         android:id="@+id/img_perfectlevel"
         />
 
-    <ImageView
-        android:layout_width="440dp"
-        android:layout_height="502dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
 
-        android:src="@drawable/model_pose" />
     <TextView
         android:layout_width="match_parent"
         android:background="#FFFFFF"

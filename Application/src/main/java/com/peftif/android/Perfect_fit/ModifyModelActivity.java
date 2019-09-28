@@ -49,13 +49,13 @@ public class ModifyModelActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        databaseHelper = new DatabaseHelper(getApplicationContext());
+        databaseHelper = new DatabaseHelper(this);
         bigText = findViewById(R.id.bigname);
 
         RefreshAdapter();
 
 
-        if(datamodel.get(0).getName() !=  null) {
+        if(datamodel.size() !=  0) {
             bigText.setText(datamodel.get(0).getName());
         }else{bigText.setText("홍길동");}
 

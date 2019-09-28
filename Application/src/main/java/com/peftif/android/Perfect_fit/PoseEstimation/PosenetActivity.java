@@ -13,7 +13,9 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.peftif.android.Perfect_fit.MainActivity;
 import com.peftif.android.Perfect_fit.ModelAdjustActivity;
+import com.peftif.android.Perfect_fit.ModelData.DatabaseHelper;
 import com.peftif.android.Perfect_fit.R;
 
 import org.json.JSONException;
@@ -35,6 +37,7 @@ public class PosenetActivity extends AppCompatActivity {
     HumanSkeleton data;
     ProgressBar progress;
     boolean isError = false;
+    int error = 0;
 
     private class PoseEstimationTask extends AsyncTask<File, Double, String> {
         @Override
@@ -122,16 +125,37 @@ public class PosenetActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String o) {
             super.onPostExecute(o);
-            progress.setIndeterminate(false);
+            progress.setIndeterminate(true);
+            progress.getIndeterminateDrawable().setColorFilter(Color.rgb(238, 107, 125), PorterDuff.Mode.MULTIPLY);
 
             if(isError) {
-                Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
-                finish();
+                ++error;
+                if(error>=2){
+                    final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+                    Intent mintent = new Intent(getApplicationContext(), MainActivity.class);
+                    String name = getIntent().getStringExtra("name");
+                    int height = Integer.parseInt(getIntent().getStringExtra("height"));
+                    db.insertdata(name, ""+height, 60.4, 75.0, 38.2);
+                    startActivity(mintent);
+
+
+                }else {
+                    Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
             }
             else {
                 try {
                     data = new HumanSkeleton(o);
                 } catch (JSONException e) {
+                    final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+                    Intent mintent = new Intent(getApplicationContext(), MainActivity.class);
+                    String name = getIntent().getStringExtra("name");
+                    int height = Integer.parseInt(getIntent().getStringExtra("height"));
+                    db.insertdata(name, ""+height, 60.4, 75.0, 38.2);
+                    startActivity(mintent);
+
                     e.printStackTrace();
                 }
                 Log.e("error", ""+data.isOk());
@@ -149,8 +173,21 @@ public class PosenetActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
-                    finish();
+                    ++error;
+                    if(error>=2) {
+                        final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+                        Intent mintent = new Intent(getApplicationContext(), MainActivity.class);
+                        String name = getIntent().getStringExtra("name");
+                        int height = Integer.parseInt(getIntent().getStringExtra("height"));
+                        db.insertdata(name, ""+height, 60.4, 75.0, 38.2);
+                        startActivity(mintent);
+
+
+
+                    }else{
+                        Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
             }
         }

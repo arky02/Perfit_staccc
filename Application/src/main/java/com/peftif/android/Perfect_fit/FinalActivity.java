@@ -70,6 +70,8 @@ public class FinalActivity extends AppCompatActivity {
         btn_cloth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent mintent = new Intent(getApplicationContext(),FittingActivity.class);
+                startActivity(mintent);
                 showDialog();
             }
         });

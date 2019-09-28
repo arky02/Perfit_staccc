@@ -53,11 +53,17 @@
         <activity android:name="com.peftif.android.Perfect_fit.Main2Activity" />
         <activity android:name="com.peftif.android.Perfect_fit.FloatingMiniPerfit.CheckFWPermission" />
         <activity android:name="com.peftif.android.Perfect_fit.FinalActivity"
-            android:theme="@style/MaterialTheme.NoActionBar"/>
+            android:theme="@style/MaterialTheme.NoActionBar">
+
+
+        </activity>
+
         <activity
             android:name="com.peftif.android.Perfect_fit.FittingActivity"
             android:label="@string/title_activity_fitting"
-            android:theme="@style/MaterialTheme.NoActionBar" />
+            android:theme="@style/MaterialTheme.NoActionBar">
+
+        </activity>
         <activity android:name="com.peftif.android.Perfect_fit.ModelAdjustActivity"
             android:theme="@style/MaterialTheme.NoActionBar"/>
         <activity android:name="com.peftif.android.Perfect_fit.PoseEstimation.PosenetActivity"
@@ -93,7 +99,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
 
 
         </activity>

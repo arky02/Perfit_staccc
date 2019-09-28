@@ -16,7 +16,7 @@
 -->
 <resources>
     <color name="control_background">#cc4285f4</color>
-    <color name="perfit_background">#FF1684</color>
+    <color name="perfit_background">#EE6B7D</color>
     <color name="perfit_edittext">#000000</color>
 
 

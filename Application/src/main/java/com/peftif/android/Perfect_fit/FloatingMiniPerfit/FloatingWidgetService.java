@@ -234,8 +234,8 @@ public class FloatingWidgetService extends Service implements View.OnClickListen
                             //티셔츠
                             Intent mintent = new Intent(FloatingWidgetService.this, FinalActivity.class);
                             mintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            mintent.putExtra("arm", edt_table1.getText().toString());
-                            mintent.putExtra("shoulder", edt_table2.getText().toString());
+                            mintent.putExtra("arm", Integer.parseInt(edt_table1.getText().toString()));
+                            mintent.putExtra("shoulder", Integer.parseInt(edt_table2.getText().toString()));
                             startActivity(mintent);
 //                            mintent.putExtra("verticalWidth", edt_table4.getText().toString());
 //                            mintent.putExtra("horizontalWidth", edt_table3.getText().toString());

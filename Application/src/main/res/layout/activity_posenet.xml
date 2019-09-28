@@ -11,14 +11,15 @@
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progress"/>
+        android:id="@+id/progress" />
 
     <TextView
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="모델을 생성중입니다!"
-        android:textSize="15dp"
+        android:fontFamily="@font/nanumsquare"
+        android:textSize="20dp"
         android:textColor="@color/perfit_background"
         android:textStyle="bold"/>
 
