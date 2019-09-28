@@ -40,11 +40,6 @@
             android:name="com.peftif.android.Perfect_fit.MainActivity"
             android:label=""
             android:theme="@style/MaterialTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
@@ -92,6 +87,13 @@
             android:theme="@style/MaterialTheme.NoActionBar"
             android:name="com.peftif.android.Perfect_fit.SplashActivity"
             android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
 
 
         </activity>
