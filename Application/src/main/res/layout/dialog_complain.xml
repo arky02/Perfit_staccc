@@ -29,6 +29,7 @@
                 android:textColor="#424040"
                 android:textSize="20sp"
                 android:gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="감사합니다.\n성공적으로 접수되었습니다."
                 android:fontFamily="@font/nanumsquareeb"/>
 

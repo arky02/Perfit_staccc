@@ -52,9 +52,9 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="5dp"
-        android:background="#F58CA0"/>
+        android:background="#1976D2"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -68,14 +68,13 @@
             android:text="제목"
             android:textColor="#271611"
             android:textSize="17sp"
-            android:layout_marginEnd="80dp"/>
+            android:layout_marginEnd="73dp"/>
 
         <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:maxLength="6"
             android:gravity="center_horizontal"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:id="@+id/et_student_number"/>
     </LinearLayout>
 
@@ -129,9 +128,10 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:text="제출"
         android:textSize="20sp"
-        android:background="#E91E63"
+        android:background="#1976D2"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

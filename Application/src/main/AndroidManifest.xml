@@ -28,7 +28,7 @@
     <application
         android:name="com.peftif.android.Perfect_fit.GlobalData"
         android:allowBackup="true"
-        android:icon="@drawable/perfitlogo_new"
+        android:icon="@drawable/logo_cand"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat">

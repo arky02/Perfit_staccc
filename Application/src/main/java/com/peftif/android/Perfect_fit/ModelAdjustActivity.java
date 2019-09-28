@@ -69,7 +69,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 Log.e("check", "data push");
                 db.insertdata("룰루랄라", ""+origin_Height, origin_armShort, origin_leg, origin_shoulder);
 
-                Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
+                Intent intent1 = new Intent(ModelAdjustActivity.this, ModifyModelActivity.class);
                 startActivity(intent1);
                 finish();
             }

@@ -503,7 +503,7 @@ Camera2BasicFragment extends Fragment
                 text_degree.setTextColor(Color.parseColor("#EC407A"));
                 text_guide.setBackgroundColor(Color.parseColor("#EC407A"));
                 text_guide.setTextColor(Color.parseColor("#FFFFFF"));
-                CountDown();
+                //CountDown();
             }
         } else {
             NotWork = true;

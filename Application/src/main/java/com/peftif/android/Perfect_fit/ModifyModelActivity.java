@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.peftif.android.Perfect_fit.Camera.CameraChooseActivity;
@@ -34,6 +35,7 @@ public class ModifyModelActivity extends AppCompatActivity {
     RecycleAdapter recycler;
     RecyclerView.LayoutManager layoutManager;
     List<Data_model> datamodel;
+    TextView bigText;
     Dialog dialog;
     Boolean ok = false;
 
@@ -47,29 +49,18 @@ public class ModifyModelActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        bigText = findViewById(R.id.bigname);
 
-        String name = getIntent().getStringExtra("name");
-        String height = getIntent().getStringExtra("height");
-        Double arm_length = getIntent().getDoubleExtra("armDistance",0);
-        Double leg_length = getIntent().getDoubleExtra("legDistance",0);
-        Double shoulder_length = getIntent().getDoubleExtra("shoulderWidth",0);
+        RefreshAdapter();
 
 
+        if(datamodel.get(0).getName() !=  null) {
+            bigText.setText(datamodel.get(0).getName());
+        }else{bigText.setText("홍길동");}
 
-        Log.e("name,height",name+height);
-        if(name == null && height == null&&arm_length== 0&&leg_length == 0&&shoulder_length ==0){
-            RefreshAdapter();
-        }else{
-            Data_model modeldata1 = new Data_model();
-            modeldata1.setName(name);
-            modeldata1.setHeight(height);
-            modeldata1.setArm(arm_length);
-            modeldata1.setLeg(leg_length);
-            modeldata1.setShoulder(shoulder_length);
-            databaseHelper.insertdata(name, height,arm_length,leg_length,shoulder_length);
-            RefreshAdapter();
-        }
+
+
         /*
         databaseHelper.insertdata(name, height);
         ArrayList<Data_model> ModelData = new ArrayList<>();
@@ -91,6 +82,8 @@ public class ModifyModelActivity extends AppCompatActivity {
                 CreateDialog();
             }
         });
+
+
         recycler.setOnItemClickListener(
                 new RecycleAdapter.OnItemClickListener() {
                     @Override
@@ -103,12 +96,54 @@ public class ModifyModelActivity extends AppCompatActivity {
                         Double modelLeg = datamodel.get(pos).getLeg();
                         Double modelShoulder = datamodel.get(pos).getShoulder();
 
+                        popupDialog(pos);
+                        bigText.setText(datamodel.get(pos).getName());
+
+
+
+
                         System.out.println(pos+","+modelName+","+modelHigth+","+modelArm+","+modelLeg+","+modelShoulder);
 
 //                        Toast.makeText(ModifyModelActivity.this, pos, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
+    }
+
+
+
+    public void popupDialog(int position){
+
+        final Dialog dialog = new Dialog(ModifyModelActivity.this);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        dialog.setContentView(R.layout.dialog_selected);
+        dialog.setCancelable(true);
+
+
+        final Button btn_ok = dialog.findViewById(R.id.btn_ok55);
+        final TextView arm = dialog.findViewById(R.id.sel_arm);
+        final TextView leg = dialog.findViewById(R.id.sel_leg);
+        final TextView shoulder = dialog.findViewById(R.id.sel_shoulder);
+        final TextView name = dialog.findViewById(R.id.sel_name);
+
+        arm.setText(datamodel.get(position).getArm()+"");
+        name.setText(datamodel.get(position).getName()+"");
+        leg.setText(datamodel.get(position).getLeg()+"");
+        shoulder.setText(datamodel.get(position).getShoulder()+"");
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+
+        });
+        dialog.show();
+
     }
 
     public void CreateDialog() {

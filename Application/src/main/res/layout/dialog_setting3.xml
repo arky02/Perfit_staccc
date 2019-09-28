@@ -6,24 +6,24 @@
     android:gravity="center"
     >
     <LinearLayout
-        android:background="#AAFFFFFF"
+        android:background="#C8FFFFFF"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="370dp"
-        android:layout_height="640dp">
+        android:layout_width="340dp"
+        android:layout_height="330dp">
         <TextView
             android:textStyle="bold"
             android:fontFamily="@font/nanumsquare"
             android:textSize="28sp"
-            android:textColor="#646060"
+            android:textColor="#474343"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="보다 더 시각적인 가상 피팅"/>
+            android:text="보다 시각적인 가상 피팅"/>
         <TextView
             android:textStyle="bold"
             android:fontFamily="@font/nanumsquare"
             android:textSize="28sp"
-            android:textColor="#646060"
+            android:textColor="#474343"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="기능을 준비 중 입니다!"/>

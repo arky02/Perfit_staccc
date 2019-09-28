@@ -30,9 +30,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginBottom="45dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="45dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -42,17 +42,19 @@
 
             <TextView
                 android:fontFamily="@font/nanumsquare"
+                android:id="@+id/bigname"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="홍길동"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="40sp"/>
 
             <ImageView
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:layout_width="67dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="3dp"
                 android:src="@drawable/right_arrow" />
 
         </LinearLayout>

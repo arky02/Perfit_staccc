@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_design">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="276dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="276dp"
+            android:layout_height="276dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="visible">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="17dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="&lt; 모델"
+                    android:fontFamily="@font/nanumsquareeb"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/sel_name"
+
+                    android:text="김기연"
+                    android:fontFamily="@font/nanumsquareeb"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+
+                    android:text=" &gt;"
+                    android:fontFamily="@font/nanumsquareeb"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:text="어깨 길이"
+                    android:fontFamily="@font/nanumsquareeb"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:id="@+id/sel_shoulder"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="10cm"
+                    android:fontFamily="@font/nanumsquare"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="팔 길이"
+                    android:layout_marginRight="39dp"
+                    android:fontFamily="@font/nanumsquareeb"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:id="@+id/sel_arm"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="10cm"
+                    android:fontFamily="@font/nanumsquare"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:text="다리 길이"
+                    android:fontFamily="@font/nanumsquareeb"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#424040"
+                    android:textSize="20sp"
+                    android:id="@+id/sel_leg"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="10cm"
+                    android:fontFamily="@font/nanumsquare"/>
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/btn_ok55"
+                android:layout_width="124dp"
+                android:layout_height="38.8dp"
+                android:text="OK"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="30dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/buttondesign3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

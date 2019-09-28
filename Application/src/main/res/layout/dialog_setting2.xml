@@ -7,53 +7,40 @@
     >
 
     <LinearLayout
-        android:layout_width="370dp"
-        android:layout_height="640dp"
-        android:background="#AAFFFFFF"
+        android:layout_width="320dp"
+        android:layout_height="290dp"
+        android:background="#E9FFFFFF"
         android:gravity="center"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanumsquareeb"
-            android:text="인식 기능이 불안정하여"
+            android:gravity="center"
+            android:layout_marginTop="3dp"
+            android:text="&lt; 참고 &gt;"
             android:textColor="#646060"
-            android:textSize="28sp"
+            android:textSize="27sp"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanumsquareeb"
-            android:text="오류가 발생할 수 있습니다"
-            android:textColor="#FF646060"
-            android:textSize="28sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="치수표 인식 기능이 불안정하여\n오류가 발생할 수 있습니다\n이 경우 미니퍼핏을 이용하여\n진행해주시길 바랍니다"
+            android:textColor="#646060"
+            android:textSize="20sp"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nanumsquareeb"
-            android:text="오류 발생 시"
-            android:textColor="#FF646060"
-            android:textSize="28sp"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nanumsquareeb"
-            android:text="미니 퍼핏을 이용해 주세요"
-            android:textColor="#FF646060"
-            android:textSize="28sp"
-             />
 
         <Button
             android:id="@+id/btn"
             android:layout_width="141dp"
             android:layout_height="41dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="33dp"
             android:background="@drawable/buttondesign3"
             android:text="OK"
             android:textColor="#ffffff"
