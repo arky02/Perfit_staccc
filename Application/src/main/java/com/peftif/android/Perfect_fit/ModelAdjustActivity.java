@@ -21,6 +21,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
     final int PICH_ME = 1;
     final int PICK_OTHER = 2;
     HumanSkeleton data;
+    String name;
 
     double origin_Height, origin_LShoulderToElbow, origin_RShoulderToElbow, origin_LElbowToWrist, origin_RElbowToWrist,
             origin_shoulderWidth, origin_LAnkleToknee, origin_RAnkleToknee, origin_LKneeToHip, origin_RKneeToHip, origin_bodyDistance;
@@ -38,6 +39,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
         final DatabaseHelper db = new DatabaseHelper(this);
 
         Intent intent = getIntent();
+        name = intent.getStringExtra("name");
         humanSkeleton = intent.getParcelableExtra("skeleton");
         origin_Height = Double.parseDouble(getIntent().getStringExtra("height"));
         data = intent.getParcelableExtra("skeleton");
@@ -67,7 +69,7 @@ public class ModelAdjustActivity extends AppCompatActivity {
                 origin_armShort = origin_LShoulderToElbow;
 
                 Log.e("check", "data push");
-                db.insertdata("룰루랄라", ""+origin_Height, origin_armShort, origin_leg, origin_shoulder);
+                db.insertdata(name, ""+origin_Height, origin_armShort, origin_leg, origin_shoulder);
 
                 Intent intent1 = new Intent(ModelAdjustActivity.this, MainActivity.class);
                 startActivity(intent1);
