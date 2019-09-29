@@ -129,6 +129,7 @@ public class PosenetActivity extends AppCompatActivity {
             progress.getIndeterminateDrawable().setColorFilter(Color.rgb(238, 107, 125), PorterDuff.Mode.MULTIPLY);
 
             if(isError) {
+
                 ++error;
                 if(error>=2){
                     final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -140,7 +141,7 @@ public class PosenetActivity extends AppCompatActivity {
 
 
                 }else {
-                    Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PosenetActivity.this, "와이파이 연결 확인 후 다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
@@ -158,7 +159,7 @@ public class PosenetActivity extends AppCompatActivity {
 
                     e.printStackTrace();
                 }
-                Log.e("error", ""+data.isOk());
+
 
                 if(data.isOk()) {
                     Intent intent = new Intent(PosenetActivity.this, ModelAdjustActivity.class);
@@ -174,15 +175,13 @@ public class PosenetActivity extends AppCompatActivity {
                 }
                 else {
                     ++error;
-                    if(error>=2) {
+                    if(error>=1) {
                         final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
                         Intent mintent = new Intent(getApplicationContext(), MainActivity.class);
                         String name = getIntent().getStringExtra("name");
                         int height = Integer.parseInt(getIntent().getStringExtra("height"));
                         db.insertdata(name, ""+height, 60.4, 75.0, 38.2);
                         startActivity(mintent);
-
-
 
                     }else{
                         Toast.makeText(PosenetActivity.this, "다시 한번 찍어주세요", Toast.LENGTH_SHORT).show();
