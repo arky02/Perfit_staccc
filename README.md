@@ -1,4 +1,4 @@
-PerFit: Perfect Fit
+PerFit: "Perfect Fit"
 =========
 
  ### Virtual Fitting Simulation app created by Android studio 
