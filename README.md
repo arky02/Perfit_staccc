@@ -45,6 +45,6 @@ But - We also made Version 2 for the unexpected errors while using 'Version 1 - 
 --- <br/>
 
 >2) Version 2 - Using Mini-Perfit
-><video width="400" alt="Video of Version2 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9">
+> <video width="400" alt="Video of Version2 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9">
 
    
