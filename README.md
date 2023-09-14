@@ -16,14 +16,25 @@ PerFit: Perfect Fit
 
  > PerFit uses PoseNet to create a Virtual Model and extract body dimensions from it.
 <br>
+
 ### 2. OCR and OpenCV
 - OpenCV is a library of programming functions mainly aimed at real-time computer vision.
 
  > PerFit uses OCR and OpenCV to extract a clothes size by scanning a clothing's spec measurement.
 <br>
+
 ### 3. Designing Programms: Adobe XD, Adobe Illustrator
 
 # Demo Video
+Before watching the demo video;we offer 2 versions to get measurements for the clothings while using 'PerFit' app.
+Version 1 is the main version. It just allows automatic scanning for a clothing's spec measurement by using OCR technique.
+But- We also made Version 2 for the unexpected errors while using Version 1: scanning automatically by OCR.
+Version 2: using Mini-Perfit let users to input clothing's dimensional sizes manually. Users can just simply enter clothes sizes into a floating widget, Mini-Perfit.
 
+1) Version 1 - Using OCR
+https://github.com/arky02/Perfit_staccc/assets/46954114/fd284d41-933a-448d-a8da-2fb915f7cf0e
+
+2) Version 2 - Using Mini-Perfit
+https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9
 
    
