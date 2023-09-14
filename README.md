@@ -9,7 +9,10 @@ PerFit: Perfect Fit
 - Screen configuration: 
 <img width="590" alt="Screen Configuration" src="https://github.com/arky02/Perfit_staccc/assets/46954114/d524a419-80ad-47f9-9525-bd5296dddabc">
 
+- "My Model" Screen
+  Users can save more than 1 person's body dimensions into our app. We allow to make several model profiles and save their body sizes.(for the usage of their family, lovers..etc)
 
+  
 # Techniques
 ### 1. PoseNet(Pose estimation)
 - Pose estimation is the task of using an ML model to estimate the pose of a person from an image or a video by estimating the spatial locations of key body joints (keypoints).
