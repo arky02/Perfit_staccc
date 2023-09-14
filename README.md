@@ -9,14 +9,13 @@ PerFit: Perfect Fit
 - Screen configuration: 
 <img width="590" alt="Screen Configuration" src="https://github.com/arky02/Perfit_staccc/assets/46954114/d524a419-80ad-47f9-9525-bd5296dddabc">
 
-- "My Model" Screen
-  Users can save more than 1 person's body dimensions into our app. We allow to make several model profiles and save their body sizes.(for the usage of their family, lovers..etc)
-<img width="865" alt="Screen Shot 2023-09-14 at 3 53 04 PM" src="https://github.com/arky02/Perfit_staccc/assets/46954114/43a76bbf-bc3d-4d87-8ac9-f9c18f21cc60">
 
-- Main Screen Illustration
+- "My Model" Screen
+  - Users can save more than 1 person's body dimensions into our app. We allow to make several model profiles and save their body sizes.(for the usage of their family, lovers ...etc)
+<img width="550" alt="Screen Shot 2023-09-14 at 3 53 04 PM" src="https://github.com/arky02/Perfit_staccc/assets/46954114/43a76bbf-bc3d-4d87-8ac9-f9c18f21cc60">
   
   
-# Techniques
+# Techniques we used
 ### 1. PoseNet(Pose estimation)
 - Pose estimation is the task of using an ML model to estimate the pose of a person from an image or a video by estimating the spatial locations of key body joints (keypoints).
 
@@ -29,16 +28,17 @@ PerFit: Perfect Fit
  > PerFit uses OCR and OpenCV to extract a clothes size by scanning a clothing's spec measurement.
 <br>
 
-### 3. Designing Programms: Adobe XD, Adobe Illustrator
+### 3. Designing Tools
+- Adobe XD, Adobe Illustrator
 
 # Demo Video
-Before watching the demo video;we offer 2 versions to get measurements for the clothings while using 'PerFit' app.
-Version 1 is the main version. It just allows automatic scanning for a clothing's spec measurement by using OCR technique.
-But- We also made Version 2 for the unexpected errors while using Version 1: scanning automatically by OCR.
-Version 2: using Mini-Perfit let users to input clothing's dimensional sizes manually. Users can just simply enter clothes sizes into a floating widget, Mini-Perfit.
+#### Before watching the demo video;we offer 2 versions to get measurements for the clothings while using 'PerFit' app.<br>
+Version 1 is the main version. It just allows automatic scanning for a clothing's spec measurement by using OCR technique.<br>
+But- We also made Version 2 for the unexpected errors while using Version 1: scanning automatically by OCR.<br>
+Version 2: using Mini-Perfit let users to input clothing's dimensional sizes manually. Users can just simply enter clothes sizes into a floating widget, Mini-Perfit.<br>
 
 1) Version 1 - Using OCR
-https://github.com/arky02/Perfit_staccc/assets/46954114/fd284d41-933a-448d-a8da-2fb915f7cf0e
+<video width="350" alt="Video of Version1 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/fd284d41-933a-448d-a8da-2fb915f7cf0e">
 
 2) Version 2 - Using Mini-Perfit
 https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9
