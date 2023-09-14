@@ -1,11 +1,11 @@
 PerFit: Perfect Fit
 =========
 
-### Virtual Fitting Simulation app created by Android studio<br>
-- Perfit is an Android Application using various artificial intelligence techniques.
+ ### Virtual Fitting Simulation app created by Android studio 
+An Android app using various artificial intelligence techniques.
 
 ### Award and Honors :
-  - 'Smarteen App+ Challenge(STAC) 2019' - Excellence Award
+> 'Smarteen App+ Challenge(STAC) 2019' - Excellence Award
 
 <img width="100" alt="Perfit logo" src="https://github.com/arky02/Perfit_staccc/assets/46954114/86749295-f833-4db0-9c28-c29e009a7685">
 
