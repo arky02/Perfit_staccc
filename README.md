@@ -14,7 +14,7 @@ An Android app using various artificial intelligence techniques.
 <img width="590" alt="Screen Configuration" src="https://github.com/arky02/Perfit_staccc/assets/46954114/d524a419-80ad-47f9-9525-bd5296dddabc">
 
 
----<br/>
+--- <br/>
 - "My Model" Screen
   - Users can save more than 1 person's body dimensions into our app. We allow to make several model profiles and save their body sizes.(for the usage of their family, lovers ...etc)
 <img width="550" alt="Screen Shot 2023-09-14 at 3 53 04 PM" src="https://github.com/arky02/Perfit_staccc/assets/46954114/43a76bbf-bc3d-4d87-8ac9-f9c18f21cc60">
