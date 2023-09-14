@@ -34,13 +34,15 @@ PerFit: Perfect Fit
 # Demo Video
 #### Before watching the demo video;we offer 2 versions to get measurements for the clothings while using 'PerFit' app.<br>
 Version 1 is the main version. It just allows automatic scanning for a clothing's spec measurement by using OCR technique.<br>
-But- We also made Version 2 for the unexpected errors while using Version 1: scanning automatically by OCR.<br>
-Version 2: using Mini-Perfit let users to input clothing's dimensional sizes manually. Users can just simply enter clothes sizes into a floating widget, Mini-Perfit.<br>
+But- We also made Version 2 for the unexpected errors while using 'Version 1 - scanning automatically by OCR'.<br>
+'Version 2 - using Mini-Perfit' let users to input clothing's dimensional sizes manually. Users can just simply enter clothes sizes into a floating widget, Mini-Perfit.<br>
 
 1) Version 1 - Using OCR
-<video width="350" alt="Video of Version1 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/fd284d41-933a-448d-a8da-2fb915f7cf0e">
+<video width="400" alt="Video of Version1 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/fd284d41-933a-448d-a8da-2fb915f7cf0e">
+<br>
+
 
 2) Version 2 - Using Mini-Perfit
-https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9
+<video width="400" alt="Video of Version2 " src="https://github.com/arky02/Perfit_staccc/assets/46954114/d7d0e221-230c-4ddc-a7b5-f02e5ce59ff9">
 
    
