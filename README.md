@@ -20,16 +20,16 @@ An Android app using various artificial intelligence techniques.
 <img width="550" alt="Screen Shot 2023-09-14 at 3 53 04 PM" src="https://github.com/arky02/Perfit_staccc/assets/46954114/43a76bbf-bc3d-4d87-8ac9-f9c18f21cc60">
   
   
-# Techniques we used
+# Techniques we used - AI based Apis and Design Tools
 ### 1. PoseNet(Pose estimation)
 - Pose estimation is the task of using an ML model to estimate the pose of a person from an image or a video by estimating the spatial locations of key body joints (keypoints).
 
- > We uses PoseNet to create a Virtual Model and extract body dimensions from it.  
+ > We used PoseNet to create a Virtual Model and extract body dimensions from it.  
 
 ### 2. OCR and OpenCV
 - OpenCV is a library of programming functions mainly aimed at real-time computer vision.
 
- > We uses OCR and OpenCV to extract a clothes size by scanning a clothing's spec measurement.  
+ > We used OCR and OpenCV to extract a clothes size by scanning a clothing's spec measurement.  
 
 ### 3. Designing Tools
 - Adobe XD, Adobe Illustrator<br/>  
