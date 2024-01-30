@@ -4,6 +4,9 @@ PerFit: "Perfect Fit"
  ### Virtual Fitting Simulation app created by Android studio 
 An Android app using various artificial intelligence techniques.
 
+### Google Playstore 앱 배포 주소
+https://play.google.com/store/apps/details?id=com.peftif.android.Perfect_fit&hl=ko-KR
+
 ### 🏆 Award and Honors :
 > SK 'Smarteen App+ Challenge(STAC) 2019' - Excellence Award
 
@@ -12,9 +15,6 @@ An Android app using various artificial intelligence techniques.
 # General Info
 - Screen configuration: 
 <img width="590" alt="Screen Configuration" src="https://github.com/arky02/Perfit_staccc/assets/46954114/d524a419-80ad-47f9-9525-bd5296dddabc">
-
-# PlayStore 주소
-https://play.google.com/store/apps/details?id=com.peftif.android.Perfect_fit&hl=ko-KR
 
 --- <br/>
 - "My Model" Screen
