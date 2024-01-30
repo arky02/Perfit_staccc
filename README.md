@@ -7,7 +7,10 @@ An Android app using various artificial intelligence techniques.
 ### Google Playstore 앱 배포 주소 : 
 > https://play.google.com/store/apps/details?id=com.peftif.android.Perfect_fit&hl=ko-KR
 
-### 🏆 Award and Honors :
+### Youtube 홍보 동영상 주소: 
+> https://www.youtube.com/watch?v=TBRoHwU-IEw
+
+## 🏆 Award and Honors :
 > SK 'Smarteen App+ Challenge(STAC) 2019' - Excellence Award
 
 <img width="100" alt="Perfit logo" src="https://github.com/arky02/Perfit_staccc/assets/46954114/86749295-f833-4db0-9c28-c29e009a7685">
